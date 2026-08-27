@@ -1,30 +1,53 @@
+/* =====================================================
+   RESET
+===================================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     background: #f3f7fc;
+
     color: #172b4d;
+
+    min-height: 100vh;
 }
+
 
 .hidden {
     display: none !important;
 }
 
 
-/* ================= LOGIN ================= */
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
 
 .page {
     min-height: 100vh;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
-    padding: 20px;
+    padding: 25px;
 
     background:
         linear-gradient(
@@ -36,62 +59,90 @@ body {
 
 
 .login-card {
-    width: 430px;
+    width: 440px;
+
     max-width: 100%;
 
     background: white;
 
-    padding: 35px;
+    padding: 38px;
 
-    border-radius: 20px;
+    border-radius: 22px;
 
     box-shadow:
-        0 20px 60px
+        0 25px 70px
         rgba(0, 0, 0, .25);
 }
 
 
 .store-logo {
     text-align: center;
-    margin-bottom: 25px;
+
+    margin-bottom: 28px;
 }
 
 
 .logo-icon {
-    width: 70px;
-    height: 70px;
+    width: 72px;
+
+    height: 72px;
 
     margin: auto;
 
     display: flex;
-    align-items: center;
+
     justify-content: center;
+
+    align-items: center;
 
     border-radius: 18px;
 
-    background: #0b5ed7;
+    background:
+        linear-gradient(
+            135deg,
+            #0b5ed7,
+            #063b91
+        );
+
     color: white;
 
-    font-size: 25px;
+    font-size: 26px;
+
     font-weight: bold;
+
+    box-shadow:
+        0 10px 25px
+        rgba(11, 94, 215, .25);
 }
 
 
 .store-logo h1 {
-    margin-top: 12px;
+    margin-top: 14px;
+
     color: #0b5ed7;
+
+    font-size: 26px;
 }
 
 
 .store-logo p {
     color: #777;
-    margin-top: 5px;
+
+    margin-top: 6px;
+
+    font-size: 14px;
 }
 
 
+/* =====================================================
+   LOGIN TYPE
+===================================================== */
+
 .login-type {
     display: flex;
+
     gap: 10px;
+
     margin-bottom: 25px;
 }
 
@@ -101,56 +152,89 @@ body {
 
     padding: 13px;
 
-    border: 1px solid #d8e2f0;
+    border:
+        1px solid #d8e2f0;
 
     background: #f5f8fc;
+
+    color: #52647c;
 
     border-radius: 10px;
 
     cursor: pointer;
 
     font-weight: bold;
+
+    transition: .2s;
+}
+
+
+.type-btn:hover {
+    border-color: #0b5ed7;
 }
 
 
 .type-btn.active {
     background: #0b5ed7;
+
     color: white;
+
+    border-color: #0b5ed7;
 }
 
 
+/* =====================================================
+   FORM
+===================================================== */
+
 .login-card h2 {
     margin-bottom: 20px;
+
+    color: #172b4d;
 }
 
 
 label {
     display: block;
 
-    margin-top: 14px;
+    margin-top: 15px;
+
     margin-bottom: 7px;
 
+    font-size: 14px;
+
     font-weight: bold;
+
+    color: #334e68;
 }
 
 
 input {
     width: 100%;
 
-    padding: 13px;
+    padding: 13px 14px;
 
-    border: 1px solid #ccd6e5;
+    border:
+        1px solid #ccd6e5;
 
     border-radius: 9px;
 
     outline: none;
 
     font-size: 14px;
+
+    background: white;
+
+    transition: .2s;
 }
 
 
 input:focus {
     border-color: #0b5ed7;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(11, 94, 215, .08);
 }
 
 
@@ -172,11 +256,15 @@ input:focus {
     font-weight: bold;
 
     cursor: pointer;
+
+    transition: .2s;
 }
 
 
 .main-btn:hover {
     background: #084cae;
+
+    transform: translateY(-1px);
 }
 
 
@@ -186,6 +274,8 @@ input:focus {
     margin-top: 18px;
 
     color: #666;
+
+    font-size: 14px;
 }
 
 
@@ -202,16 +292,25 @@ input:focus {
 }
 
 
+.link-btn:hover {
+    text-decoration: underline;
+}
+
+
 #message {
     margin-top: 15px;
 
     text-align: center;
 
     font-weight: bold;
+
+    font-size: 14px;
 }
 
 
-/* ================= HEADER ================= */
+/* =====================================================
+   HEADER
+===================================================== */
 
 .customer-header,
 .admin-header {
@@ -228,8 +327,12 @@ input:focus {
     padding: 0 35px;
 
     box-shadow:
-        0 2px 10px
-        rgba(0,0,0,.08);
+        0 2px 12px
+        rgba(0, 0, 0, .08);
+
+    position: relative;
+
+    z-index: 10;
 }
 
 
@@ -244,11 +347,13 @@ input:focus {
 
 .small-logo {
     width: 45px;
+
     height: 45px;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     border-radius: 12px;
@@ -263,17 +368,25 @@ input:focus {
 
 .brand h2 {
     color: #0b5ed7;
+
+    font-size: 20px;
 }
 
 
 .brand span {
+    display: block;
+
     color: #777;
 
     font-size: 12px;
+
+    margin-top: 2px;
 }
 
 
-/* ================= CUSTOMER ================= */
+/* =====================================================
+   CUSTOMER
+===================================================== */
 
 .customer-user {
     display: flex;
@@ -281,6 +394,8 @@ input:focus {
     align-items: center;
 
     gap: 15px;
+
+    font-weight: bold;
 }
 
 
@@ -297,8 +412,22 @@ input:focus {
     border-radius: 8px;
 
     cursor: pointer;
+
+    font-weight: bold;
+
+    transition: .2s;
 }
 
+
+.customer-user button:hover,
+.admin-header > button:hover {
+    background: #c62828;
+}
+
+
+/* =====================================================
+   CUSTOMER MAIN
+===================================================== */
 
 .customer-main {
     max-width: 1200px;
@@ -319,16 +448,27 @@ input:focus {
 
     color: white;
 
-    padding: 35px;
+    padding: 38px;
 
     border-radius: 18px;
 
     margin-bottom: 30px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(11, 94, 215, .18);
 }
 
 
 .welcome-box h1 {
     margin-bottom: 10px;
+
+    font-size: 27px;
+}
+
+
+.welcome-box p {
+    opacity: .9;
 }
 
 
@@ -339,7 +479,21 @@ input:focus {
 
     align-items: center;
 
-    margin-bottom: 20px;
+    gap: 20px;
+
+    margin-bottom: 22px;
+}
+
+
+.products-title h2 {
+    margin-bottom: 5px;
+}
+
+
+.products-title p {
+    color: #777;
+
+    font-size: 13px;
 }
 
 
@@ -347,6 +501,10 @@ input:focus {
     max-width: 300px;
 }
 
+
+/* =====================================================
+   PRODUCT GRID
+===================================================== */
 
 .product-grid {
     display: grid;
@@ -357,34 +515,38 @@ input:focus {
             minmax(220px, 1fr)
         );
 
-    gap: 20px;
+    gap: 22px;
 }
 
 
 .product-card {
     background: white;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
     overflow: hidden;
 
     box-shadow:
         0 5px 20px
-        rgba(0,0,0,.08);
+        rgba(0, 0, 0, .08);
 
     transition: .2s;
 }
 
 
 .product-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, .12);
 }
 
 
 .product-image {
     width: 100%;
 
-    height: 180px;
+    height: 185px;
 
     object-fit: cover;
 
@@ -398,14 +560,26 @@ input:focus {
 
 
 .product-info h3 {
-    margin-bottom: 7px;
+    margin-top: 7px;
+
+    font-size: 18px;
 }
 
 
-.category {
-    color: #777;
+.product-category {
+    display: inline-block;
 
-    font-size: 13px;
+    color: #0b5ed7;
+
+    background: #eef5ff;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: bold;
 }
 
 
@@ -416,18 +590,48 @@ input:focus {
 
     font-weight: bold;
 
-    margin-top: 12px;
+    margin-top: 14px;
 }
 
 
 .stock {
     margin-top: 8px;
 
+    color: #777;
+
     font-size: 13px;
 }
 
 
-/* ================= ADMIN ================= */
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty-box {
+    grid-column: 1 / -1;
+
+    background: white;
+
+    padding: 40px;
+
+    text-align: center;
+
+    color: #777;
+
+    border-radius: 14px;
+}
+
+
+.empty-table {
+    text-align: center;
+
+    color: #777;
+}
+
+
+/* =====================================================
+   ADMIN
+===================================================== */
 
 .admin-container {
     display: flex;
@@ -464,6 +668,10 @@ input:focus {
     border-radius: 8px;
 
     cursor: pointer;
+
+    font-weight: bold;
+
+    transition: .2s;
 }
 
 
@@ -477,8 +685,34 @@ input:focus {
     flex: 1;
 
     padding: 35px;
+
+    background: #f3f7fc;
 }
 
+
+.content-title {
+    margin-bottom: 25px;
+}
+
+
+.content-title h1 {
+    font-size: 27px;
+}
+
+
+.content-title p,
+.section-header p {
+    color: #777;
+
+    margin-top: 5px;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
 
 .stats {
     display: grid;
@@ -504,7 +738,7 @@ input:focus {
 
     box-shadow:
         0 4px 15px
-        rgba(0,0,0,.07);
+        rgba(0, 0, 0, .07);
 }
 
 
@@ -522,6 +756,17 @@ input:focus {
 }
 
 
+.stat-card p {
+    color: #777;
+
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   SECTION HEADER
+===================================================== */
+
 .section-header {
     display: flex;
 
@@ -530,6 +775,11 @@ input:focus {
     align-items: center;
 
     margin-bottom: 25px;
+}
+
+
+.section-header h1 {
+    font-size: 27px;
 }
 
 
@@ -545,8 +795,19 @@ input:focus {
     border-radius: 8px;
 
     cursor: pointer;
+
+    font-weight: bold;
 }
 
+
+.add-btn:hover {
+    background: #084cae;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
 
 .table-wrapper {
     overflow-x: auto;
@@ -557,7 +818,7 @@ input:focus {
 
     box-shadow:
         0 4px 15px
-        rgba(0,0,0,.06);
+        rgba(0, 0, 0, .06);
 }
 
 
@@ -576,6 +837,8 @@ td {
         1px solid #edf0f5;
 
     text-align: left;
+
+    white-space: nowrap;
 }
 
 
@@ -583,6 +846,13 @@ th {
     background: #eef5ff;
 
     color: #174a8b;
+
+    font-size: 13px;
+}
+
+
+td {
+    font-size: 14px;
 }
 
 
@@ -596,11 +866,15 @@ th {
     cursor: pointer;
 
     margin-right: 5px;
+
+    font-weight: bold;
 }
 
 
 .edit-btn {
     background: #ffc107;
+
+    color: #222;
 }
 
 
@@ -611,7 +885,26 @@ th {
 }
 
 
-/* ================= MODAL ================= */
+.status-active {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    background: #e8f7ee;
+
+    color: #198754;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
 
 .modal {
     position: fixed;
@@ -619,7 +912,7 @@ th {
     inset: 0;
 
     background:
-        rgba(0,0,0,.55);
+        rgba(0, 0, 0, .55);
 
     display: flex;
 
@@ -628,6 +921,8 @@ th {
     align-items: center;
 
     padding: 20px;
+
+    z-index: 5000;
 }
 
 
@@ -636,11 +931,24 @@ th {
 
     max-width: 100%;
 
+    max-height: 90vh;
+
+    overflow-y: auto;
+
     background: white;
 
     padding: 30px;
 
-    border-radius: 15px;
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, .25);
+}
+
+
+.small-modal {
+    width: 420px;
 }
 
 
@@ -649,7 +957,25 @@ th {
 
     justify-content: space-between;
 
-    align-items: center;
+    align-items: flex-start;
+
+    margin-bottom: 8px;
+}
+
+
+.modal-header h2 {
+    margin: 0;
+
+    font-size: 21px;
+}
+
+
+.modal-header p {
+    color: #777;
+
+    font-size: 13px;
+
+    margin-top: 4px;
 }
 
 
@@ -660,112 +986,115 @@ th {
 
     font-size: 28px;
 
+    line-height: 1;
+
     cursor: pointer;
+
+    color: #777;
 }
 
 
-/* ================= CUSTOMER OTP ================= */
-
-.customer-otp-card {
-    text-align: center;
+.modal-header button:hover {
+    color: #222;
 }
 
 
-.customer-otp-card .modal-header {
-    text-align: left;
-}
+/* =====================================================
+   OTP
+===================================================== */
 
-
-.otp-icon {
-    width: 70px;
-    height: 70px;
-
-    margin: 10px auto 15px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
+.otp-info {
     background: #eef5ff;
 
-    font-size: 32px;
+    color: #174a8b;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    margin: 15px 0;
+
+    font-size: 13px;
 }
 
 
-.otp-title {
-    margin-bottom: 8px;
-}
+#customerOtpMessage {
+    margin-top: 12px;
 
-
-.otp-description {
-    color: #777;
-
-    font-size: 14px;
-
-    line-height: 1.5;
-
-    margin-bottom: 15px;
-}
-
-
-.otp-input {
     text-align: center;
 
-    font-size: 25px;
-
-    letter-spacing: 8px;
-
     font-weight: bold;
+
+    font-size: 13px;
 }
 
 
-.resend-btn {
-    margin-top: 15px;
-
-    font-size: 14px;
-}
-
-
-.resend-btn:disabled {
-    color: #999;
-
-    cursor: not-allowed;
-}
-
-
-.otp-message {
-    margin-top: 15px;
-
-    font-size: 14px;
-
-    font-weight: bold;
-}
-
-
-.otp-message.success {
+#customerOtpMessage.success {
     color: #198754;
 }
 
 
-.otp-message.error {
+#customerOtpMessage.error {
     color: #dc3545;
 }
 
 
-.otp-message.loading {
+#customerOtpMessage.loading {
     color: #0b5ed7;
 }
 
 
-/* ================= MOBILE ================= */
+.resend-btn {
+    display: block;
+
+    margin: 12px auto 0;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 700px) {
+
+    .customer-header,
+    .admin-header {
+        padding: 0 15px;
+    }
+
+
+    .brand h2 {
+        font-size: 16px;
+    }
+
+
+    .brand span {
+        font-size: 10px;
+    }
+
+
+    .customer-user {
+        gap: 7px;
+    }
+
+
+    .customer-user span {
+        display: none;
+    }
+
+
+    .customer-user button,
+    .admin-header > button {
+        padding: 8px 12px;
+
+        font-size: 12px;
+    }
+
 
     .admin-container {
         flex-direction: column;
     }
+
 
     .sidebar {
         width: 100%;
@@ -773,19 +1102,31 @@ th {
         display: flex;
 
         gap: 5px;
+
+        padding: 10px;
     }
+
 
     .side-btn {
         margin: 0;
+
+        text-align: center;
+
+        padding: 11px 5px;
+
+        font-size: 12px;
     }
+
 
     .admin-content {
         padding: 20px;
     }
 
+
     .stats {
         grid-template-columns: 1fr;
     }
+
 
     .products-title,
     .section-header {
@@ -796,51 +1137,24 @@ th {
         gap: 15px;
     }
 
-    .customer-header,
-    .admin-header {
-        padding: 0 15px;
+
+    .products-title input {
+        max-width: 100%;
     }
 
-    .customer-user {
-        gap: 8px;
+
+    .welcome-box {
+        padding: 25px;
     }
 
-    .customer-user span {
-        display: none;
+
+    .welcome-box h1 {
+        font-size: 22px;
     }
+
 
     .login-card {
         padding: 25px;
     }
 
-    .otp-input {
-        font-size: 21px;
-
-        letter-spacing: 5px;
-    }
-}
-/* ================= OTP MESSAGE ================= */
-
-#customerOtpMessage {
-    margin-top: 15px;
-    text-align: center;
-    font-weight: bold;
-}
-
-#customerOtpMessage.success {
-    color: #198754;
-}
-
-#customerOtpMessage.error {
-    color: #dc3545;
-}
-
-#customerOtpMessage.loading {
-    color: #0b5ed7;
-}
-
-
-#resendCustomerOtpBtn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
 }
