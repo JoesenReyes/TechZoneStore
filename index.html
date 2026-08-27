@@ -1,139 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
     <title>TechZone Store</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
 </head>
 
 <body>
 
-<!-- ================= LOGIN PAGE ================= -->
+
+<!-- ================================================= -->
+<!-- LOGIN -->
+<!-- ================================================= -->
+
 <div id="loginPage" class="page">
 
     <div class="login-card">
 
         <div class="store-logo">
-            <div class="logo-icon">TZ</div>
-            <h1>TechZone Store</h1>
-            <p>Technology at Your Fingertips</p>
-        </div>
 
-        <!-- LOGIN TYPE -->
-        <div class="login-type">
-            <button id="customerTab" class="type-btn active"
-                    onclick="selectLoginType('customer')">
-                👤 Customer
-            </button>
+            <div class="logo-icon">
+                TZ
+            </div>
 
-            <button id="adminTab" class="type-btn"
-                    onclick="selectLoginType('admin')">
-                🔐 Admin
-            </button>
-        </div>
+            <h1>
+                TechZone Store
+            </h1>
 
-        <!-- CUSTOMER LOGIN -->
-        <div id="customerLogin">
-
-            <h2>Customer Login</h2>
-
-            <label>Gmail</label>
-            <input type="email"
-                   id="customerEmail"
-                   placeholder="Enter your Gmail">
-
-            <label>Password</label>
-            <input type="password"
-                   id="customerPassword"
-                   placeholder="Enter your password">
-
-            <button class="main-btn" onclick="customerLogin()">
-                Login as Customer
-            </button>
-
-            <p class="account-text">
-                Don't have an account?
-                <button class="link-btn" onclick="showRegister()">
-                    Create Account
-                </button>
+            <p>
+                Technology at Your Fingertips
             </p>
 
         </div>
 
-        <!-- ADMIN LOGIN -->
-        <div id="adminLogin" class="hidden">
 
-            <h2>Admin Login</h2>
+        <!-- LOGIN TYPE -->
 
-            <label>Username</label>
-            <input type="text"
-                   id="adminUsername"
-                   placeholder="Enter admin username">
+        <div class="login-type">
 
-            <label>Password</label>
-            <input type="password"
-                   id="adminPassword"
-                   placeholder="Enter admin password">
+            <button
+                id="customerTab"
+                class="type-btn active"
+                onclick="selectLoginType('customer')">
 
-            <button class="main-btn" onclick="adminLogin()">
-                Continue
+                👤 Customer
+
             </button>
 
-            <div id="otpBox" class="hidden">
 
-                <label>Security OTP</label>
+            <button
+                id="adminTab"
+                class="type-btn"
+                onclick="selectLoginType('admin')">
 
-                <input type="text"
-                       id="adminOTP"
-                       maxlength="6"
-                       placeholder="Enter OTP">
+                🔐 Admin
 
-                <button class="main-btn" onclick="verifyAdminOTP()">
+            </button>
+
+        </div>
+
+
+        <!-- CUSTOMER LOGIN -->
+
+        <div id="customerLogin">
+
+            <h2>
+                Customer Login
+            </h2>
+
+
+            <label>
+                Gmail
+            </label>
+
+            <input
+                type="email"
+                id="customerEmail"
+                placeholder="Enter your Gmail">
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="customerPassword"
+                placeholder="Enter your password">
+
+
+            <button
+                class="main-btn"
+                onclick="customerLogin()">
+
+                Login as Customer
+
+            </button>
+
+
+            <p class="account-text">
+
+                Don't have an account?
+
+                <button
+                    class="link-btn"
+                    onclick="showRegister()">
+
+                    Create Account
+
+                </button>
+
+            </p>
+
+        </div>
+
+
+        <!-- ADMIN LOGIN -->
+
+        <div
+            id="adminLogin"
+            class="hidden">
+
+            <h2>
+                Admin Login
+            </h2>
+
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="adminUsername"
+                placeholder="Admin username">
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Admin password">
+
+
+            <button
+                class="main-btn"
+                onclick="adminLogin()">
+
+                Continue
+
+            </button>
+
+
+            <div
+                id="otpBox"
+                class="hidden">
+
+                <label>
+                    Security OTP
+                </label>
+
+                <input
+                    type="text"
+                    id="adminOTP"
+                    maxlength="6"
+                    placeholder="6-digit OTP">
+
+
+                <button
+                    class="main-btn"
+                    onclick="verifyAdminOTP()">
+
                     Verify OTP
+
                 </button>
 
             </div>
 
         </div>
 
+
         <!-- REGISTER -->
-        <div id="registerPage" class="hidden">
 
-            <h2>Create Customer Account</h2>
+        <div
+            id="registerPage"
+            class="hidden">
 
-            <label>Full Name</label>
-            <input type="text"
-                   id="registerName"
-                   placeholder="Full Name">
+            <h2>
+                Create Customer Account
+            </h2>
 
-            <label>Gmail</label>
-            <input type="email"
-                   id="registerEmail"
-                   placeholder="example@gmail.com">
 
-            <label>Password</label>
-            <input type="password"
-                   id="registerPassword"
-                   placeholder="Create password">
+            <label>
+                Full Name
+            </label>
 
-            <label>Confirm Password</label>
-            <input type="password"
-                   id="registerConfirm"
-                   placeholder="Confirm password">
+            <input
+                type="text"
+                id="registerName"
+                placeholder="Juan Dela Cruz">
 
-            <button class="main-btn" onclick="createAccount()">
+
+            <label>
+                Gmail
+            </label>
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="example@gmail.com">
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Create password">
+
+
+            <label>
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                id="registerConfirm"
+                placeholder="Confirm password">
+
+
+            <button
+                class="main-btn"
+                onclick="createAccount()">
+
                 Create Account
+
             </button>
 
+
             <p class="account-text">
+
                 Already have an account?
-                <button class="link-btn" onclick="showLogin()">
+
+                <button
+                    class="link-btn"
+                    onclick="showLogin()">
+
                     Login
+
                 </button>
+
             </p>
 
         </div>
+
 
         <div id="message"></div>
 
@@ -142,44 +278,91 @@
 </div>
 
 
-<!-- ================= CUSTOMER PAGE ================= -->
-<div id="customerPage" class="hidden">
+<!-- ================================================= -->
+<!-- CUSTOMER PAGE -->
+<!-- ================================================= -->
+
+<div
+    id="customerPage"
+    class="hidden">
+
 
     <header class="customer-header">
 
         <div class="brand">
-            <div class="small-logo">TZ</div>
-            <div>
-                <h2>TechZone Store</h2>
-                <span>Customer Store</span>
+
+            <div class="small-logo">
+                TZ
             </div>
+
+            <div>
+
+                <h2>
+                    TechZone Store
+                </h2>
+
+                <span>
+                    Customer Store
+                </span>
+
+            </div>
+
         </div>
 
+
         <div class="customer-user">
-            <span id="customerNameDisplay">Customer</span>
-            <button onclick="customerLogout()">Logout</button>
+
+            <span id="customerNameDisplay">
+                Customer
+            </span>
+
+            <button
+                onclick="customerLogout()">
+
+                Logout
+
+            </button>
+
         </div>
 
     </header>
 
+
     <main class="customer-main">
 
+
         <div class="welcome-box">
-            <h1>Welcome to TechZone Store! 👋</h1>
-            <p>Browse our available technology products.</p>
+
+            <h1>
+                Welcome to TechZone Store! 👋
+            </h1>
+
+            <p>
+                Browse our available technology products.
+            </p>
+
         </div>
+
 
         <div class="products-title">
-            <h2>Our Products</h2>
 
-            <input type="text"
-                   id="customerSearch"
-                   placeholder="🔍 Search products..."
-                   onkeyup="searchCustomerProducts()">
+            <h2>
+                Our Products
+            </h2>
+
+
+            <input
+                type="text"
+                id="customerSearch"
+                placeholder="🔍 Search products..."
+                onkeyup="searchCustomerProducts()">
+
         </div>
 
-        <div id="customerProducts"
-             class="product-grid">
+
+        <div
+            id="customerProducts"
+            class="product-grid">
 
         </div>
 
@@ -188,42 +371,77 @@
 </div>
 
 
-<!-- ================= ADMIN PAGE ================= -->
-<div id="adminPage" class="hidden">
+<!-- ================================================= -->
+<!-- ADMIN PAGE -->
+<!-- ================================================= -->
+
+<div
+    id="adminPage"
+    class="hidden">
+
 
     <header class="admin-header">
 
         <div class="brand">
-            <div class="small-logo">TZ</div>
-            <div>
-                <h2>TechZone Store</h2>
-                <span>Admin Dashboard</span>
+
+            <div class="small-logo">
+                TZ
             </div>
+
+            <div>
+
+                <h2>
+                    TechZone Store
+                </h2>
+
+                <span>
+                    Admin Dashboard
+                </span>
+
+            </div>
+
         </div>
 
-        <button onclick="adminLogout()">
+
+        <button
+            onclick="adminLogout()">
+
             Logout
+
         </button>
 
     </header>
 
+
     <div class="admin-container">
+
 
         <aside class="sidebar">
 
-            <button class="side-btn active"
-                    onclick="showAdminSection('dashboard')">
+            <button
+                class="side-btn active"
+                onclick="showAdminSection('dashboard')">
+
                 📊 Dashboard
+
             </button>
 
-            <button class="side-btn"
-                    onclick="showAdminSection('products')">
+
+            <button
+                class="side-btn"
+                onclick="showAdminSection('products')">
+
                 📦 Products
+
             </button>
 
-            <button class="side-btn"
-                    onclick="showAdminSection('customers')">
+
+            <button
+                class="side-btn"
+                onclick="showAdminSection('customers')">
+
                 👥 Customers
+
             </button>
 
         </aside>
@@ -231,23 +449,50 @@
 
         <main class="admin-content">
 
-            <!-- DASHBOARD -->
-            <section id="dashboardSection">
 
-                <h1>Admin Dashboard</h1>
+            <!-- DASHBOARD -->
+
+            <section
+                id="dashboardSection">
+
+                <h1>
+                    Admin Dashboard
+                </h1>
+
 
                 <div class="stats">
 
                     <div class="stat-card">
-                        <span>📦</span>
-                        <h3 id="totalProducts">0</h3>
-                        <p>Total Products</p>
+
+                        <span>
+                            📦
+                        </span>
+
+                        <h3 id="totalProducts">
+                            0
+                        </h3>
+
+                        <p>
+                            Total Products
+                        </p>
+
                     </div>
 
+
                     <div class="stat-card">
-                        <span>👥</span>
-                        <h3 id="totalCustomers">0</h3>
-                        <p>Total Customers</p>
+
+                        <span>
+                            👥
+                        </span>
+
+                        <h3 id="totalCustomers">
+                            0
+                        </h3>
+
+                        <p>
+                            Total Customers
+                        </p>
+
                     </div>
 
                 </div>
@@ -256,37 +501,73 @@
 
 
             <!-- PRODUCTS -->
-            <section id="productsSection" class="hidden">
+
+            <section
+                id="productsSection"
+                class="hidden">
 
                 <div class="section-header">
 
                     <div>
-                        <h1>Manage Products</h1>
-                        <p>Add, edit and delete products.</p>
+
+                        <h1>
+                            Manage Products
+                        </h1>
+
+                        <p>
+                            Add, edit and delete products.
+                        </p>
+
                     </div>
 
-                    <button class="add-btn"
-                            onclick="openProductModal()">
+
+                    <button
+                        class="add-btn"
+                        onclick="openProductModal()">
+
                         + Add Product
+
                     </button>
 
                 </div>
+
 
                 <div class="table-wrapper">
 
                     <table>
 
                         <thead>
+
                             <tr>
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Action</th>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Price
+                                </th>
+
+                                <th>
+                                    Stock
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
                             </tr>
+
                         </thead>
 
-                        <tbody id="adminProductsTable">
+
+                        <tbody
+                            id="adminProductsTable">
+
                         </tbody>
 
                     </table>
@@ -297,23 +578,44 @@
 
 
             <!-- CUSTOMERS -->
-            <section id="customersSection" class="hidden">
 
-                <h1>Customer Accounts</h1>
+            <section
+                id="customersSection"
+                class="hidden">
+
+                <h1>
+                    Customer Accounts
+                </h1>
+
 
                 <div class="table-wrapper">
 
                     <table>
 
                         <thead>
+
                             <tr>
-                                <th>Full Name</th>
-                                <th>Gmail</th>
-                                <th>Account Status</th>
+
+                                <th>
+                                    Full Name
+                                </th>
+
+                                <th>
+                                    Gmail
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
                             </tr>
+
                         </thead>
 
-                        <tbody id="customersTable">
+
+                        <tbody
+                            id="customersTable">
+
                         </tbody>
 
                     </table>
@@ -329,76 +631,90 @@
 </div>
 
 
-<!-- ================= PRODUCT MODAL ================= -->
+<!-- ================================================= -->
+<!-- PRODUCT MODAL -->
+<!-- ================================================= -->
 
-<div id="productModal" class="modal hidden">
+<div
+    id="productModal"
+    class="modal hidden">
+
 
     <div class="modal-card">
+
 
         <div class="modal-header">
-            <h2 id="modalTitle">Add Product</h2>
-            <button onclick="closeProductModal()">×</button>
+
+            <h2 id="modalTitle">
+                Add Product
+            </h2>
+
+            <button
+                onclick="closeProductModal()">
+
+                ×
+
+            </button>
+
         </div>
 
-        <input type="hidden" id="editProductId">
 
-        <label>Product Name</label>
-        <input type="text"
-               id="productName"
-               placeholder="Product name">
+        <label>
+            Product Name
+        </label>
 
-        <label>Category</label>
-        <input type="text"
-               id="productCategory"
-               placeholder="Laptop, Phone, Accessories...">
+        <input
+            type="text"
+            id="productName"
+            placeholder="Product name">
 
-        <label>Price</label>
-        <input type="number"
-               id="productPrice"
-               placeholder="0.00">
 
-        <label>Stock</label>
-        <input type="number"
-               id="productStock"
-               placeholder="0">
+        <label>
+            Category
+        </label>
 
-        <label>Image URL</label>
-        <input type="text"
-               id="productImage"
-               placeholder="Image URL">
+        <input
+            type="text"
+            id="productCategory"
+            placeholder="Laptop, Phone, Accessories">
 
-        <button class="main-btn"
-                onclick="saveProduct()">
+
+        <label>
+            Price
+        </label>
+
+        <input
+            type="number"
+            id="productPrice"
+            placeholder="0">
+
+
+        <label>
+            Stock
+        </label>
+
+        <input
+            type="number"
+            id="productStock"
+            placeholder="0">
+
+
+        <label>
+            Image URL
+        </label>
+
+        <input
+            type="text"
+            id="productImage"
+            placeholder="https://...">
+
+
+        <button
+            class="main-btn"
+            onclick="saveProduct()">
+
             Save Product
-        </button>
 
-    </div>
-
-</div>
-
-
-<!-- ================= ADMIN PASSCODE ================= -->
-
-<div id="passcodeModal" class="modal hidden">
-
-    <div class="modal-card">
-
-        <h2>🔐 Admin Verification</h2>
-
-        <p>This function requires an admin passcode.</p>
-
-        <input type="password"
-               id="functionPasscode"
-               placeholder="Enter passcode">
-
-        <button class="main-btn"
-                onclick="verifyFunctionPasscode()">
-            Verify
-        </button>
-
-        <button class="cancel-btn"
-                onclick="closePasscodeModal()">
-            Cancel
         </button>
 
     </div>
@@ -409,4 +725,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
