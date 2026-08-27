@@ -2,24 +2,40 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <title>TechZone Store</title>
+    <title>
+        TechZone Store
+    </title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
+
 </head>
 
+
 <body>
+
 
 <!-- ================================================= -->
 <!-- LOGIN PAGE -->
 <!-- ================================================= -->
 
-<div id="loginPage" class="page">
+<div
+    id="loginPage"
+    class="page">
+
 
     <div class="login-card">
+
+
+        <!-- LOGO -->
 
         <div class="store-logo">
 
@@ -27,9 +43,13 @@
                 TZ
             </div>
 
-            <h1>TechZone Store</h1>
+            <h1>
+                TechZone Store
+            </h1>
 
-            <p>Technology at Your Fingertips</p>
+            <p>
+                Technology at Your Fingertips
+            </p>
 
         </div>
 
@@ -66,11 +86,15 @@
 
         <div id="customerLogin">
 
-            <h2>Customer Login</h2>
+            <h2>
+                Customer Login
+            </h2>
+
 
             <label for="customerEmail">
                 Gmail
             </label>
+
 
             <input
                 type="email"
@@ -81,6 +105,7 @@
             <label for="customerPassword">
                 Password
             </label>
+
 
             <input
                 type="password"
@@ -122,12 +147,15 @@
             id="adminLogin"
             class="hidden">
 
-            <h2>Admin Login</h2>
+            <h2>
+                Admin Login
+            </h2>
 
 
             <label for="adminUsername">
                 Username
             </label>
+
 
             <input
                 type="text"
@@ -138,6 +166,7 @@
             <label for="adminPassword">
                 Password
             </label>
+
 
             <input
                 type="password"
@@ -160,9 +189,11 @@
                 id="otpBox"
                 class="hidden">
 
+
                 <label for="adminOTP">
                     Security OTP
                 </label>
+
 
                 <input
                     type="text"
@@ -180,25 +211,29 @@
 
                 </button>
 
+
             </div>
 
         </div>
 
 
         <!-- ================================================= -->
-        <!-- CUSTOMER REGISTRATION -->
+        <!-- REGISTER -->
         <!-- ================================================= -->
 
         <div
             id="registerPage"
             class="hidden">
 
-            <h2>Create Customer Account</h2>
+            <h2>
+                Create Customer Account
+            </h2>
 
 
             <label for="registerName">
                 Full Name
             </label>
+
 
             <input
                 type="text"
@@ -210,6 +245,7 @@
                 Gmail
             </label>
 
+
             <input
                 type="email"
                 id="registerEmail"
@@ -220,6 +256,7 @@
                 Password
             </label>
 
+
             <input
                 type="password"
                 id="registerPassword"
@@ -229,6 +266,7 @@
             <label for="registerConfirm">
                 Confirm Password
             </label>
+
 
             <input
                 type="password"
@@ -262,7 +300,10 @@
         </div>
 
 
+        <!-- MESSAGE -->
+
         <div id="message"></div>
+
 
     </div>
 
@@ -277,7 +318,11 @@
     id="customerPage"
     class="hidden">
 
+
+    <!-- HEADER -->
+
     <header class="customer-header">
+
 
         <div class="brand">
 
@@ -285,11 +330,16 @@
                 TZ
             </div>
 
+
             <div>
 
-                <h2>TechZone Store</h2>
+                <h2>
+                    TechZone Store
+                </h2>
 
-                <span>Customer Store</span>
+                <span>
+                    Customer Store
+                </span>
 
             </div>
 
@@ -302,16 +352,24 @@
                 Customer
             </span>
 
-            <button onclick="customerLogout()">
+
+            <button
+                onclick="customerLogout()">
+
                 Logout
+
             </button>
 
         </div>
 
+
     </header>
 
 
+    <!-- MAIN -->
+
     <main class="customer-main">
+
 
         <div class="welcome-box">
 
@@ -328,13 +386,24 @@
 
         <div class="products-title">
 
-            <h2>Our Products</h2>
+            <div>
+
+                <h2>
+                    Our Products
+                </h2>
+
+                <p>
+                    Discover our latest technology products.
+                </p>
+
+            </div>
+
 
             <input
                 type="text"
                 id="customerSearch"
                 placeholder="🔍 Search products..."
-                onkeyup="searchCustomerProducts()">
+                oninput="searchCustomerProducts()">
 
         </div>
 
@@ -345,7 +414,9 @@
 
         </div>
 
+
     </main>
+
 
 </div>
 
@@ -358,7 +429,11 @@
     id="adminPage"
     class="hidden">
 
+
+    <!-- HEADER -->
+
     <header class="admin-header">
+
 
         <div class="brand">
 
@@ -366,27 +441,42 @@
                 TZ
             </div>
 
+
             <div>
 
-                <h2>TechZone Store</h2>
+                <h2>
+                    TechZone Store
+                </h2>
 
-                <span>Admin Dashboard</span>
+                <span>
+                    Admin Dashboard
+                </span>
 
             </div>
 
         </div>
 
 
-        <button onclick="adminLogout()">
+        <button
+            onclick="adminLogout()">
+
             Logout
+
         </button>
+
 
     </header>
 
 
+    <!-- ADMIN CONTAINER -->
+
     <div class="admin-container">
 
+
+        <!-- SIDEBAR -->
+
         <aside class="sidebar">
+
 
             <button
                 class="side-btn active"
@@ -414,61 +504,98 @@
 
             </button>
 
+
         </aside>
 
 
+        <!-- CONTENT -->
+
         <main class="admin-content">
 
+
+            <!-- ================================================= -->
             <!-- DASHBOARD -->
+            <!-- ================================================= -->
 
-            <section id="dashboardSection">
+            <section
+                id="dashboardSection">
 
-                <h1>Admin Dashboard</h1>
+
+                <div class="content-title">
+
+                    <h1>
+                        Admin Dashboard
+                    </h1>
+
+                    <p>
+                        Overview of your TechZone Store.
+                    </p>
+
+                </div>
 
 
                 <div class="stats">
 
+
                     <div class="stat-card">
 
-                        <span>📦</span>
+                        <span>
+                            📦
+                        </span>
 
-                        <h3 id="totalProducts">
+                        <h3
+                            id="totalProducts">
                             0
                         </h3>
 
-                        <p>Total Products</p>
+                        <p>
+                            Total Products
+                        </p>
 
                     </div>
 
 
                     <div class="stat-card">
 
-                        <span>👥</span>
+                        <span>
+                            👥
+                        </span>
 
-                        <h3 id="totalCustomers">
+                        <h3
+                            id="totalCustomers">
                             0
                         </h3>
 
-                        <p>Total Customers</p>
+                        <p>
+                            Total Customers
+                        </p>
 
                     </div>
+
 
                 </div>
+
 
             </section>
 
 
+            <!-- ================================================= -->
             <!-- PRODUCTS -->
+            <!-- ================================================= -->
 
             <section
                 id="productsSection"
                 class="hidden">
 
+
                 <div class="section-header">
+
 
                     <div>
 
-                        <h1>Manage Products</h1>
+                        <h1>
+                            Manage Products
+                        </h1>
 
                         <p>
                             Add, edit and delete products.
@@ -485,26 +612,39 @@
 
                     </button>
 
+
                 </div>
 
 
                 <div class="table-wrapper">
 
+
                     <table>
+
 
                         <thead>
 
                             <tr>
 
-                                <th>Product</th>
+                                <th>
+                                    Product
+                                </th>
 
-                                <th>Category</th>
+                                <th>
+                                    Category
+                                </th>
 
-                                <th>Price</th>
+                                <th>
+                                    Price
+                                </th>
 
-                                <th>Stock</th>
+                                <th>
+                                    Stock
+                                </th>
 
-                                <th>Action</th>
+                                <th>
+                                    Action
+                                </th>
 
                             </tr>
 
@@ -516,35 +656,59 @@
 
                         </tbody>
 
+
                     </table>
 
+
                 </div>
+
 
             </section>
 
 
+            <!-- ================================================= -->
             <!-- CUSTOMERS -->
+            <!-- ================================================= -->
 
             <section
                 id="customersSection"
                 class="hidden">
 
-                <h1>Customer Accounts</h1>
+
+                <div class="content-title">
+
+                    <h1>
+                        Customer Accounts
+                    </h1>
+
+                    <p>
+                        Registered TechZone customers.
+                    </p>
+
+                </div>
 
 
                 <div class="table-wrapper">
 
+
                     <table>
+
 
                         <thead>
 
                             <tr>
 
-                                <th>Full Name</th>
+                                <th>
+                                    Full Name
+                                </th>
 
-                                <th>Gmail</th>
+                                <th>
+                                    Gmail
+                                </th>
 
-                                <th>Status</th>
+                                <th>
+                                    Status
+                                </th>
 
                             </tr>
 
@@ -556,15 +720,21 @@
 
                         </tbody>
 
+
                     </table>
+
 
                 </div>
 
+
             </section>
+
 
         </main>
 
+
     </div>
+
 
 </div>
 
@@ -577,24 +747,44 @@
     id="productModal"
     class="modal hidden">
 
+
     <div class="modal-card">
+
 
         <div class="modal-header">
 
-            <h2 id="modalTitle">
-                Add Product
-            </h2>
+            <div>
 
-            <button onclick="closeProductModal()">
+                <h2 id="modalTitle">
+                    Add Product
+                </h2>
+
+                <p>
+                    Product information
+                </p>
+
+            </div>
+
+
+            <button
+                onclick="closeProductModal()">
+
                 ×
+
             </button>
 
         </div>
 
 
-        <label>
+        <input
+            type="hidden"
+            id="editProductId">
+
+
+        <label for="productName">
             Product Name
         </label>
+
 
         <input
             type="text"
@@ -602,9 +792,10 @@
             placeholder="Product name">
 
 
-        <label>
+        <label for="productCategory">
             Category
         </label>
+
 
         <input
             type="text"
@@ -612,29 +803,34 @@
             placeholder="Laptop, Phone, Accessories">
 
 
-        <label>
+        <label for="productPrice">
             Price
         </label>
+
 
         <input
             type="number"
             id="productPrice"
+            min="0"
             placeholder="0">
 
 
-        <label>
+        <label for="productStock">
             Stock
         </label>
+
 
         <input
             type="number"
             id="productStock"
+            min="0"
             placeholder="0">
 
 
-        <label>
+        <label for="productImage">
             Image URL
         </label>
+
 
         <input
             type="text"
@@ -650,6 +846,69 @@
 
         </button>
 
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ADMIN PASSCODE MODAL -->
+<!-- ================================================= -->
+
+<div
+    id="passcodeModal"
+    class="modal hidden">
+
+
+    <div class="modal-card small-modal">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Admin Verification
+                </h2>
+
+                <p>
+                    Enter your admin passcode.
+                </p>
+
+            </div>
+
+
+            <button
+                onclick="closePasscodeModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <label for="functionPasscode">
+            Admin Passcode
+        </label>
+
+
+        <input
+            type="password"
+            id="functionPasscode"
+            placeholder="Enter admin passcode">
+
+
+        <button
+            class="main-btn"
+            onclick="verifyFunctionPasscode()">
+
+            Verify
+
+        </button>
+
+
     </div>
 
 </div>
@@ -664,14 +923,25 @@
     class="modal hidden"
     style="z-index:9999;">
 
+
     <div
-        class="modal-card customer-otp-card">
+        class="modal-card small-modal">
+
 
         <div class="modal-header">
 
-            <h2>
-                Gmail Verification
-            </h2>
+            <div>
+
+                <h2>
+                    Gmail Verification
+                </h2>
+
+                <p>
+                    Verify your Gmail account.
+                </p>
+
+            </div>
+
 
             <button
                 type="button"
@@ -684,19 +954,9 @@
         </div>
 
 
-        <div class="otp-icon">
-            ✉️
-        </div>
-
-
-        <h3 class="otp-title">
-            Verify Your Gmail
-        </h3>
-
-
         <p
             id="customerOtpInfo"
-            class="otp-description">
+            class="otp-info">
 
             A 6-digit OTP has been sent to your Gmail.
 
@@ -704,18 +964,17 @@
 
 
         <label for="customerOTP">
-            Enter 6-Digit OTP
+            Enter OTP
         </label>
 
 
         <input
             type="text"
             id="customerOTP"
-            maxlength="6"
             inputmode="numeric"
             autocomplete="one-time-code"
-            placeholder="000000"
-            class="otp-input">
+            maxlength="6"
+            placeholder="Enter 6-digit OTP">
 
 
         <button
@@ -740,19 +999,23 @@
 
 
         <div
-            id="customerOtpMessage"
-            class="otp-message">
+            id="customerOtpMessage">
 
         </div>
+
 
     </div>
 
 </div>
 
 
-<!-- SCRIPT -->
+<!-- ================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================================= -->
 
 <script src="script.js"></script>
 
+
 </body>
+
 </html>
