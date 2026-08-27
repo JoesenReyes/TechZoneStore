@@ -2,26 +2,19 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>TechZone Store</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-
 <!-- ================================================= -->
-<!-- LOGIN -->
+<!-- LOGIN PAGE -->
 <!-- ================================================= -->
 
 <div id="loginPage" class="page">
@@ -34,13 +27,9 @@
                 TZ
             </div>
 
-            <h1>
-                TechZone Store
-            </h1>
+            <h1>TechZone Store</h1>
 
-            <p>
-                Technology at Your Fingertips
-            </p>
+            <p>Technology at Your Fingertips</p>
 
         </div>
 
@@ -71,16 +60,15 @@
         </div>
 
 
+        <!-- ================================================= -->
         <!-- CUSTOMER LOGIN -->
+        <!-- ================================================= -->
 
         <div id="customerLogin">
 
-            <h2>
-                Customer Login
-            </h2>
+            <h2>Customer Login</h2>
 
-
-            <label>
+            <label for="customerEmail">
                 Gmail
             </label>
 
@@ -90,7 +78,7 @@
                 placeholder="Enter your Gmail">
 
 
-            <label>
+            <label for="customerPassword">
                 Password
             </label>
 
@@ -126,18 +114,18 @@
         </div>
 
 
+        <!-- ================================================= -->
         <!-- ADMIN LOGIN -->
+        <!-- ================================================= -->
 
         <div
             id="adminLogin"
             class="hidden">
 
-            <h2>
-                Admin Login
-            </h2>
+            <h2>Admin Login</h2>
 
 
-            <label>
+            <label for="adminUsername">
                 Username
             </label>
 
@@ -147,7 +135,7 @@
                 placeholder="Admin username">
 
 
-            <label>
+            <label for="adminPassword">
                 Password
             </label>
 
@@ -166,11 +154,13 @@
             </button>
 
 
+            <!-- ADMIN OTP -->
+
             <div
                 id="otpBox"
                 class="hidden">
 
-                <label>
+                <label for="adminOTP">
                     Security OTP
                 </label>
 
@@ -178,6 +168,7 @@
                     type="text"
                     id="adminOTP"
                     maxlength="6"
+                    inputmode="numeric"
                     placeholder="6-digit OTP">
 
 
@@ -194,18 +185,18 @@
         </div>
 
 
-        <!-- REGISTER -->
+        <!-- ================================================= -->
+        <!-- CUSTOMER REGISTRATION -->
+        <!-- ================================================= -->
 
         <div
             id="registerPage"
             class="hidden">
 
-            <h2>
-                Create Customer Account
-            </h2>
+            <h2>Create Customer Account</h2>
 
 
-            <label>
+            <label for="registerName">
                 Full Name
             </label>
 
@@ -215,7 +206,7 @@
                 placeholder="Juan Dela Cruz">
 
 
-            <label>
+            <label for="registerEmail">
                 Gmail
             </label>
 
@@ -225,7 +216,7 @@
                 placeholder="example@gmail.com">
 
 
-            <label>
+            <label for="registerPassword">
                 Password
             </label>
 
@@ -235,7 +226,7 @@
                 placeholder="Create password">
 
 
-            <label>
+            <label for="registerConfirm">
                 Confirm Password
             </label>
 
@@ -286,7 +277,6 @@
     id="customerPage"
     class="hidden">
 
-
     <header class="customer-header">
 
         <div class="brand">
@@ -297,13 +287,9 @@
 
             <div>
 
-                <h2>
-                    TechZone Store
-                </h2>
+                <h2>TechZone Store</h2>
 
-                <span>
-                    Customer Store
-                </span>
+                <span>Customer Store</span>
 
             </div>
 
@@ -316,11 +302,8 @@
                 Customer
             </span>
 
-            <button
-                onclick="customerLogout()">
-
+            <button onclick="customerLogout()">
                 Logout
-
             </button>
 
         </div>
@@ -329,7 +312,6 @@
 
 
     <main class="customer-main">
-
 
         <div class="welcome-box">
 
@@ -346,10 +328,7 @@
 
         <div class="products-title">
 
-            <h2>
-                Our Products
-            </h2>
-
+            <h2>Our Products</h2>
 
             <input
                 type="text"
@@ -379,7 +358,6 @@
     id="adminPage"
     class="hidden">
 
-
     <header class="admin-header">
 
         <div class="brand">
@@ -390,31 +368,23 @@
 
             <div>
 
-                <h2>
-                    TechZone Store
-                </h2>
+                <h2>TechZone Store</h2>
 
-                <span>
-                    Admin Dashboard
-                </span>
+                <span>Admin Dashboard</span>
 
             </div>
 
         </div>
 
 
-        <button
-            onclick="adminLogout()">
-
+        <button onclick="adminLogout()">
             Logout
-
         </button>
 
     </header>
 
 
     <div class="admin-container">
-
 
         <aside class="sidebar">
 
@@ -449,49 +419,37 @@
 
         <main class="admin-content">
 
-
             <!-- DASHBOARD -->
 
-            <section
-                id="dashboardSection">
+            <section id="dashboardSection">
 
-                <h1>
-                    Admin Dashboard
-                </h1>
+                <h1>Admin Dashboard</h1>
 
 
                 <div class="stats">
 
                     <div class="stat-card">
 
-                        <span>
-                            📦
-                        </span>
+                        <span>📦</span>
 
                         <h3 id="totalProducts">
                             0
                         </h3>
 
-                        <p>
-                            Total Products
-                        </p>
+                        <p>Total Products</p>
 
                     </div>
 
 
                     <div class="stat-card">
 
-                        <span>
-                            👥
-                        </span>
+                        <span>👥</span>
 
                         <h3 id="totalCustomers">
                             0
                         </h3>
 
-                        <p>
-                            Total Customers
-                        </p>
+                        <p>Total Customers</p>
 
                     </div>
 
@@ -510,9 +468,7 @@
 
                     <div>
 
-                        <h1>
-                            Manage Products
-                        </h1>
+                        <h1>Manage Products</h1>
 
                         <p>
                             Add, edit and delete products.
@@ -540,25 +496,15 @@
 
                             <tr>
 
-                                <th>
-                                    Product
-                                </th>
+                                <th>Product</th>
 
-                                <th>
-                                    Category
-                                </th>
+                                <th>Category</th>
 
-                                <th>
-                                    Price
-                                </th>
+                                <th>Price</th>
 
-                                <th>
-                                    Stock
-                                </th>
+                                <th>Stock</th>
 
-                                <th>
-                                    Action
-                                </th>
+                                <th>Action</th>
 
                             </tr>
 
@@ -583,9 +529,7 @@
                 id="customersSection"
                 class="hidden">
 
-                <h1>
-                    Customer Accounts
-                </h1>
+                <h1>Customer Accounts</h1>
 
 
                 <div class="table-wrapper">
@@ -596,17 +540,11 @@
 
                             <tr>
 
-                                <th>
-                                    Full Name
-                                </th>
+                                <th>Full Name</th>
 
-                                <th>
-                                    Gmail
-                                </th>
+                                <th>Gmail</th>
 
-                                <th>
-                                    Status
-                                </th>
+                                <th>Status</th>
 
                             </tr>
 
@@ -639,9 +577,7 @@
     id="productModal"
     class="modal hidden">
 
-
     <div class="modal-card">
-
 
         <div class="modal-header">
 
@@ -649,11 +585,8 @@
                 Add Product
             </h2>
 
-            <button
-                onclick="closeProductModal()">
-
+            <button onclick="closeProductModal()">
                 ×
-
             </button>
 
         </div>
@@ -722,320 +655,104 @@
 </div>
 
 
+<!-- ================================================= -->
+<!-- CUSTOMER OTP MODAL -->
+<!-- ================================================= -->
 
-<!-- ================================================= -->
-<!-- CUSTOMER OTP VERIFICATION -->
-<!-- ================================================= -->
-<div id="customerOtpModal" class="modal hidden" style="z-index:9999;">
-    <div class="modal-card" style="max-width:420px;">
+<div
+    id="customerOtpModal"
+    class="modal hidden"
+    style="z-index:9999;">
+
+    <div
+        class="modal-card customer-otp-card">
+
         <div class="modal-header">
-            <h2>Customer OTP Verification</h2>
-            <button type="button" onclick="closeCustomerOtpModal()">×</button>
+
+            <h2>
+                Gmail Verification
+            </h2>
+
+            <button
+                type="button"
+                onclick="closeCustomerOtpModal()">
+
+                ×
+
+            </button>
+
         </div>
 
-        <p id="customerOtpInfo">
+
+        <div class="otp-icon">
+            ✉️
+        </div>
+
+
+        <h3 class="otp-title">
+            Verify Your Gmail
+        </h3>
+
+
+        <p
+            id="customerOtpInfo"
+            class="otp-description">
+
             A 6-digit OTP has been sent to your Gmail.
+
         </p>
 
-        <label for="customerOTP">Enter OTP</label>
+
+        <label for="customerOTP">
+            Enter 6-Digit OTP
+        </label>
+
+
         <input
             type="text"
             id="customerOTP"
+            maxlength="6"
             inputmode="numeric"
             autocomplete="one-time-code"
-            maxlength="6"
-            placeholder="Enter 6-digit OTP">
+            placeholder="000000"
+            class="otp-input">
+
 
         <button
             type="button"
             class="main-btn"
             onclick="verifyCustomerOTP()">
+
             Verify OTP
+
         </button>
+
 
         <button
             type="button"
-            class="link-btn"
+            class="link-btn resend-btn"
             id="resendCustomerOtpBtn"
-            onclick="resendCustomerOTP()"
-            style="margin-top:10px;">
+            onclick="resendCustomerOTP()">
+
             Resend OTP
+
         </button>
 
-        <div id="customerOtpMessage"></div>
+
+        <div
+            id="customerOtpMessage"
+            class="otp-message">
+
+        </div>
+
     </div>
+
 </div>
 
-<script>
 
-/*
- * CUSTOMER OTP VERIFICATION
- * ----------------------------------------------------
- * This layer works with the Node.js backend in server.js.
- * Existing customerLogin() and createAccount() functions
- * from your original script.js are still used after OTP
- * verification, so your existing customer dashboard logic
- * is preserved.
- */
+<!-- SCRIPT -->
 
-let customerOtpPurpose = null;
-let customerOtpEmail = null;
-let customerOtpPassword = null;
-let customerOtpRegistration = null;
-let customerOtpResendTimer = null;
-let customerOtpResendSeconds = 0;
-
-function getCustomerOtpModal() {
-    return document.getElementById("customerOtpModal");
-}
-
-function setCustomerOtpMessage(message, type = "") {
-    const box = document.getElementById("customerOtpMessage");
-    if (!box) return;
-    box.textContent = message;
-    box.className = type;
-}
-
-function openCustomerOtpModal() {
-    const modal = getCustomerOtpModal();
-    if (modal) modal.classList.remove("hidden");
-    const otp = document.getElementById("customerOTP");
-    if (otp) {
-        otp.value = "";
-        setTimeout(() => otp.focus(), 50);
-    }
-}
-
-function closeCustomerOtpModal() {
-    const modal = getCustomerOtpModal();
-    if (modal) modal.classList.add("hidden");
-    setCustomerOtpMessage("");
-    clearCustomerOtpState();
-}
-
-function clearCustomerOtpState() {
-    customerOtpPurpose = null;
-    customerOtpEmail = null;
-    customerOtpPassword = null;
-    customerOtpRegistration = null;
-    if (customerOtpResendTimer) {
-        clearInterval(customerOtpResendTimer);
-        customerOtpResendTimer = null;
-    }
-    customerOtpResendSeconds = 0;
-    const btn = document.getElementById("resendCustomerOtpBtn");
-    if (btn) {
-        btn.disabled = false;
-        btn.textContent = "Resend OTP";
-    }
-}
-
-function startCustomerLoginOTP() {
-    const email = document.getElementById("customerEmail")?.value.trim();
-    const password = document.getElementById("customerPassword")?.value || "";
-
-    if (!email || !email.toLowerCase().endsWith("@gmail.com")) {
-        setMainMessage("Please enter a valid Gmail address.");
-        return;
-    }
-
-    if (!password) {
-        setMainMessage("Please enter your password.");
-        return;
-    }
-
-    customerOtpPurpose = "login";
-    customerOtpEmail = email;
-    customerOtpPassword = password;
-
-    sendCustomerOTP("login");
-}
-
-function startCustomerRegistrationOTP() {
-    const name = document.getElementById("registerName")?.value.trim();
-    const email = document.getElementById("registerEmail")?.value.trim();
-    const password = document.getElementById("registerPassword")?.value || "";
-    const confirm = document.getElementById("registerConfirm")?.value || "";
-
-    if (!name) {
-        setMainMessage("Please enter your full name.");
-        return;
-    }
-
-    if (!email || !email.toLowerCase().endsWith("@gmail.com")) {
-        setMainMessage("Please enter a valid Gmail address.");
-        return;
-    }
-
-    if (!password) {
-        setMainMessage("Please create a password.");
-        return;
-    }
-
-    if (password !== confirm) {
-        setMainMessage("Passwords do not match.");
-        return;
-    }
-
-    customerOtpPurpose = "registration";
-    customerOtpEmail = email;
-    customerOtpRegistration = {
-        name: name,
-        email: email,
-        password: password
-    };
-
-    sendCustomerOTP("registration");
-}
-
-async function sendCustomerOTP(purpose) {
-    setCustomerOtpMessage("Sending OTP...", "loading");
-
-    try {
-        const response = await fetch("/api/customer/send-otp", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: customerOtpEmail,
-                purpose: purpose
-            })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || "Unable to send OTP.");
-        }
-
-        document.getElementById("customerOtpInfo").textContent =
-            "A 6-digit OTP has been sent to " + customerOtpEmail + ".";
-
-        openCustomerOtpModal();
-        setCustomerOtpMessage("OTP sent successfully. It expires in 5 minutes.", "success");
-        startCustomerOtpResendTimer();
-    } catch (error) {
-        setMainMessage(error.message || "Unable to send OTP.");
-    }
-}
-
-async function verifyCustomerOTP() {
-    const otp = document.getElementById("customerOTP")?.value.trim();
-
-    if (!/^\d{6}$/.test(otp)) {
-        setCustomerOtpMessage("Please enter the 6-digit OTP.", "error");
-        return;
-    }
-
-    setCustomerOtpMessage("Verifying OTP...", "loading");
-
-    try {
-        const response = await fetch("/api/customer/verify-otp", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: customerOtpEmail,
-                otp: otp,
-                purpose: customerOtpPurpose
-            })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || "Invalid OTP.");
-        }
-
-        localStorage.setItem("customerOtpVerifiedEmail", customerOtpEmail);
-
-        const purpose = customerOtpPurpose;
-        const savedEmail = customerOtpEmail;
-
-        closeCustomerOtpModal();
-
-        if (purpose === "login") {
-            /*
-             * OTP is complete. Your original customerLogin()
-             * continues to handle the existing account/login
-             * logic in script.js.
-             */
-            if (typeof customerLogin === "function") {
-                customerLogin();
-            } else {
-                setMainMessage("OTP verified for " + savedEmail + ".");
-            }
-        } else if (purpose === "registration") {
-            /*
-             * OTP is complete. Your original createAccount()
-             * continues to save the account using your existing logic.
-             */
-            if (typeof createAccount === "function") {
-                createAccount();
-            } else {
-                setMainMessage("Gmail verified. You may now create your account.");
-            }
-        }
-    } catch (error) {
-        setCustomerOtpMessage(error.message || "OTP verification failed.", "error");
-    }
-}
-
-function resendCustomerOTP() {
-    if (!customerOtpEmail || !customerOtpPurpose) return;
-    if (customerOtpResendSeconds > 0) return;
-    sendCustomerOTP(customerOtpPurpose);
-}
-
-function startCustomerOtpResendTimer() {
-    if (customerOtpResendTimer) clearInterval(customerOtpResendTimer);
-
-    customerOtpResendSeconds = 30;
-    const btn = document.getElementById("resendCustomerOtpBtn");
-    if (btn) {
-        btn.disabled = true;
-        btn.textContent = "Resend OTP (" + customerOtpResendSeconds + "s)";
-    }
-
-    customerOtpResendTimer = setInterval(() => {
-        customerOtpResendSeconds--;
-
-        if (customerOtpResendSeconds <= 0) {
-            clearInterval(customerOtpResendTimer);
-            customerOtpResendTimer = null;
-            if (btn) {
-                btn.disabled = false;
-                btn.textContent = "Resend OTP";
-            }
-            return;
-        }
-
-        if (btn) {
-            btn.textContent = "Resend OTP (" + customerOtpResendSeconds + "s)";
-        }
-    }, 1000);
-}
-
-function setMainMessage(message) {
-    const box = document.getElementById("message");
-    if (box) {
-        box.textContent = message;
-        box.className = "error";
-    } else {
-        alert(message);
-    }
-}
-
-document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-        const modal = getCustomerOtpModal();
-        if (modal && !modal.classList.contains("hidden")) {
-            closeCustomerOtpModal();
-        }
-    }
-});
-
-</script>
 <script src="script.js"></script>
 
 </body>
-
 </html>
