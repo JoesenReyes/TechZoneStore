@@ -819,3 +819,28 @@ th {
         letter-spacing: 5px;
     }
 }
+/* ================= OTP MESSAGE ================= */
+
+#customerOtpMessage {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#customerOtpMessage.success {
+    color: #198754;
+}
+
+#customerOtpMessage.error {
+    color: #dc3545;
+}
+
+#customerOtpMessage.loading {
+    color: #0b5ed7;
+}
+
+
+#resendCustomerOtpBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
