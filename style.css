@@ -139,8 +139,7 @@ input {
 
     padding: 13px;
 
-    border:
-        1px solid #ccd6e5;
+    border: 1px solid #ccd6e5;
 
     border-radius: 9px;
 
@@ -216,7 +215,6 @@ input:focus {
 
 .customer-header,
 .admin-header {
-
     height: 75px;
 
     background: white;
@@ -288,7 +286,6 @@ input:focus {
 
 .customer-user button,
 .admin-header > button {
-
     border: none;
 
     background: #e53935;
@@ -304,7 +301,6 @@ input:focus {
 
 
 .customer-main {
-
     max-width: 1200px;
 
     margin: auto;
@@ -314,7 +310,6 @@ input:focus {
 
 
 .welcome-box {
-
     background:
         linear-gradient(
             135deg,
@@ -338,7 +333,6 @@ input:focus {
 
 
 .products-title {
-
     display: flex;
 
     justify-content: space-between;
@@ -355,7 +349,6 @@ input:focus {
 
 
 .product-grid {
-
     display: grid;
 
     grid-template-columns:
@@ -369,7 +362,6 @@ input:focus {
 
 
 .product-card {
-
     background: white;
 
     border-radius: 15px;
@@ -390,7 +382,6 @@ input:focus {
 
 
 .product-image {
-
     width: 100%;
 
     height: 180px;
@@ -412,7 +403,6 @@ input:focus {
 
 
 .category {
-
     color: #777;
 
     font-size: 13px;
@@ -420,7 +410,6 @@ input:focus {
 
 
 .price {
-
     color: #0b5ed7;
 
     font-size: 21px;
@@ -432,7 +421,6 @@ input:focus {
 
 
 .stock {
-
     margin-top: 8px;
 
     font-size: 13px;
@@ -442,7 +430,6 @@ input:focus {
 /* ================= ADMIN ================= */
 
 .admin-container {
-
     display: flex;
 
     min-height:
@@ -451,7 +438,6 @@ input:focus {
 
 
 .sidebar {
-
     width: 230px;
 
     background: #082f6b;
@@ -461,7 +447,6 @@ input:focus {
 
 
 .side-btn {
-
     width: 100%;
 
     border: none;
@@ -484,13 +469,11 @@ input:focus {
 
 .side-btn:hover,
 .side-btn.active {
-
     background: #0b5ed7;
 }
 
 
 .admin-content {
-
     flex: 1;
 
     padding: 35px;
@@ -498,7 +481,6 @@ input:focus {
 
 
 .stats {
-
     display: grid;
 
     grid-template-columns:
@@ -514,7 +496,6 @@ input:focus {
 
 
 .stat-card {
-
     background: white;
 
     padding: 25px;
@@ -533,7 +514,6 @@ input:focus {
 
 
 .stat-card h3 {
-
     font-size: 30px;
 
     color: #0b5ed7;
@@ -543,7 +523,6 @@ input:focus {
 
 
 .section-header {
-
     display: flex;
 
     justify-content: space-between;
@@ -555,7 +534,6 @@ input:focus {
 
 
 .add-btn {
-
     background: #0b5ed7;
 
     color: white;
@@ -571,7 +549,6 @@ input:focus {
 
 
 .table-wrapper {
-
     overflow-x: auto;
 
     background: white;
@@ -585,7 +562,6 @@ input:focus {
 
 
 table {
-
     width: 100%;
 
     border-collapse: collapse;
@@ -594,7 +570,6 @@ table {
 
 th,
 td {
-
     padding: 15px;
 
     border-bottom:
@@ -605,7 +580,6 @@ td {
 
 
 th {
-
     background: #eef5ff;
 
     color: #174a8b;
@@ -613,7 +587,6 @@ th {
 
 
 .action-btn {
-
     border: none;
 
     padding: 8px 12px;
@@ -632,7 +605,6 @@ th {
 
 
 .delete-btn {
-
     background: #e53935;
 
     color: white;
@@ -642,7 +614,6 @@ th {
 /* ================= MODAL ================= */
 
 .modal {
-
     position: fixed;
 
     inset: 0;
@@ -661,7 +632,6 @@ th {
 
 
 .modal-card {
-
     width: 450px;
 
     max-width: 100%;
@@ -675,15 +645,15 @@ th {
 
 
 .modal-header {
-
     display: flex;
 
     justify-content: space-between;
+
+    align-items: center;
 }
 
 
 .modal-header button {
-
     border: none;
 
     background: none;
@@ -691,6 +661,101 @@ th {
     font-size: 28px;
 
     cursor: pointer;
+}
+
+
+/* ================= CUSTOMER OTP ================= */
+
+.customer-otp-card {
+    text-align: center;
+}
+
+
+.customer-otp-card .modal-header {
+    text-align: left;
+}
+
+
+.otp-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 10px auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eef5ff;
+
+    font-size: 32px;
+}
+
+
+.otp-title {
+    margin-bottom: 8px;
+}
+
+
+.otp-description {
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-bottom: 15px;
+}
+
+
+.otp-input {
+    text-align: center;
+
+    font-size: 25px;
+
+    letter-spacing: 8px;
+
+    font-weight: bold;
+}
+
+
+.resend-btn {
+    margin-top: 15px;
+
+    font-size: 14px;
+}
+
+
+.resend-btn:disabled {
+    color: #999;
+
+    cursor: not-allowed;
+}
+
+
+.otp-message {
+    margin-top: 15px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+.otp-message.success {
+    color: #198754;
+}
+
+
+.otp-message.error {
+    color: #dc3545;
+}
+
+
+.otp-message.loading {
+    color: #0b5ed7;
 }
 
 
@@ -734,5 +799,23 @@ th {
     .customer-header,
     .admin-header {
         padding: 0 15px;
+    }
+
+    .customer-user {
+        gap: 8px;
+    }
+
+    .customer-user span {
+        display: none;
+    }
+
+    .login-card {
+        padding: 25px;
+    }
+
+    .otp-input {
+        font-size: 21px;
+
+        letter-spacing: 5px;
     }
 }
