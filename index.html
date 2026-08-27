@@ -102,7 +102,7 @@
 
             <button
                 class="main-btn"
-                onclick="customerLogin()">
+                onclick="startCustomerLoginOTP()">
 
                 Login as Customer
 
@@ -247,7 +247,7 @@
 
             <button
                 class="main-btn"
-                onclick="createAccount()">
+                onclick="startCustomerRegistrationOTP()">
 
                 Create Account
 
@@ -722,6 +722,318 @@
 </div>
 
 
+
+<!-- ================================================= -->
+<!-- CUSTOMER OTP VERIFICATION -->
+<!-- ================================================= -->
+<div id="customerOtpModal" class="modal hidden" style="z-index:9999;">
+    <div class="modal-card" style="max-width:420px;">
+        <div class="modal-header">
+            <h2>Customer OTP Verification</h2>
+            <button type="button" onclick="closeCustomerOtpModal()">×</button>
+        </div>
+
+        <p id="customerOtpInfo">
+            A 6-digit OTP has been sent to your Gmail.
+        </p>
+
+        <label for="customerOTP">Enter OTP</label>
+        <input
+            type="text"
+            id="customerOTP"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="6"
+            placeholder="Enter 6-digit OTP">
+
+        <button
+            type="button"
+            class="main-btn"
+            onclick="verifyCustomerOTP()">
+            Verify OTP
+        </button>
+
+        <button
+            type="button"
+            class="link-btn"
+            id="resendCustomerOtpBtn"
+            onclick="resendCustomerOTP()"
+            style="margin-top:10px;">
+            Resend OTP
+        </button>
+
+        <div id="customerOtpMessage"></div>
+    </div>
+</div>
+
+<script>
+
+/*
+ * CUSTOMER OTP VERIFICATION
+ * ----------------------------------------------------
+ * This layer works with the Node.js backend in server.js.
+ * Existing customerLogin() and createAccount() functions
+ * from your original script.js are still used after OTP
+ * verification, so your existing customer dashboard logic
+ * is preserved.
+ */
+
+let customerOtpPurpose = null;
+let customerOtpEmail = null;
+let customerOtpPassword = null;
+let customerOtpRegistration = null;
+let customerOtpResendTimer = null;
+let customerOtpResendSeconds = 0;
+
+function getCustomerOtpModal() {
+    return document.getElementById("customerOtpModal");
+}
+
+function setCustomerOtpMessage(message, type = "") {
+    const box = document.getElementById("customerOtpMessage");
+    if (!box) return;
+    box.textContent = message;
+    box.className = type;
+}
+
+function openCustomerOtpModal() {
+    const modal = getCustomerOtpModal();
+    if (modal) modal.classList.remove("hidden");
+    const otp = document.getElementById("customerOTP");
+    if (otp) {
+        otp.value = "";
+        setTimeout(() => otp.focus(), 50);
+    }
+}
+
+function closeCustomerOtpModal() {
+    const modal = getCustomerOtpModal();
+    if (modal) modal.classList.add("hidden");
+    setCustomerOtpMessage("");
+    clearCustomerOtpState();
+}
+
+function clearCustomerOtpState() {
+    customerOtpPurpose = null;
+    customerOtpEmail = null;
+    customerOtpPassword = null;
+    customerOtpRegistration = null;
+    if (customerOtpResendTimer) {
+        clearInterval(customerOtpResendTimer);
+        customerOtpResendTimer = null;
+    }
+    customerOtpResendSeconds = 0;
+    const btn = document.getElementById("resendCustomerOtpBtn");
+    if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Resend OTP";
+    }
+}
+
+function startCustomerLoginOTP() {
+    const email = document.getElementById("customerEmail")?.value.trim();
+    const password = document.getElementById("customerPassword")?.value || "";
+
+    if (!email || !email.toLowerCase().endsWith("@gmail.com")) {
+        setMainMessage("Please enter a valid Gmail address.");
+        return;
+    }
+
+    if (!password) {
+        setMainMessage("Please enter your password.");
+        return;
+    }
+
+    customerOtpPurpose = "login";
+    customerOtpEmail = email;
+    customerOtpPassword = password;
+
+    sendCustomerOTP("login");
+}
+
+function startCustomerRegistrationOTP() {
+    const name = document.getElementById("registerName")?.value.trim();
+    const email = document.getElementById("registerEmail")?.value.trim();
+    const password = document.getElementById("registerPassword")?.value || "";
+    const confirm = document.getElementById("registerConfirm")?.value || "";
+
+    if (!name) {
+        setMainMessage("Please enter your full name.");
+        return;
+    }
+
+    if (!email || !email.toLowerCase().endsWith("@gmail.com")) {
+        setMainMessage("Please enter a valid Gmail address.");
+        return;
+    }
+
+    if (!password) {
+        setMainMessage("Please create a password.");
+        return;
+    }
+
+    if (password !== confirm) {
+        setMainMessage("Passwords do not match.");
+        return;
+    }
+
+    customerOtpPurpose = "registration";
+    customerOtpEmail = email;
+    customerOtpRegistration = {
+        name: name,
+        email: email,
+        password: password
+    };
+
+    sendCustomerOTP("registration");
+}
+
+async function sendCustomerOTP(purpose) {
+    setCustomerOtpMessage("Sending OTP...", "loading");
+
+    try {
+        const response = await fetch("/api/customer/send-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: customerOtpEmail,
+                purpose: purpose
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Unable to send OTP.");
+        }
+
+        document.getElementById("customerOtpInfo").textContent =
+            "A 6-digit OTP has been sent to " + customerOtpEmail + ".";
+
+        openCustomerOtpModal();
+        setCustomerOtpMessage("OTP sent successfully. It expires in 5 minutes.", "success");
+        startCustomerOtpResendTimer();
+    } catch (error) {
+        setMainMessage(error.message || "Unable to send OTP.");
+    }
+}
+
+async function verifyCustomerOTP() {
+    const otp = document.getElementById("customerOTP")?.value.trim();
+
+    if (!/^\d{6}$/.test(otp)) {
+        setCustomerOtpMessage("Please enter the 6-digit OTP.", "error");
+        return;
+    }
+
+    setCustomerOtpMessage("Verifying OTP...", "loading");
+
+    try {
+        const response = await fetch("/api/customer/verify-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: customerOtpEmail,
+                otp: otp,
+                purpose: customerOtpPurpose
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Invalid OTP.");
+        }
+
+        localStorage.setItem("customerOtpVerifiedEmail", customerOtpEmail);
+
+        const purpose = customerOtpPurpose;
+        const savedEmail = customerOtpEmail;
+
+        closeCustomerOtpModal();
+
+        if (purpose === "login") {
+            /*
+             * OTP is complete. Your original customerLogin()
+             * continues to handle the existing account/login
+             * logic in script.js.
+             */
+            if (typeof customerLogin === "function") {
+                customerLogin();
+            } else {
+                setMainMessage("OTP verified for " + savedEmail + ".");
+            }
+        } else if (purpose === "registration") {
+            /*
+             * OTP is complete. Your original createAccount()
+             * continues to save the account using your existing logic.
+             */
+            if (typeof createAccount === "function") {
+                createAccount();
+            } else {
+                setMainMessage("Gmail verified. You may now create your account.");
+            }
+        }
+    } catch (error) {
+        setCustomerOtpMessage(error.message || "OTP verification failed.", "error");
+    }
+}
+
+function resendCustomerOTP() {
+    if (!customerOtpEmail || !customerOtpPurpose) return;
+    if (customerOtpResendSeconds > 0) return;
+    sendCustomerOTP(customerOtpPurpose);
+}
+
+function startCustomerOtpResendTimer() {
+    if (customerOtpResendTimer) clearInterval(customerOtpResendTimer);
+
+    customerOtpResendSeconds = 30;
+    const btn = document.getElementById("resendCustomerOtpBtn");
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Resend OTP (" + customerOtpResendSeconds + "s)";
+    }
+
+    customerOtpResendTimer = setInterval(() => {
+        customerOtpResendSeconds--;
+
+        if (customerOtpResendSeconds <= 0) {
+            clearInterval(customerOtpResendTimer);
+            customerOtpResendTimer = null;
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = "Resend OTP";
+            }
+            return;
+        }
+
+        if (btn) {
+            btn.textContent = "Resend OTP (" + customerOtpResendSeconds + "s)";
+        }
+    }, 1000);
+}
+
+function setMainMessage(message) {
+    const box = document.getElementById("message");
+    if (box) {
+        box.textContent = message;
+        box.className = "error";
+    } else {
+        alert(message);
+    }
+}
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        const modal = getCustomerOtpModal();
+        if (modal && !modal.classList.contains("hidden")) {
+            closeCustomerOtpModal();
+        }
+    }
+});
+
+</script>
 <script src="script.js"></script>
 
 </body>
