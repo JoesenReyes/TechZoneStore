@@ -1,5 +1,10 @@
 // ======================================================
 // TECHZONE STORE
+// FRONTEND JAVASCRIPT
+// ======================================================
+
+
+// ======================================================
 // GOOGLE APPS SCRIPT API
 // ======================================================
 
@@ -13,57 +18,7 @@ const API_URL =
 
 let loginType = "customer";
 
-let products = [
-    {
-        id: 1,
-        name: "Laptop",
-        category: "Computer",
-        price: 25000,
-        stock: 10,
-        image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853"
-    },
-    {
-        id: 2,
-        name: "Smartphone",
-        category: "Mobile",
-        price: 15000,
-        stock: 15,
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
-    },
-    {
-        id: 3,
-        name: "Wireless Headset",
-        category: "Accessories",
-        price: 1800,
-        stock: 20,
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
-    },
-    {
-        id: 4,
-        name: "Mechanical Keyboard",
-        category: "Accessories",
-        price: 2500,
-        stock: 12,
-        image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3"
-    },
-    {
-        id: 5,
-        name: "Gaming Mouse",
-        category: "Accessories",
-        price: 1200,
-        stock: 25,
-        image: "https://images.unsplash.com/photo-1527814050087-3793815479db"
-    },
-    {
-        id: 6,
-        name: "Computer Monitor",
-        category: "Computer",
-        price: 9500,
-        stock: 8,
-        image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf"
-    }
-];
-
+let products = [];
 
 let customers = [];
 
@@ -71,155 +26,14 @@ let currentCustomer = null;
 
 let pendingOTP = false;
 
-
-// ======================================================
-// CUSTOMER OTP GLOBAL
-// ======================================================
-
-let customerOtpPurpose = null;
-let customerOtpEmail = null;
-let customerOtpPassword = null;
-
-let customerOtpRegistration = null;
-
-let customerOtpResendTimer = null;
-let customerOtpResendSeconds = 0;
-
-
-// ======================================================
-// LOGIN TYPE
-// ======================================================
-
-function selectLoginType(type) {
-
-    loginType = type;
-
-    document
-        .getElementById("customerTab")
-        .classList.remove("active");
-
-    document
-        .getElementById("adminTab")
-        .classList.remove("active");
-
-    document
-        .getElementById("customerLogin")
-        .classList.add("hidden");
-
-    document
-        .getElementById("adminLogin")
-        .classList.add("hidden");
-
-    document
-        .getElementById("registerPage")
-        .classList.add("hidden");
-
-
-    if (type === "customer") {
-
-        document
-            .getElementById("customerTab")
-            .classList.add("active");
-
-        document
-            .getElementById("customerLogin")
-            .classList.remove("hidden");
-
-    } else {
-
-        document
-            .getElementById("adminTab")
-            .classList.add("active");
-
-        document
-            .getElementById("adminLogin")
-            .classList.remove("hidden");
-
-    }
-
-
-    clearMessage();
-}
-
-
-// ======================================================
-// REGISTER PAGE
-// ======================================================
-
-function showRegister() {
-
-    document
-        .getElementById("customerLogin")
-        .classList.add("hidden");
-
-    document
-        .getElementById("adminLogin")
-        .classList.add("hidden");
-
-    document
-        .getElementById("registerPage")
-        .classList.remove("hidden");
-
-    clearMessage();
-}
-
-
-function showLogin() {
-
-    document
-        .getElementById("registerPage")
-        .classList.add("hidden");
-
-    document
-        .getElementById("customerLogin")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("customerTab")
-        .classList.add("active");
-
-    document
-        .getElementById("adminTab")
-        .classList.remove("active");
-
-    loginType = "customer";
-
-    clearMessage();
-}
-
-
-// ======================================================
-// MESSAGE
-// ======================================================
-
-function showMessage(message, success = false) {
-
-    const box =
-        document.getElementById("message");
-
-    box.textContent = message;
-
-    box.style.color =
-        success ? "#198754" : "#dc3545";
-}
-
-
-function clearMessage() {
-
-    const box =
-        document.getElementById("message");
-
-    if (box) {
-        box.textContent = "";
-    }
-}
+let passcodeAction = null;
 
 
 // ======================================================
 // API HELPER
 // ======================================================
 
-async function callAPI(data) {
+async function apiRequest(data) {
 
     const response = await fetch(API_URL, {
 
@@ -238,7 +52,173 @@ async function callAPI(data) {
     const result =
         await response.json();
 
+
     return result;
+
+}
+
+
+// ======================================================
+// LOGIN TYPE
+// ======================================================
+
+function selectLoginType(type) {
+
+    loginType = type;
+
+
+    document
+        .getElementById("customerTab")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("adminTab")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("customerLogin")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("adminLogin")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("registerPage")
+        .classList.add("hidden");
+
+
+    if (type === "customer") {
+
+        document
+            .getElementById("customerTab")
+            .classList.add("active");
+
+
+        document
+            .getElementById("customerLogin")
+            .classList.remove("hidden");
+
+    } else {
+
+        document
+            .getElementById("adminTab")
+            .classList.add("active");
+
+
+        document
+            .getElementById("adminLogin")
+            .classList.remove("hidden");
+
+    }
+
+
+    clearMessage();
+
+}
+
+
+// ======================================================
+// REGISTER PAGE
+// ======================================================
+
+function showRegister() {
+
+    document
+        .getElementById("customerLogin")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("adminLogin")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("registerPage")
+        .classList.remove("hidden");
+
+
+    clearMessage();
+
+}
+
+
+// ======================================================
+// SHOW LOGIN
+// ======================================================
+
+function showLogin() {
+
+    document
+        .getElementById("registerPage")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("customerLogin")
+        .classList.remove("hidden");
+
+
+    document
+        .getElementById("customerTab")
+        .classList.add("active");
+
+
+    document
+        .getElementById("adminTab")
+        .classList.remove("active");
+
+
+    loginType = "customer";
+
+
+    clearMessage();
+
+}
+
+
+// ======================================================
+// MESSAGE
+// ======================================================
+
+function showMessage(
+    message,
+    success = false
+) {
+
+    const box =
+        document.getElementById("message");
+
+
+    box.textContent =
+        message;
+
+
+    box.style.color =
+        success
+            ? "#198754"
+            : "#dc3545";
+
+}
+
+
+function clearMessage() {
+
+    const box =
+        document.getElementById("message");
+
+
+    if (box) {
+
+        box.textContent = "";
+
+    }
+
 }
 
 
@@ -254,6 +234,7 @@ function startCustomerRegistrationOTP() {
             .value
             .trim();
 
+
     const email =
         document
             .getElementById("registerEmail")
@@ -261,10 +242,12 @@ function startCustomerRegistrationOTP() {
             .trim()
             .toLowerCase();
 
+
     const password =
         document
             .getElementById("registerPassword")
             .value;
+
 
     const confirm =
         document
@@ -272,23 +255,28 @@ function startCustomerRegistrationOTP() {
             .value;
 
 
-    if (!name || !email || !password || !confirm) {
+    if (!name) {
 
         showMessage(
-            "Please complete all fields."
+            "Please enter your full name."
         );
 
         return;
+
     }
 
 
-    if (!email.endsWith("@gmail.com")) {
+    if (
+        !/^[^\s@]+@gmail\.com$/i
+            .test(email)
+    ) {
 
         showMessage(
             "Please use a valid Gmail account."
         );
 
         return;
+
     }
 
 
@@ -299,6 +287,7 @@ function startCustomerRegistrationOTP() {
         );
 
         return;
+
     }
 
 
@@ -309,98 +298,31 @@ function startCustomerRegistrationOTP() {
         );
 
         return;
+
     }
 
 
-    customerOtpPurpose = "registration";
-
-    customerOtpEmail = email;
-
-    customerOtpPassword = password;
-
-    customerOtpRegistration = {
-
-        name: name,
-
-        email: email,
-
-        password: password
-
-    };
+    customerOtpPurpose =
+        "registration";
 
 
-    sendCustomerOTP("registration");
+    customerOtpEmail =
+        email;
+
+
+    customerOtpPassword =
+        password;
+
+
+    sendCustomerOTP(
+        "registration"
+    );
+
 }
 
 
 // ======================================================
-// SEND CUSTOMER OTP
-// ======================================================
-
-async function sendCustomerOTP(purpose) {
-
-    showMessage("Sending OTP...");
-
-
-    try {
-
-        const result = await callAPI({
-
-            action: "sendCustomerOTP",
-
-            email: customerOtpEmail,
-
-            purpose: purpose
-
-        });
-
-
-        if (result.success) {
-
-            openCustomerOtpModal();
-
-            document
-                .getElementById("customerOtpInfo")
-                .textContent =
-                "A 6-digit OTP has been sent to " +
-                customerOtpEmail +
-                ".";
-
-
-            setCustomerOtpMessage(
-                "OTP sent successfully. It expires in 5 minutes.",
-                "success"
-            );
-
-
-            startCustomerOtpResendTimer();
-
-
-            clearMessage();
-
-        } else {
-
-            showMessage(
-                result.message ||
-                "Failed to send OTP."
-            );
-
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        showMessage(
-            "Cannot connect to Google Apps Script."
-        );
-
-    }
-}
-
-
-// ======================================================
-// CUSTOMER LOGIN → OTP
+// CUSTOMER LOGIN OTP
 // ======================================================
 
 function startCustomerLoginOTP() {
@@ -412,29 +334,24 @@ function startCustomerLoginOTP() {
             .trim()
             .toLowerCase();
 
+
     const password =
         document
             .getElementById("customerPassword")
             .value;
 
 
-    if (!email) {
-
-        showMessage(
-            "Please enter your Gmail."
-        );
-
-        return;
-    }
-
-
-    if (!email.endsWith("@gmail.com")) {
+    if (
+        !/^[^\s@]+@gmail\.com$/i
+            .test(email)
+    ) {
 
         showMessage(
             "Please enter a valid Gmail address."
         );
 
         return;
+
     }
 
 
@@ -445,17 +362,130 @@ function startCustomerLoginOTP() {
         );
 
         return;
+
     }
 
 
-    customerOtpPurpose = "login";
-
-    customerOtpEmail = email;
-
-    customerOtpPassword = password;
+    customerOtpPurpose =
+        "login";
 
 
-    sendCustomerOTP("login");
+    customerOtpEmail =
+        email;
+
+
+    customerOtpPassword =
+        password;
+
+
+    sendCustomerOTP(
+        "login"
+    );
+
+}
+
+
+// ======================================================
+// CUSTOMER OTP GLOBAL
+// ======================================================
+
+let customerOtpPurpose = null;
+
+let customerOtpEmail = null;
+
+let customerOtpPassword = null;
+
+let customerOtpResendTimer = null;
+
+let customerOtpResendSeconds = 0;
+
+
+// ======================================================
+// SEND CUSTOMER OTP
+// ======================================================
+
+async function sendCustomerOTP(
+    purpose
+) {
+
+    setCustomerOtpMessage(
+        "Sending OTP...",
+        "loading"
+    );
+
+
+    try {
+
+        const result =
+            await apiRequest({
+
+                action:
+                    "sendCustomerOTP",
+
+                email:
+                    customerOtpEmail,
+
+                purpose:
+                    purpose
+
+            });
+
+
+        if (!result.success) {
+
+            setCustomerOtpMessage(
+                result.message ||
+                "Unable to send OTP.",
+                "error"
+            );
+
+            showMessage(
+                result.message ||
+                "Unable to send OTP."
+            );
+
+            return;
+
+        }
+
+
+        document
+            .getElementById("customerOtpInfo")
+            .textContent =
+            "A 6-digit OTP has been sent to " +
+            customerOtpEmail +
+            ".";
+
+
+        openCustomerOtpModal();
+
+
+        setCustomerOtpMessage(
+            "OTP sent successfully. It expires in 5 minutes.",
+            "success"
+        );
+
+
+        startCustomerOtpResendTimer();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        setCustomerOtpMessage(
+            "Cannot connect to Google Apps Script.",
+            "error"
+        );
+
+
+        showMessage(
+            "Cannot connect to Google Apps Script."
+        );
+
+    }
+
 }
 
 
@@ -480,6 +510,7 @@ async function verifyCustomerOTP() {
         );
 
         return;
+
     }
 
 
@@ -491,17 +522,22 @@ async function verifyCustomerOTP() {
 
     try {
 
-        const result = await callAPI({
+        const result =
+            await apiRequest({
 
-            action: "verifyCustomerOTP",
+                action:
+                    "verifyCustomerOTP",
 
-            email: customerOtpEmail,
+                email:
+                    customerOtpEmail,
 
-            otp: otp,
+                otp:
+                    otp,
 
-            purpose: customerOtpPurpose
+                purpose:
+                    customerOtpPurpose
 
-        });
+            });
 
 
         if (!result.success) {
@@ -513,6 +549,7 @@ async function verifyCustomerOTP() {
             );
 
             return;
+
         }
 
 
@@ -520,33 +557,31 @@ async function verifyCustomerOTP() {
             customerOtpPurpose;
 
 
-        closeCustomerOtpModal(false);
+        closeCustomerOtpModal();
 
 
-        // ==============================================
-        // LOGIN
-        // ==============================================
+        if (
+            purpose === "login"
+        ) {
 
-        if (purpose === "login") {
-
-            await customerLoginAfterOTP();
+            await loginCustomerAfterOTP();
 
         }
 
 
-        // ==============================================
-        // REGISTRATION
-        // ==============================================
+        else if (
+            purpose === "registration"
+        ) {
 
-        else if (purpose === "registration") {
-
-            await createAccountAfterOTP();
+            await registerCustomerAfterOTP();
 
         }
+
 
     } catch (error) {
 
         console.error(error);
+
 
         setCustomerOtpMessage(
             "OTP verification failed.",
@@ -554,6 +589,7 @@ async function verifyCustomerOTP() {
         );
 
     }
+
 }
 
 
@@ -561,28 +597,38 @@ async function verifyCustomerOTP() {
 // CUSTOMER LOGIN AFTER OTP
 // ======================================================
 
-async function customerLoginAfterOTP() {
+async function loginCustomerAfterOTP() {
 
     try {
 
-        showMessage("Logging in...");
+        showMessage(
+            "Logging in..."
+        );
 
 
-        const result = await callAPI({
+        const result =
+            await apiRequest({
 
-            action: "customerLogin",
+                action:
+                    "customerLogin",
 
-            email: customerOtpEmail,
+                email:
+                    customerOtpEmail,
 
-            password: customerOtpPassword
+                password:
+                    customerOtpPassword
 
-        });
+            });
 
 
         if (result.success) {
 
             currentCustomer =
                 result.customer;
+
+
+            clearCustomerOtpState();
+
 
             openCustomerPage();
 
@@ -595,50 +641,60 @@ async function customerLoginAfterOTP() {
 
         }
 
+
     } catch (error) {
 
         console.error(error);
+
 
         showMessage(
             "Cannot connect to Google Apps Script."
         );
 
     }
+
 }
 
 
 // ======================================================
-// CREATE ACCOUNT AFTER OTP
+// CUSTOMER REGISTER AFTER OTP
 // ======================================================
 
-async function createAccountAfterOTP() {
+async function registerCustomerAfterOTP() {
+
+    const name =
+        document
+            .getElementById("registerName")
+            .value
+            .trim();
+
 
     try {
 
         showMessage(
-            "Creating your account..."
+            "Creating account..."
         );
 
 
-        const result = await callAPI({
+        const result =
+            await apiRequest({
 
-            action: "registerCustomer",
+                action:
+                    "registerCustomer",
 
-            fullName:
-                customerOtpRegistration.name,
+                fullName:
+                    name,
 
-            email:
-                customerOtpRegistration.email,
+                email:
+                    customerOtpEmail,
 
-            password:
-                customerOtpRegistration.password
+                password:
+                    customerOtpPassword
 
-        });
+            });
 
 
         if (result.success) {
-
-            closeCustomerOtpModal();
 
             showMessage(
                 "Account created successfully! You can now login.",
@@ -650,13 +706,16 @@ async function createAccountAfterOTP() {
                 .getElementById("registerName")
                 .value = "";
 
+
             document
                 .getElementById("registerEmail")
                 .value = "";
 
+
             document
                 .getElementById("registerPassword")
                 .value = "";
+
 
             document
                 .getElementById("registerConfirm")
@@ -680,15 +739,18 @@ async function createAccountAfterOTP() {
 
         }
 
+
     } catch (error) {
 
         console.error(error);
+
 
         showMessage(
             "Cannot connect to Google Apps Script."
         );
 
     }
+
 }
 
 
@@ -703,33 +765,31 @@ function openCustomerOtpModal() {
         .classList.remove("hidden");
 
 
-    const otp =
-        document.getElementById("customerOTP");
+    const input =
+        document.getElementById(
+            "customerOTP"
+        );
 
 
-    otp.value = "";
+    input.value = "";
 
-    setTimeout(() => {
 
-        otp.focus();
-
-    }, 100);
+    setTimeout(
+        () => input.focus(),
+        100
+    );
 
 }
 
 
-function closeCustomerOtpModal(clearState = true) {
+function closeCustomerOtpModal() {
 
     document
         .getElementById("customerOtpModal")
         .classList.add("hidden");
 
 
-    if (clearState) {
-
-        clearCustomerOtpState();
-
-    }
+    clearCustomerOtpState();
 
 }
 
@@ -742,8 +802,6 @@ function clearCustomerOtpState() {
 
     customerOtpPassword = null;
 
-    customerOtpRegistration = null;
-
 
     if (customerOtpResendTimer) {
 
@@ -751,7 +809,8 @@ function clearCustomerOtpState() {
             customerOtpResendTimer
         );
 
-        customerOtpResendTimer = null;
+        customerOtpResendTimer =
+            null;
 
     }
 
@@ -792,10 +851,15 @@ function setCustomerOtpMessage(
         );
 
 
-    box.textContent = message;
+    if (!box) return;
+
+
+    box.textContent =
+        message;
+
 
     box.className =
-        "otp-message " + type;
+        type;
 
 }
 
@@ -810,11 +874,15 @@ function resendCustomerOTP() {
         !customerOtpEmail ||
         !customerOtpPurpose
     ) {
+
         return;
+
     }
 
 
-    if (customerOtpResendSeconds > 0) {
+    if (
+        customerOtpResendSeconds > 0
+    ) {
 
         return;
 
@@ -829,7 +897,7 @@ function resendCustomerOTP() {
 
 
 // ======================================================
-// RESEND TIMER
+// OTP TIMER
 // ======================================================
 
 function startCustomerOtpResendTimer() {
@@ -843,7 +911,8 @@ function startCustomerOtpResendTimer() {
     }
 
 
-    customerOtpResendSeconds = 30;
+    customerOtpResendSeconds =
+        30;
 
 
     const button =
@@ -852,11 +921,14 @@ function startCustomerOtpResendTimer() {
         );
 
 
-    button.disabled = true;
+    button.disabled =
+        true;
 
 
     button.textContent =
-        "Resend OTP (30s)";
+        "Resend OTP (" +
+        customerOtpResendSeconds +
+        "s)";
 
 
     customerOtpResendTimer =
@@ -873,15 +945,21 @@ function startCustomerOtpResendTimer() {
                     customerOtpResendTimer
                 );
 
+
                 customerOtpResendTimer =
                     null;
 
-                button.disabled = false;
+
+                button.disabled =
+                    false;
+
 
                 button.textContent =
                     "Resend OTP";
 
+
                 return;
+
             }
 
 
@@ -889,6 +967,7 @@ function startCustomerOtpResendTimer() {
                 "Resend OTP (" +
                 customerOtpResendSeconds +
                 "s)";
+
 
         }, 1000);
 
@@ -907,52 +986,81 @@ async function adminLogin() {
             .value
             .trim();
 
+
     const password =
         document
             .getElementById("adminPassword")
             .value;
 
 
-    if (username !== "admin") {
+    if (!username || !password) {
 
         showMessage(
-            "Invalid admin username."
+            "Enter admin username and password."
         );
 
         return;
-    }
 
-
-    if (password !== "admin123") {
-
-        showMessage(
-            "Invalid admin password."
-        );
-
-        return;
     }
 
 
     try {
 
         showMessage(
+            "Checking admin credentials..."
+        );
+
+
+        const result =
+            await apiRequest({
+
+                action:
+                    "adminLogin",
+
+                username:
+                    username,
+
+                password:
+                    password
+
+            });
+
+
+        if (!result.success) {
+
+            showMessage(
+                result.message ||
+                "Invalid admin credentials."
+            );
+
+            return;
+
+        }
+
+
+        showMessage(
             "Sending security OTP..."
         );
 
 
-        const result = await callAPI({
+        const otpResult =
+            await apiRequest({
 
-            action: "sendAdminOTP",
+                action:
+                    "sendAdminOTP",
 
-            email:
-                "reyesjoesen6@gmail.com"
+                email:
+                    "reyesjoesen6@gmail.com"
 
-        });
+            });
 
 
-        if (result.success) {
+        if (
+            otpResult.success
+        ) {
 
-            pendingOTP = true;
+            pendingOTP =
+                true;
 
 
             document
@@ -968,15 +1076,17 @@ async function adminLogin() {
         } else {
 
             showMessage(
-                result.message ||
+                otpResult.message ||
                 "Failed to send OTP."
             );
 
         }
 
+
     } catch (error) {
 
         console.error(error);
+
 
         showMessage(
             "Cannot connect to Google Apps Script."
@@ -1007,23 +1117,34 @@ async function verifyAdminOTP() {
         );
 
         return;
+
     }
 
 
     try {
 
-        const result = await callAPI({
+        showMessage(
+            "Verifying OTP..."
+        );
 
-            action: "verifyAdminOTP",
 
-            otp: otp
+        const result =
+            await apiRequest({
 
-        });
+                action:
+                    "verifyAdminOTP",
+
+                otp:
+                    otp
+
+            });
 
 
         if (result.success) {
 
-            pendingOTP = false;
+            pendingOTP =
+                false;
+
 
             openAdminPage();
 
@@ -1036,9 +1157,11 @@ async function verifyAdminOTP() {
 
         }
 
+
     } catch (error) {
 
         console.error(error);
+
 
         showMessage(
             "OTP verification failed."
@@ -1053,15 +1176,17 @@ async function verifyAdminOTP() {
 // CUSTOMER PAGE
 // ======================================================
 
-function openCustomerPage() {
+async function openCustomerPage() {
 
     document
         .getElementById("loginPage")
         .classList.add("hidden");
 
+
     document
         .getElementById("adminPage")
         .classList.add("hidden");
+
 
     document
         .getElementById("customerPage")
@@ -1071,7 +1196,9 @@ function openCustomerPage() {
     if (currentCustomer) {
 
         document
-            .getElementById("customerNameDisplay")
+            .getElementById(
+                "customerNameDisplay"
+            )
             .textContent =
             currentCustomer.fullName ||
             "Customer";
@@ -1079,18 +1206,62 @@ function openCustomerPage() {
     }
 
 
-    displayCustomerProducts(
-        products
-    );
+    await loadProducts();
 
 }
 
 
 // ======================================================
-// CUSTOMER PRODUCTS
+// LOAD PRODUCTS
 // ======================================================
 
-function displayCustomerProducts(list) {
+async function loadProducts() {
+
+    try {
+
+        const result =
+            await apiRequest({
+
+                action:
+                    "getProducts"
+
+            });
+
+
+        if (result.success) {
+
+            products =
+                result.products || [];
+
+
+            displayCustomerProducts(
+                products
+            );
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        showMessage(
+            "Unable to load products."
+        );
+
+    }
+
+}
+
+
+// ======================================================
+// DISPLAY CUSTOMER PRODUCTS
+// ======================================================
+
+function displayCustomerProducts(
+    list
+) {
 
     const container =
         document.getElementById(
@@ -1104,7 +1275,9 @@ function displayCustomerProducts(list) {
     if (!list.length) {
 
         container.innerHTML =
-            "<p>No products available.</p>";
+            `<div class="empty-box">
+                No products available.
+            </div>`;
 
         return;
 
@@ -1114,7 +1287,9 @@ function displayCustomerProducts(list) {
     list.forEach(product => {
 
         const card =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
         card.className =
@@ -1125,26 +1300,42 @@ function displayCustomerProducts(list) {
 
             <img
                 class="product-image"
-                src="${product.image || 'https://via.placeholder.com/400'}"
-                alt="${escapeHTML(product.name)}"
+                src="${
+                    product.image ||
+                    "https://via.placeholder.com/400"
+                }"
+                alt="${escapeHTML(
+                    product.name
+                )}"
             >
+
 
             <div class="product-info">
 
+                <span class="product-category">
+                    ${escapeHTML(
+                        product.category
+                    )}
+                </span>
+
+
                 <h3>
-                    ${escapeHTML(product.name)}
+                    ${escapeHTML(
+                        product.name
+                    )}
                 </h3>
 
-                <p class="category">
-                    ${escapeHTML(product.category)}
-                </p>
 
                 <p class="price">
-                    ₱${Number(product.price).toLocaleString()}
+                    ₱${Number(
+                        product.price
+                    ).toLocaleString()}
                 </p>
 
+
                 <p class="stock">
-                    Stock: ${product.stock}
+                    Stock:
+                    ${product.stock}
                 </p>
 
             </div>
@@ -1152,7 +1343,9 @@ function displayCustomerProducts(list) {
         `;
 
 
-        container.appendChild(card);
+        container.appendChild(
+            card
+        );
 
     });
 
@@ -1160,7 +1353,7 @@ function displayCustomerProducts(list) {
 
 
 // ======================================================
-// SEARCH
+// CUSTOMER SEARCH
 // ======================================================
 
 function searchCustomerProducts() {
@@ -1171,19 +1364,20 @@ function searchCustomerProducts() {
                 "customerSearch"
             )
             .value
-            .toLowerCase();
+            .toLowerCase()
+            .trim();
 
 
     const filtered =
         products.filter(product =>
 
-            product.name
+            String(product.name)
                 .toLowerCase()
                 .includes(keyword)
 
             ||
 
-            product.category
+            String(product.category)
                 .toLowerCase()
                 .includes(keyword)
 
@@ -1203,27 +1397,41 @@ function searchCustomerProducts() {
 
 function customerLogout() {
 
-    currentCustomer = null;
+    currentCustomer =
+        null;
 
 
     document
-        .getElementById("customerPage")
+        .getElementById(
+            "customerPage"
+        )
         .classList.add("hidden");
 
 
     document
-        .getElementById("loginPage")
+        .getElementById(
+            "loginPage"
+        )
         .classList.remove("hidden");
 
 
     document
-        .getElementById("customerEmail")
+        .getElementById(
+            "customerEmail"
+        )
         .value = "";
 
 
     document
-        .getElementById("customerPassword")
+        .getElementById(
+            "customerPassword"
+        )
         .value = "";
+
+
+    selectLoginType(
+        "customer"
+    );
 
 }
 
@@ -1232,20 +1440,48 @@ function customerLogout() {
 // ADMIN PAGE
 // ======================================================
 
-function openAdminPage() {
+async function openAdminPage() {
 
     document
-        .getElementById("loginPage")
+        .getElementById(
+            "loginPage"
+        )
         .classList.add("hidden");
 
-    document
-        .getElementById("customerPage")
-        .classList.add("hidden");
 
     document
-        .getElementById("adminPage")
+        .getElementById(
+            "customerPage"
+        )
+        .classList.add("hidden");
+
+
+    document
+        .getElementById(
+            "adminPage"
+        )
         .classList.remove("hidden");
 
+
+    await loadAdminData();
+
+
+    showAdminSection(
+        "dashboard"
+    );
+
+}
+
+
+// ======================================================
+// LOAD ADMIN DATA
+// ======================================================
+
+async function loadAdminData() {
+
+    await loadProducts();
+
+    await loadCustomers();
 
     updateDashboard();
 
@@ -1257,47 +1493,155 @@ function openAdminPage() {
 
 
 // ======================================================
+// LOAD CUSTOMERS
+// ======================================================
+
+async function loadCustomers() {
+
+    try {
+
+        const result =
+            await apiRequest({
+
+                action:
+                    "getCustomers"
+
+            });
+
+
+        if (result.success) {
+
+            customers =
+                result.customers || [];
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+// ======================================================
 // ADMIN SECTION
 // ======================================================
 
-function showAdminSection(section) {
+function showAdminSection(
+    section
+) {
 
     document
-        .getElementById("dashboardSection")
-        .classList.add("hidden");
-
-    document
-        .getElementById("productsSection")
-        .classList.add("hidden");
-
-    document
-        .getElementById("customersSection")
+        .getElementById(
+            "dashboardSection"
+        )
         .classList.add("hidden");
 
 
-    if (section === "dashboard") {
+    document
+        .getElementById(
+            "productsSection"
+        )
+        .classList.add("hidden");
+
+
+    document
+        .getElementById(
+            "customersSection"
+        )
+        .classList.add("hidden");
+
+
+    document
+        .querySelectorAll(
+            ".side-btn"
+        )
+        .forEach(button => {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    if (
+        section === "dashboard"
+    ) {
 
         document
-            .getElementById("dashboardSection")
-            .classList.remove("hidden");
+            .getElementById(
+                "dashboardSection"
+            )
+            .classList.remove(
+                "hidden"
+            );
+
+
+        document
+            .querySelector(
+                '[onclick="showAdminSection(\'dashboard\')"]'
+            )
+            ?.classList.add(
+                "active"
+            );
 
     }
 
 
-    if (section === "products") {
+    if (
+        section === "products"
+    ) {
 
         document
-            .getElementById("productsSection")
-            .classList.remove("hidden");
+            .getElementById(
+                "productsSection"
+            )
+            .classList.remove(
+                "hidden"
+            );
+
+
+        document
+            .querySelector(
+                '[onclick="showAdminSection(\'products\')"]'
+            )
+            ?.classList.add(
+                "active"
+            );
+
+
+        displayAdminProducts();
 
     }
 
 
-    if (section === "customers") {
+    if (
+        section === "customers"
+    ) {
 
         document
-            .getElementById("customersSection")
-            .classList.remove("hidden");
+            .getElementById(
+                "customersSection"
+            )
+            .classList.remove(
+                "hidden"
+            );
+
+
+        document
+            .querySelector(
+                '[onclick="showAdminSection(\'customers\')"]'
+            )
+            ?.classList.add(
+                "active"
+            );
+
+
+        displayCustomers();
 
     }
 
@@ -1311,13 +1655,17 @@ function showAdminSection(section) {
 function updateDashboard() {
 
     document
-        .getElementById("totalProducts")
+        .getElementById(
+            "totalProducts"
+        )
         .textContent =
         products.length;
 
 
     document
-        .getElementById("totalCustomers")
+        .getElementById(
+            "totalCustomers"
+        )
         .textContent =
         customers.length;
 
@@ -1325,7 +1673,7 @@ function updateDashboard() {
 
 
 // ======================================================
-// ADMIN PRODUCTS
+// ADMIN PRODUCTS TABLE
 // ======================================================
 
 function displayAdminProducts() {
@@ -1342,44 +1690,56 @@ function displayAdminProducts() {
     products.forEach(product => {
 
         const row =
-            document.createElement("tr");
+            document.createElement(
+                "tr"
+            );
 
 
         row.innerHTML = `
 
             <td>
-                ${escapeHTML(product.name)}
+                <strong>
+                    ${escapeHTML(
+                        product.name
+                    )}
+                </strong>
             </td>
 
-            <td>
-                ${escapeHTML(product.category)}
-            </td>
 
             <td>
-                ₱${Number(product.price).toLocaleString()}
+                ${escapeHTML(
+                    product.category
+                )}
             </td>
+
+
+            <td>
+                ₱${Number(
+                    product.price
+                ).toLocaleString()}
+            </td>
+
 
             <td>
                 ${product.stock}
             </td>
 
+
             <td>
 
                 <button
                     class="action-btn edit-btn"
-                    onclick="requestEditProduct(${product.id})">
-
+                    onclick="requestEditProduct('${escapeAttribute(product.id)}')"
+                >
                     Edit
-
                 </button>
 
 
                 <button
                     class="action-btn delete-btn"
-                    onclick="requestDeleteProduct(${product.id})">
-
+                    onclick="requestDeleteProduct('${escapeAttribute(product.id)}')"
+                >
                     Delete
-
                 </button>
 
             </td>
@@ -1387,7 +1747,9 @@ function displayAdminProducts() {
         `;
 
 
-        table.appendChild(row);
+        table.appendChild(
+            row
+        );
 
     });
 
@@ -1398,61 +1760,82 @@ function displayAdminProducts() {
 // PRODUCT MODAL
 // ======================================================
 
-function openProductModal(product = null) {
+function openProductModal(
+    product = null
+) {
 
     document
-        .getElementById("productModal")
-        .classList
-        .remove("hidden");
+        .getElementById(
+            "productModal"
+        )
+        .classList.remove(
+            "hidden"
+        );
 
 
     if (product) {
 
         document
-            .getElementById("modalTitle")
+            .getElementById(
+                "modalTitle"
+            )
             .textContent =
             "Edit Product";
 
 
         document
-            .getElementById("editProductId")
+            .getElementById(
+                "editProductId"
+            )
             .value =
             product.id;
 
 
         document
-            .getElementById("productName")
+            .getElementById(
+                "productName"
+            )
             .value =
             product.name;
 
 
         document
-            .getElementById("productCategory")
+            .getElementById(
+                "productCategory"
+            )
             .value =
             product.category;
 
 
         document
-            .getElementById("productPrice")
+            .getElementById(
+                "productPrice"
+            )
             .value =
             product.price;
 
 
         document
-            .getElementById("productStock")
+            .getElementById(
+                "productStock"
+            )
             .value =
             product.stock;
 
 
         document
-            .getElementById("productImage")
+            .getElementById(
+                "productImage"
+            )
             .value =
-            product.image;
+            product.image || "";
 
     } else {
 
         document
-            .getElementById("modalTitle")
+            .getElementById(
+                "modalTitle"
+            )
             .textContent =
             "Add Product";
 
@@ -1464,47 +1847,69 @@ function openProductModal(product = null) {
 }
 
 
+// ======================================================
+// CLOSE PRODUCT MODAL
+// ======================================================
+
 function closeProductModal() {
 
     document
-        .getElementById("productModal")
-        .classList
-        .add("hidden");
+        .getElementById(
+            "productModal"
+        )
+        .classList.add(
+            "hidden"
+        );
 
 }
 
 
+// ======================================================
+// CLEAR PRODUCT FORM
+// ======================================================
+
 function clearProductForm() {
 
-    const ids = [
-
-        "editProductId",
-
-        "productName",
-
-        "productCategory",
-
-        "productPrice",
-
-        "productStock",
-
-        "productImage"
-
-    ];
+    document
+        .getElementById(
+            "editProductId"
+        )
+        .value = "";
 
 
-    ids.forEach(id => {
+    document
+        .getElementById(
+            "productName"
+        )
+        .value = "";
 
-        const element =
-            document.getElementById(id);
 
-        if (element) {
+    document
+        .getElementById(
+            "productCategory"
+        )
+        .value = "";
 
-            element.value = "";
 
-        }
+    document
+        .getElementById(
+            "productPrice"
+        )
+        .value = "";
 
-    });
+
+    document
+        .getElementById(
+            "productStock"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "productImage"
+        )
+        .value = "";
 
 }
 
@@ -1517,109 +1922,182 @@ function saveProduct() {
 
     const name =
         document
-            .getElementById("productName")
+            .getElementById(
+                "productName"
+            )
             .value
             .trim();
 
 
     const category =
         document
-            .getElementById("productCategory")
+            .getElementById(
+                "productCategory"
+            )
             .value
             .trim();
 
 
     const price =
         document
-            .getElementById("productPrice")
+            .getElementById(
+                "productPrice"
+            )
             .value;
 
 
     const stock =
         document
-            .getElementById("productStock")
+            .getElementById(
+                "productStock"
+            )
             .value;
 
 
     const image =
         document
-            .getElementById("productImage")
+            .getElementById(
+                "productImage"
+            )
             .value
             .trim();
 
 
     const editId =
         document
-            .getElementById("editProductId")
+            .getElementById(
+                "editProductId"
+            )
             .value;
 
 
-    if (!name || !category || !price || !stock) {
+    if (
+        !name ||
+        !category ||
+        price === "" ||
+        stock === ""
+    ) {
 
         alert(
             "Please complete the product information."
         );
 
         return;
+
     }
 
 
-    if (editId) {
+    askAdminPasscode(
+        async function () {
 
-        const product =
-            products.find(
-                p => p.id == editId
-            );
+            try {
+
+                let result;
 
 
-        if (product) {
+                if (editId) {
 
-            product.name = name;
+                    result =
+                        await apiRequest({
 
-            product.category = category;
+                            action:
+                                "updateProduct",
 
-            product.price =
-                Number(price);
+                            id:
+                                editId,
 
-            product.stock =
-                Number(stock);
+                            name:
+                                name,
 
-            product.image = image;
+                            category:
+                                category,
+
+                            price:
+                                Number(price),
+
+                            stock:
+                                Number(stock),
+
+                            image:
+                                image,
+
+                            passcode:
+                                "adminako"
+
+                        });
+
+                } else {
+
+                    result =
+                        await apiRequest({
+
+                            action:
+                                "addProduct",
+
+                            name:
+                                name,
+
+                            category:
+                                category,
+
+                            price:
+                                Number(price),
+
+                            stock:
+                                Number(stock),
+
+                            image:
+                                image,
+
+                            passcode:
+                                "adminako"
+
+                        });
+
+                }
+
+
+                if (result.success) {
+
+                    alert(
+                        result.message
+                    );
+
+
+                    closeProductModal();
+
+
+                    await loadProducts();
+
+
+                    displayAdminProducts();
+
+
+                    updateDashboard();
+
+                } else {
+
+                    alert(
+                        result.message ||
+                        "Operation failed."
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                alert(
+                    "Cannot connect to Google Apps Script."
+                );
+
+            }
 
         }
-
-    } else {
-
-        products.push({
-
-            id: Date.now(),
-
-            name: name,
-
-            category: category,
-
-            price: Number(price),
-
-            stock: Number(stock),
-
-            image:
-                image ||
-                "https://via.placeholder.com/400"
-
-        });
-
-    }
-
-
-    closeProductModal();
-
-    displayAdminProducts();
-
-    displayCustomerProducts(
-        products
     );
-
-    updateDashboard();
 
 }
 
@@ -1628,22 +2106,38 @@ function saveProduct() {
 // EDIT PRODUCT
 // ======================================================
 
-function requestEditProduct(id) {
+function requestEditProduct(
+    id
+) {
 
     const product =
         products.find(
-            p => p.id === id
+            p =>
+                String(p.id) ===
+                String(id)
         );
 
 
-    if (!product) return;
+    if (!product) {
+
+        alert(
+            "Product not found."
+        );
+
+        return;
+
+    }
 
 
-    askAdminPasscode(function () {
+    askAdminPasscode(
+        function () {
 
-        openProductModal(product);
+            openProductModal(
+                product
+            );
 
-    });
+        }
+    );
 
 }
 
@@ -1652,34 +2146,81 @@ function requestEditProduct(id) {
 // DELETE PRODUCT
 // ======================================================
 
-function requestDeleteProduct(id) {
+function requestDeleteProduct(
+    id
+) {
 
-    askAdminPasscode(function () {
+    askAdminPasscode(
+        async function () {
 
-        const confirmed =
-            confirm(
-                "Delete this product?"
-            );
-
-
-        if (!confirmed) return;
-
-
-        products =
-            products.filter(
-                p => p.id !== id
-            );
+            const confirmed =
+                confirm(
+                    "Delete this product?"
+                );
 
 
-        displayAdminProducts();
+            if (!confirmed) {
 
-        displayCustomerProducts(
-            products
-        );
+                return;
 
-        updateDashboard();
+            }
 
-    });
+
+            try {
+
+                const result =
+                    await apiRequest({
+
+                        action:
+                            "deleteProduct",
+
+                        id:
+                            id,
+
+                        passcode:
+                            "adminako"
+
+                    });
+
+
+                if (result.success) {
+
+                    alert(
+                        result.message
+                    );
+
+
+                    await loadProducts();
+
+
+                    displayAdminProducts();
+
+
+                    updateDashboard();
+
+                } else {
+
+                    alert(
+                        result.message ||
+                        "Delete failed."
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                alert(
+                    "Cannot connect to Google Apps Script."
+                );
+
+            }
+
+        }
+    );
 
 }
 
@@ -1688,62 +2229,71 @@ function requestDeleteProduct(id) {
 // ADMIN PASSCODE
 // ======================================================
 
-let passcodeAction = null;
-
-
-function askAdminPasscode(callback) {
+function askAdminPasscode(
+    callback
+) {
 
     passcodeAction =
         callback;
 
 
-    const input =
-        document.getElementById(
+    document
+        .getElementById(
             "functionPasscode"
-        );
+        )
+        .value = "";
 
 
-    const modal =
-        document.getElementById(
+    document
+        .getElementById(
             "passcodeModal"
+        )
+        .classList.remove(
+            "hidden"
         );
 
 
-    if (input && modal) {
+    setTimeout(
+        () => {
 
-        input.value = "";
+            document
+                .getElementById(
+                    "functionPasscode"
+                )
+                .focus();
 
-        modal
-            .classList
-            .remove("hidden");
-
-    }
+        },
+        100
+    );
 
 }
 
 
+// ======================================================
+// VERIFY FUNCTION PASSCODE
+// ======================================================
+
 function verifyFunctionPasscode() {
 
-    const input =
-        document.getElementById(
-            "functionPasscode"
-        );
-
-
-    if (!input) return;
-
-
     const passcode =
-        input.value;
+        document
+            .getElementById(
+                "functionPasscode"
+            )
+            .value;
 
 
-    if (passcode !== "adminako") {
+    if (
+        passcode !==
+        "adminako"
+    ) {
 
         alert(
             "Incorrect admin passcode."
         );
 
         return;
+
     }
 
 
@@ -1763,24 +2313,23 @@ function verifyFunctionPasscode() {
 }
 
 
+// ======================================================
+// CLOSE PASSCODE
+// ======================================================
+
 function closePasscodeModal() {
 
-    const modal =
-        document.getElementById(
+    document
+        .getElementById(
             "passcodeModal"
+        )
+        .classList.add(
+            "hidden"
         );
 
 
-    if (modal) {
-
-        modal
-            .classList
-            .add("hidden");
-
-    }
-
-
-    passcodeAction = null;
+    passcodeAction =
+        null;
 
 }
 
@@ -1797,38 +2346,65 @@ function displayCustomers() {
         );
 
 
-    if (!table) return;
-
-
     table.innerHTML = "";
 
 
-    customers.forEach(customer => {
+    if (!customers.length) {
 
-        const row =
-            document.createElement("tr");
+        table.innerHTML =
+            `<tr>
+                <td colspan="3" class="empty-table">
+                    No customers found.
+                </td>
+            </tr>`;
 
+        return;
 
-        row.innerHTML = `
-
-            <td>
-                ${escapeHTML(customer.fullName)}
-            </td>
-
-            <td>
-                ${escapeHTML(customer.email)}
-            </td>
-
-            <td>
-                Active
-            </td>
-
-        `;
+    }
 
 
-        table.appendChild(row);
+    customers.forEach(
+        customer => {
 
-    });
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHTML(
+                        customer.fullName
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHTML(
+                        customer.email
+                    )}
+                </td>
+
+
+                <td>
+                    <span class="status-active">
+                        ${escapeHTML(
+                            customer.status
+                        )}
+                    </span>
+                </td>
+
+            `;
+
+
+            table.appendChild(
+                row
+            );
+
+        }
+    );
 
 }
 
@@ -1840,45 +2416,66 @@ function displayCustomers() {
 function adminLogout() {
 
     document
-        .getElementById("adminPage")
-        .classList
-        .add("hidden");
+        .getElementById(
+            "adminPage"
+        )
+        .classList.add(
+            "hidden"
+        );
 
 
     document
-        .getElementById("loginPage")
-        .classList
-        .remove("hidden");
+        .getElementById(
+            "loginPage"
+        )
+        .classList.remove(
+            "hidden"
+        );
 
 
     document
-        .getElementById("adminUsername")
+        .getElementById(
+            "adminUsername"
+        )
         .value = "";
 
 
     document
-        .getElementById("adminPassword")
+        .getElementById(
+            "adminPassword"
+        )
         .value = "";
 
 
     document
-        .getElementById("adminOTP")
+        .getElementById(
+            "adminOTP"
+        )
         .value = "";
 
 
     document
-        .getElementById("otpBox")
-        .classList
-        .add("hidden");
+        .getElementById(
+            "otpBox"
+        )
+        .classList.add(
+            "hidden"
+        );
 
 
-    pendingOTP = false;
+    pendingOTP =
+        false;
+
+
+    selectLoginType(
+        "customer"
+    );
 
 }
 
 
 // ======================================================
-// SECURITY
+// HTML SECURITY
 // ======================================================
 
 function escapeHTML(value) {
@@ -1913,8 +2510,23 @@ function escapeHTML(value) {
 }
 
 
+function escapeAttribute(value) {
+
+    return String(value)
+        .replaceAll(
+            "\\",
+            "\\\\"
+        )
+        .replaceAll(
+            "'",
+            "\\'"
+        );
+
+}
+
+
 // ======================================================
-// ENTER KEY FOR CUSTOMER OTP
+// KEYBOARD
 // ======================================================
 
 document.addEventListener(
@@ -1922,16 +2534,61 @@ document.addEventListener(
     function(event) {
 
         if (
-            event.key === "Enter" &&
-            document
-                .getElementById(
-                    "customerOtpModal"
-                )
-                .classList
-                .contains("hidden") === false
+            event.key === "Escape"
         ) {
 
-            verifyCustomerOTP();
+            const customerModal =
+                document.getElementById(
+                    "customerOtpModal"
+                );
+
+
+            const productModal =
+                document.getElementById(
+                    "productModal"
+                );
+
+
+            const passcodeModal =
+                document.getElementById(
+                    "passcodeModal"
+                );
+
+
+            if (
+                customerModal &&
+                !customerModal.classList.contains(
+                    "hidden"
+                )
+            ) {
+
+                closeCustomerOtpModal();
+
+            }
+
+
+            if (
+                productModal &&
+                !productModal.classList.contains(
+                    "hidden"
+                )
+            ) {
+
+                closeProductModal();
+
+            }
+
+
+            if (
+                passcodeModal &&
+                !passcodeModal.classList.contains(
+                    "hidden"
+                )
+            ) {
+
+                closePasscodeModal();
+
+            }
 
         }
 
@@ -1949,10 +2606,6 @@ document.addEventListener(
 
         selectLoginType(
             "customer"
-        );
-
-        displayCustomerProducts(
-            products
         );
 
     }
