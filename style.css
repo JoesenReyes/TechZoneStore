@@ -2,217 +2,93 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
 }
 
 body {
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
     background: #f4f7fb;
     color: #172033;
 }
 
-
-/* ==============================
-   HEADER
-============================== */
-
-.topbar {
-    height: 70px;
-    background: #ffffff;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 0 25px;
-
-    border-bottom: 1px solid #e5e7eb;
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-
-    z-index: 50;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.brand h1 {
-    font-size: 21px;
-}
-
-.brand span {
-    font-size: 12px;
-    color: #7b8496;
-}
-
-.brand-icon,
-.logo-large {
-    background: linear-gradient(
-        135deg,
-        #0d6efd,
-        #153c9e
-    );
-
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-weight: bold;
-}
-
-.brand-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-}
-
-.logo-large {
-    width: 70px;
-    height: 70px;
-
-    border-radius: 18px;
-
-    margin: 0 auto 15px;
-
-    font-size: 23px;
-}
-
-.header-actions {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.connection {
-    font-size: 12px;
-    padding: 7px 12px;
-    border-radius: 20px;
-}
-
-.connection.online {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.connection.offline {
-    background: #fee2e2;
-    color: #991b1b;
+.hidden {
+    display: none !important;
 }
 
 
-/* ==============================
+/* =========================
    LOGIN
-============================== */
+========================= */
 
-.login-page {
+#loginPage {
     min-height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    padding: 90px 20px 30px;
 
     background:
-        radial-gradient(
-            circle at top left,
-            #dbeafe,
-            transparent 35%
-        ),
-        #f4f7fb;
+        linear-gradient(
+            135deg,
+            #071b4b,
+            #0d63c7
+        );
 }
 
 .login-card {
-    background: white;
+    width: 430px;
+    max-width: 95%;
 
-    width: 100%;
-    max-width: 430px;
+    background: white;
 
     padding: 35px;
 
-    border-radius: 20px;
+    border-radius: 22px;
 
     box-shadow:
-        0 20px 60px rgba(
-            0,
-            0,
-            0,
-            .10
-        );
+        0 20px 60px
+        rgba(0,0,0,.25);
+
+    text-align: center;
 }
 
-.login-card h2 {
-    text-align: center;
-    margin-bottom: 8px;
+.logo {
+    width: 75px;
+    height: 75px;
+
+    margin: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #0d63c7;
+    color: white;
+
+    border-radius: 18px;
+
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.login-card h1 {
+    margin-top: 15px;
 }
 
 .subtitle {
-    text-align: center;
-    color: #7b8496;
-    margin-bottom: 25px;
-}
-
-.login-tabs {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 20px;
-
-    background: #f1f5f9;
-    padding: 5px;
-    border-radius: 10px;
-}
-
-.tab {
-    border: none;
-    background: transparent;
-
-    padding: 11px;
-
-    flex: 1;
-
-    cursor: pointer;
-
-    border-radius: 7px;
-
-    font-weight: 600;
-}
-
-.tab.active {
-    background: white;
-
-    box-shadow:
-        0 2px 7px rgba(
-            0,
-            0,
-            0,
-            .08
-        );
+    color: #777;
+    margin: 8px 0 25px;
 }
 
 
-/* ==============================
+/* =========================
    FORM
-============================== */
+========================= */
 
-label {
-    display: block;
+.form {
+    text-align: left;
+}
 
-    margin-top: 13px;
-    margin-bottom: 6px;
-
-    font-size: 13px;
-    font-weight: 600;
+.form h2 {
+    margin-bottom: 20px;
 }
 
 input,
@@ -220,224 +96,203 @@ select,
 textarea {
     width: 100%;
 
-    padding: 12px 13px;
+    padding: 13px;
 
-    border: 1px solid #d8dee9;
+    margin-top: 7px;
+    margin-bottom: 15px;
 
-    border-radius: 9px;
+    border:
+        1px solid #d6dce5;
+
+    border-radius: 10px;
 
     outline: none;
-
-    font-size: 14px;
-
-    background: white;
 }
 
 textarea {
-    min-height: 90px;
+    min-height: 100px;
     resize: vertical;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: #0d6efd;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(
-            13,
-            110,
-            253,
-            .10
-        );
+    border-color: #0d63c7;
 }
 
 
-/* ==============================
+/* =========================
    BUTTONS
-============================== */
+========================= */
 
-button {
-    font-family: inherit;
-}
-
-.primary-btn {
-    width: 100%;
-
-    margin-top: 18px;
-
-    padding: 12px;
-
+.btn {
     border: none;
 
-    border-radius: 9px;
+    padding:
+        12px 18px;
 
-    background: #0d6efd;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    margin: 5px;
+}
+
+.primary {
+    background: #0d63c7;
     color: white;
-
-    font-weight: 700;
-
-    cursor: pointer;
 }
 
-.primary-btn:hover {
-    background: #0958cf;
+.dark {
+    background: #172033;
+    color: white;
 }
 
-.primary-btn.small {
-    width: auto;
-    margin: 0;
-    padding: 10px 15px;
+.outline {
+    background: white;
+    color: #0d63c7;
+    border:
+        1px solid #0d63c7;
 }
 
-.link-btn {
-    width: 100%;
-
-    margin-top: 12px;
-
-    border: none;
-    background: transparent;
-
-    color: #0d6efd;
-
-    cursor: pointer;
+.back {
+    background: #e8edf4;
+    color: #172033;
 }
 
 .logout-btn {
     border: none;
 
-    background: #fee2e2;
-    color: #991b1b;
+    padding: 10px 16px;
 
-    padding: 9px 14px;
+    border-radius: 9px;
 
-    border-radius: 8px;
+    background: #d9363e;
+
+    color: white;
+
+    font-weight: bold;
 
     cursor: pointer;
 }
 
-.security-note {
-    text-align: center;
 
+/* =========================
+   MESSAGE
+========================= */
+
+#message {
     margin-top: 15px;
-
-    font-size: 12px;
-
-    color: #7b8496;
+    font-weight: bold;
 }
 
 
-/* ==============================
-   SIDEBAR
-============================== */
+/* =========================
+   HEADER
+========================= */
 
-.app {
-    display: flex;
+header {
+    height: 70px;
 
-    min-height: 100vh;
-
-    padding-top: 70px;
-}
-
-.sidebar {
-    width: 240px;
-
-    background: #111827;
+    background: #071b4b;
 
     color: white;
 
-    position: fixed;
+    display: flex;
 
-    top: 70px;
-    bottom: 0;
-    left: 0;
+    align-items: center;
 
-    padding: 20px 13px;
+    justify-content: space-between;
+
+    padding:
+        0 25px;
 }
 
-.side-brand {
-    padding: 15px;
+.brand-header {
+    display: flex;
+    align-items: center;
 
-    margin-bottom: 15px;
+    gap: 10px;
 
-    border-bottom:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .1
-        );
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.side-brand strong {
-    display: block;
-    font-size: 18px;
+.mini-logo {
+    background: #0d63c7;
+
+    padding: 10px;
+
+    border-radius: 8px;
 }
 
-.side-brand span {
-    color: #9ca3af;
-    font-size: 12px;
+.header-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
 }
 
-.side-btn {
+
+/* =========================
+   LAYOUT
+========================= */
+
+.dashboard-layout {
+    display: flex;
+
+    min-height:
+        calc(100vh - 70px);
+}
+
+aside {
+    width: 240px;
+
+    background: white;
+
+    padding: 20px;
+
+    box-shadow:
+        2px 0 10px
+        rgba(0,0,0,.05);
+}
+
+aside button {
     width: 100%;
-
-    padding: 12px 15px;
-
-    margin-bottom: 6px;
 
     border: none;
 
     background: transparent;
 
-    color: #cbd5e1;
+    padding: 14px;
 
     text-align: left;
 
-    border-radius: 8px;
-
     cursor: pointer;
-}
 
-.side-btn:hover,
-.side-btn.active {
-    background: #1d4ed8;
-    color: white;
-}
+    border-radius: 10px;
 
-
-/* ==============================
-   CONTENT
-============================== */
-
-.content {
-    margin-left: 240px;
-
-    width: calc(
-        100% - 240px
-    );
-
-    padding: 35px;
-}
-
-.page-title {
-    margin-bottom: 25px;
-}
-
-.page-title h2 {
     margin-bottom: 5px;
 }
 
-.page-title p {
-    color: #7b8496;
+aside button:hover {
+    background: #edf4ff;
+    color: #0d63c7;
+}
+
+main {
+    flex: 1;
+
+    padding: 30px;
 }
 
 
-/* ==============================
-   STATS
-============================== */
+/* =========================
+   DASHBOARD
+========================= */
 
 .stats {
     display: grid;
@@ -445,70 +300,42 @@ button {
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(
-                190px,
-                1fr
-            )
+            minmax(180px, 1fr)
         );
 
-    gap: 18px;
+    gap: 20px;
 
-    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 .stat-card {
     background: white;
 
-    padding: 22px;
-
-    border-radius: 14px;
-
-    box-shadow:
-        0 4px 15px
-        rgba(
-            0,
-            0,
-            0,
-            .05
-        );
-}
-
-.stat-card span {
-    display: block;
-
-    color: #7b8496;
-
-    font-size: 13px;
-
-    margin-bottom: 10px;
-}
-
-.stat-card strong {
-    font-size: 30px;
-}
-
-
-/* ==============================
-   WELCOME
-============================== */
-
-.welcome-box {
-    background: white;
+    padding: 25px;
 
     border-radius: 15px;
 
-    padding: 25px;
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.06);
 }
 
-.welcome-box p {
-    color: #7b8496;
-    margin-top: 8px;
+.stat-card span {
+    color: #777;
+}
+
+.stat-card strong {
+    display: block;
+
+    margin-top: 10px;
+
+    font-size: 32px;
 }
 
 
-/* ==============================
-   SECTION HEADER
-============================== */
+/* =========================
+   SECTION
+========================= */
 
 .section-header {
     display: flex;
@@ -517,18 +344,47 @@ button {
 
     align-items: center;
 
-    margin-bottom: 25px;
-}
-
-.section-header p {
-    color: #7b8496;
-    margin-top: 5px;
+    margin-bottom: 20px;
 }
 
 
-/* ==============================
-   PRODUCTS
-============================== */
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+    overflow-x: auto;
+
+    background: white;
+
+    border-radius: 15px;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 13px;
+
+    border-bottom:
+        1px solid #eee;
+
+    text-align: left;
+}
+
+th {
+    background: #071b4b;
+    color: white;
+}
+
+
+/* =========================
+   PRODUCT
+========================= */
 
 .product-grid {
     display: grid;
@@ -536,249 +392,76 @@ button {
     grid-template-columns:
         repeat(
             auto-fill,
-            minmax(
-                240px,
-                1fr
-            )
+            minmax(230px, 1fr)
         );
 
     gap: 20px;
+
+    margin-top: 25px;
 }
 
 .product-card {
     background: white;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
     overflow: hidden;
 
     box-shadow:
         0 5px 20px
-        rgba(
-            0,
-            0,
-            0,
-            .06
-        );
+        rgba(0,0,0,.08);
 }
 
-.product-image {
-    height: 170px;
-
-    background: #e5e7eb;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-}
-
-.product-image img {
+.product-card img {
     width: 100%;
-    height: 100%;
+
+    height: 190px;
 
     object-fit: cover;
 }
 
-.product-no-image {
-    font-size: 40px;
-}
-
 .product-info {
-    padding: 17px;
+    padding: 18px;
 }
 
 .product-info h3 {
-    margin-bottom: 6px;
-}
-
-.category-tag {
-    display: inline-block;
-
-    padding: 4px 8px;
-
-    border-radius: 5px;
-
-    background: #dbeafe;
-
-    color: #1d4ed8;
-
-    font-size: 11px;
-
-    margin-bottom: 10px;
-}
-
-.product-description {
-    color: #7b8496;
-
-    font-size: 13px;
-
-    min-height: 38px;
+    margin-bottom: 8px;
 }
 
 .price {
-    font-size: 21px;
+    font-size: 22px;
 
-    font-weight: 800;
+    font-weight: bold;
 
-    margin-top: 12px;
+    color: #0d63c7;
+
+    margin-top: 10px;
 }
 
 .stock {
-    color: #64748b;
+    color: #777;
 
-    font-size: 12px;
-
-    margin-top: 5px;
-}
-
-.product-actions {
-    display: flex;
-
-    gap: 8px;
-
-    margin-top: 15px;
-}
-
-.edit-btn,
-.delete-btn {
-    flex: 1;
-
-    padding: 9px;
-
-    border: none;
-
-    border-radius: 7px;
-
-    cursor: pointer;
-}
-
-.edit-btn {
-    background: #dbeafe;
-    color: #1d4ed8;
-}
-
-.delete-btn {
-    background: #fee2e2;
-    color: #b91c1c;
+    margin-top: 7px;
 }
 
 
-/* ==============================
-   CATEGORY
-============================== */
+/* =========================
+   CUSTOMER
+========================= */
 
-.category-list {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(
-                220px,
-                1fr
-            )
-        );
-
-    gap: 15px;
+.customer-main {
+    padding: 35px;
 }
 
-.category-card {
-    background: white;
-
-    padding: 18px;
-
-    border-radius: 12px;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-}
-
-.category-card button {
-    border: none;
-
-    background: #fee2e2;
-
-    color: #b91c1c;
-
-    padding: 7px 10px;
-
-    border-radius: 6px;
-
-    cursor: pointer;
+.customer-description {
+    margin-top: 8px;
+    color: #777;
 }
 
 
-/* ==============================
-   TABLE
-============================== */
-
-.table-wrapper {
-    background: white;
-
-    border-radius: 14px;
-
-    overflow-x: auto;
-
-    box-shadow:
-        0 4px 15px
-        rgba(
-            0,
-            0,
-            0,
-            .05
-        );
-}
-
-table {
-    width: 100%;
-
-    border-collapse: collapse;
-
-    min-width: 850px;
-}
-
-th,
-td {
-    padding: 13px 15px;
-
-    border-bottom:
-        1px solid
-        #eef1f5;
-
-    text-align: left;
-
-    font-size: 13px;
-}
-
-th {
-    background: #f8fafc;
-}
-
-.action-badge {
-    display: inline-block;
-
-    padding: 5px 8px;
-
-    background: #e0f2fe;
-
-    color: #0369a1;
-
-    border-radius: 5px;
-
-    font-size: 11px;
-
-    font-weight: 700;
-}
-
-
-/* ==============================
+/* =========================
    MODAL
-============================== */
+========================= */
 
 .modal {
     position: fixed;
@@ -786,12 +469,7 @@ th {
     inset: 0;
 
     background:
-        rgba(
-            15,
-            23,
-            42,
-            .60
-        );
+        rgba(0,0,0,.55);
 
     display: flex;
 
@@ -800,220 +478,71 @@ th {
     align-items: center;
 
     padding: 20px;
-
-    z-index: 100;
 }
 
-.modal-card {
-    width: 100%;
-
-    max-width: 420px;
-
+.modal-box {
     background: white;
 
-    padding: 28px;
+    width: 550px;
 
-    border-radius: 17px;
+    max-width: 100%;
 
     max-height: 90vh;
 
     overflow-y: auto;
+
+    padding: 25px;
+
+    border-radius: 18px;
 }
 
-.modal-card.large {
-    max-width: 550px;
-}
-
-.modal-header {
+.modal-actions {
     display: flex;
 
-    justify-content: space-between;
+    justify-content: flex-end;
 
-    align-items: center;
-
-    margin-bottom: 10px;
-}
-
-.close-btn {
-    border: none;
-
-    background: #f1f5f9;
-
-    width: 35px;
-    height: 35px;
-
-    border-radius: 50%;
-
-    font-size: 20px;
-
-    cursor: pointer;
-}
-
-.otp-icon,
-.warning-icon {
-    text-align: center;
-
-    font-size: 45px;
-
-    margin-bottom: 12px;
-}
-
-.modal-card h2 {
-    text-align: center;
-
-    margin-bottom: 10px;
-}
-
-.modal-card p {
-    text-align: center;
-
-    color: #64748b;
-
-    font-size: 14px;
-}
-
-.otp-input {
-    text-align: center;
-
-    font-size: 25px;
-
-    letter-spacing: 8px;
-
-    margin-top: 20px;
-}
-
-.confirm-buttons {
-    display: flex;
-
-    gap: 10px;
-
-    margin-top: 20px;
-}
-
-.cancel-btn,
-.danger-btn {
-    flex: 1;
-
-    padding: 11px;
-
-    border: none;
-
-    border-radius: 8px;
-
-    cursor: pointer;
-}
-
-.cancel-btn {
-    background: #e5e7eb;
-}
-
-.danger-btn {
-    background: #dc2626;
-    color: white;
+    margin-top: 10px;
 }
 
 
-/* ==============================
-   NOTIFICATION
-============================== */
+/* =========================
+   RESPONSIVE
+========================= */
 
-.notification {
-    position: fixed;
+@media(max-width: 800px) {
 
-    right: 25px;
-    bottom: 25px;
-
-    background: #111827;
-
-    color: white;
-
-    padding: 16px 20px;
-
-    border-radius: 12px;
-
-    min-width: 280px;
-
-    box-shadow:
-        0 10px 30px
-        rgba(
-            0,
-            0,
-            0,
-            .2
-        );
-
-    z-index: 200;
-}
-
-.notification strong,
-.notification span {
-    display: block;
-}
-
-.notification span {
-    margin-top: 4px;
-
-    color: #cbd5e1;
-
-    font-size: 13px;
-}
-
-
-/* ==============================
-   UTILITY
-============================== */
-
-.hidden {
-    display: none !important;
-}
-
-
-/* ==============================
-   MOBILE
-============================== */
-
-@media (
-    max-width: 700px
-) {
-
-    .sidebar {
-        width: 190px;
+    .dashboard-layout {
+        flex-direction: column;
     }
 
-    .content {
-        margin-left: 190px;
+    aside {
+        width: 100%;
 
-        width:
-            calc(
-                100% - 190px
-            );
+        display: flex;
 
-        padding: 20px;
+        overflow-x: auto;
     }
 
-    .brand h1 {
+    aside button {
+        min-width: 150px;
+    }
+
+    main {
+        padding: 18px;
+    }
+}
+
+@media(max-width: 500px) {
+
+    header {
+        padding: 0 10px;
+    }
+
+    .brand-header {
         font-size: 16px;
     }
 
-    .brand span {
-        display: none;
-    }
-
-    .topbar {
-        padding: 0 12px;
-    }
-
-    .connection {
-        display: none;
-    }
-
-    .section-header {
-        align-items: flex-start;
-
-        gap: 15px;
-    }
-
-    .section-header .primary-btn {
-        white-space: nowrap;
+    .login-card {
+        padding: 25px;
     }
 }
