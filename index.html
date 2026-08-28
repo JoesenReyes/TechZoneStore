@@ -10,7 +10,9 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>TechZone Store</title>
+    <title>
+        TechZone Store
+    </title>
 
     <link
         rel="stylesheet"
@@ -20,6 +22,7 @@
 </head>
 
 <body>
+
 
 <!-- =====================================================
      LOGIN PAGE
@@ -33,7 +36,9 @@
             TZ
         </div>
 
-        <h1>TechZone Store</h1>
+        <h1>
+            TechZone Store
+        </h1>
 
         <p class="subtitle">
             Computer & Technology Store
@@ -51,12 +56,14 @@
                 🔐 LOGIN ADMIN
             </button>
 
+
             <button
                 class="btn outline full"
                 onclick="showCustomerLogin()"
             >
                 👤 CUSTOMER LOGIN
             </button>
+
 
             <button
                 class="btn dark full"
@@ -76,9 +83,15 @@
             onsubmit="requestAdminOTP(event)"
         >
 
-            <h2>Admin Login</h2>
+            <h2>
+                Admin Login
+            </h2>
 
-            <label>Admin Gmail</label>
+
+            <label>
+                Admin Gmail
+            </label>
+
 
             <input
                 id="adminEmail"
@@ -87,7 +100,11 @@
                 required
             >
 
-            <label>Password</label>
+
+            <label>
+                Password
+            </label>
+
 
             <input
                 id="adminPassword"
@@ -96,12 +113,14 @@
                 required
             >
 
+
             <button
                 class="btn primary full"
                 type="submit"
             >
                 SEND OTP
             </button>
+
 
             <button
                 type="button"
@@ -122,19 +141,26 @@
             onsubmit="verifyAdminOTP(event)"
         >
 
-            <h2>Admin OTP Verification</h2>
+            <h2>
+                Admin OTP Verification
+            </h2>
+
 
             <p>
-                Check your Gmail for the 6-digit OTP.
+                Check your Gmail for the
+                6-digit OTP.
             </p>
+
 
             <input
                 id="adminOTP"
                 type="text"
                 maxlength="6"
+                inputmode="numeric"
                 placeholder="Enter OTP"
                 required
             >
+
 
             <button
                 class="btn primary full"
@@ -142,6 +168,7 @@
             >
                 VERIFY OTP
             </button>
+
 
             <button
                 type="button"
@@ -162,7 +189,10 @@
             onsubmit="requestCustomerOTP(event)"
         >
 
-            <h2>Customer Login</h2>
+            <h2>
+                Customer Login
+            </h2>
+
 
             <input
                 id="customerLoginEmail"
@@ -171,6 +201,7 @@
                 required
             >
 
+
             <input
                 id="customerLoginPassword"
                 type="password"
@@ -178,12 +209,14 @@
                 required
             >
 
+
             <button
                 class="btn primary full"
                 type="submit"
             >
                 SEND OTP
             </button>
+
 
             <button
                 type="button"
@@ -204,19 +237,25 @@
             onsubmit="verifyCustomerOTP(event)"
         >
 
-            <h2>Customer OTP</h2>
+            <h2>
+                Customer OTP
+            </h2>
+
 
             <p>
                 Check your Gmail for your OTP.
             </p>
 
+
             <input
                 id="customerOTP"
                 type="text"
                 maxlength="6"
+                inputmode="numeric"
                 placeholder="Enter OTP"
                 required
             >
+
 
             <button
                 class="btn primary full"
@@ -224,6 +263,7 @@
             >
                 VERIFY OTP
             </button>
+
 
             <button
                 type="button"
@@ -244,7 +284,10 @@
             onsubmit="requestCustomerRegisterOTP(event)"
         >
 
-            <h2>Create Account</h2>
+            <h2>
+                Create Account
+            </h2>
+
 
             <input
                 id="registerName"
@@ -253,6 +296,7 @@
                 required
             >
 
+
             <input
                 id="registerEmail"
                 type="email"
@@ -260,12 +304,15 @@
                 required
             >
 
+
             <input
                 id="registerPassword"
                 type="password"
                 placeholder="Password"
+                minlength="6"
                 required
             >
+
 
             <button
                 class="btn primary full"
@@ -273,6 +320,7 @@
             >
                 CREATE ACCOUNT
             </button>
+
 
             <button
                 type="button"
@@ -293,25 +341,40 @@
             onsubmit="verifyCustomerRegisterOTP(event)"
         >
 
-            <h2>Verify Gmail</h2>
+            <h2>
+                Verify Gmail
+            </h2>
+
 
             <p>
                 Enter the OTP sent to your Gmail.
             </p>
 
+
             <input
                 id="registerOTP"
                 type="text"
                 maxlength="6"
+                inputmode="numeric"
                 placeholder="6-digit OTP"
                 required
             >
+
 
             <button
                 class="btn primary full"
                 type="submit"
             >
                 VERIFY & CREATE
+            </button>
+
+
+            <button
+                type="button"
+                class="btn back full"
+                onclick="showCustomerRegister()"
+            >
+                BACK
             </button>
 
         </form>
@@ -324,11 +387,15 @@
 </div>
 
 
+
 <!-- =====================================================
      MAIN APP
 ===================================================== -->
 
-<div id="appPage" class="hidden">
+<div
+    id="appPage"
+    class="hidden"
+>
 
     <header>
 
@@ -344,6 +411,7 @@
 
         </div>
 
+
         <div class="header-right">
 
             <span id="currentUser"></span>
@@ -352,6 +420,7 @@
                 id="currentRole"
                 class="role-badge"
             ></span>
+
 
             <button
                 class="logout-btn"
@@ -365,23 +434,37 @@
     </header>
 
 
+
     <div class="dashboard-layout">
 
-        <!-- SIDEBAR -->
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================= -->
 
         <aside>
 
-            <button onclick="showSection('dashboard')">
+
+            <button
+                onclick="showSection('dashboard')"
+            >
                 📊 Dashboard
             </button>
 
-            <button onclick="showSection('products')">
+
+            <button
+                onclick="showSection('products')"
+            >
                 🛒 Products
             </button>
 
-            <button onclick="showSection('categories')">
+
+            <button
+                onclick="showSection('categories')"
+            >
                 🗂 Categories
             </button>
+
 
             <button
                 id="usersMenu"
@@ -390,6 +473,7 @@
                 👥 Customers
             </button>
 
+
             <button
                 id="activityMenu"
                 onclick="showSection('activity')"
@@ -397,12 +481,14 @@
                 📋 Activity Logs
             </button>
 
+
             <button
                 id="deletedMenu"
                 onclick="showSection('deleted')"
             >
                 ♻️ Restore
             </button>
+
 
             <button
                 id="reportsMenu"
@@ -414,12 +500,17 @@
         </aside>
 
 
-        <!-- CONTENT -->
+
+        <!-- =================================================
+             CONTENT
+        ================================================= -->
 
         <main>
 
 
-            <!-- DASHBOARD -->
+            <!-- =================================================
+                 DASHBOARD
+            ================================================= -->
 
             <section
                 id="dashboardSection"
@@ -430,7 +521,9 @@
 
                     <div>
 
-                        <h2>Dashboard</h2>
+                        <h2>
+                            Dashboard
+                        </h2>
 
                         <p>
                             TechZone Store overview
@@ -440,39 +533,84 @@
 
                 </div>
 
+
                 <div class="stats">
 
-                    <div class="stat-card">
-                        <span>Products</span>
-                        <strong id="statProducts">0</strong>
-                    </div>
 
                     <div class="stat-card">
-                        <span>Categories</span>
-                        <strong id="statCategories">0</strong>
+
+                        <span>
+                            Products
+                        </span>
+
+                        <strong id="statProducts">
+                            0
+                        </strong>
+
                     </div>
 
-                    <div class="stat-card">
-                        <span>Customers</span>
-                        <strong id="statCustomers">0</strong>
-                    </div>
 
                     <div class="stat-card">
-                        <span>Total Stock</span>
-                        <strong id="statStock">0</strong>
+
+                        <span>
+                            Categories
+                        </span>
+
+                        <strong id="statCategories">
+                            0
+                        </strong>
+
                     </div>
 
+
                     <div class="stat-card">
-                        <span>Deleted</span>
-                        <strong id="statDeleted">0</strong>
+
+                        <span>
+                            Customers
+                        </span>
+
+                        <strong id="statCustomers">
+                            0
+                        </strong>
+
                     </div>
+
+
+                    <div class="stat-card">
+
+                        <span>
+                            Total Stock
+                        </span>
+
+                        <strong id="statStock">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <span>
+                            Deleted
+                        </span>
+
+                        <strong id="statDeleted">
+                            0
+                        </strong>
+
+                    </div>
+
 
                 </div>
 
             </section>
 
 
-            <!-- PRODUCTS -->
+
+            <!-- =================================================
+                 PRODUCTS
+            ================================================= -->
 
             <section
                 id="productsSection"
@@ -481,13 +619,19 @@
 
                 <div class="section-header">
 
+
                     <div>
-                        <h2>Products</h2>
+
+                        <h2>
+                            Products
+                        </h2>
 
                         <p>
                             Browse TechZone products
                         </p>
+
                     </div>
+
 
                     <button
                         id="addProductButton"
@@ -500,13 +644,16 @@
                 </div>
 
 
+
                 <div class="toolbar">
+
 
                     <input
                         id="productSearch"
                         placeholder="Search product..."
                         oninput="renderProducts()"
                     >
+
 
                     <select
                         id="productCategoryFilter"
@@ -522,6 +669,7 @@
                 </div>
 
 
+
                 <div
                     id="productGrid"
                     class="product-grid"
@@ -530,7 +678,10 @@
             </section>
 
 
-            <!-- CATEGORIES -->
+
+            <!-- =================================================
+                 CATEGORIES
+            ================================================= -->
 
             <section
                 id="categoriesSection"
@@ -539,9 +690,15 @@
 
                 <div class="section-header">
 
+
                     <div>
-                        <h2>Categories</h2>
+
+                        <h2>
+                            Categories
+                        </h2>
+
                     </div>
+
 
                     <button
                         id="addCategoryButton"
@@ -553,6 +710,7 @@
 
                 </div>
 
+
                 <div
                     id="categoryList"
                     class="category-list"
@@ -561,7 +719,10 @@
             </section>
 
 
-            <!-- USERS -->
+
+            <!-- =================================================
+                 USERS
+            ================================================= -->
 
             <section
                 id="usersSection"
@@ -570,9 +731,12 @@
 
                 <div class="section-header">
 
-                    <h2>Customer Accounts</h2>
+                    <h2>
+                        Customer Accounts
+                    </h2>
 
                 </div>
+
 
                 <div class="table-container">
 
@@ -581,17 +745,39 @@
                         <thead>
 
                             <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Verified</th>
-                                <th>Created</th>
-                                <th>Last Login</th>
+
+                                <th>
+                                    Name
+                                </th>
+
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    Role
+                                </th>
+
+                                <th>
+                                    Verified
+                                </th>
+
+                                <th>
+                                    Created
+                                </th>
+
+                                <th>
+                                    Last Login
+                                </th>
+
                             </tr>
 
                         </thead>
 
-                        <tbody id="usersTable"></tbody>
+
+                        <tbody
+                            id="usersTable"
+                        ></tbody>
 
                     </table>
 
@@ -600,7 +786,10 @@
             </section>
 
 
-            <!-- ACTIVITY -->
+
+            <!-- =================================================
+                 ACTIVITY
+            ================================================= -->
 
             <section
                 id="activitySection"
@@ -609,7 +798,11 @@
 
                 <div class="section-header">
 
-                    <h2>Activity Logs</h2>
+
+                    <h2>
+                        Activity Logs
+                    </h2>
+
 
                     <button
                         class="btn outline"
@@ -620,6 +813,7 @@
 
                 </div>
 
+
                 <div class="table-container">
 
                     <table>
@@ -627,17 +821,39 @@
                         <thead>
 
                             <tr>
-                                <th>Date/Time</th>
-                                <th>User</th>
-                                <th>Role</th>
-                                <th>Action</th>
-                                <th>Details</th>
-                                <th>Status</th>
+
+                                <th>
+                                    Date/Time
+                                </th>
+
+                                <th>
+                                    User
+                                </th>
+
+                                <th>
+                                    Role
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                                <th>
+                                    Details
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
                             </tr>
 
                         </thead>
 
-                        <tbody id="activityTable"></tbody>
+
+                        <tbody
+                            id="activityTable"
+                        ></tbody>
 
                     </table>
 
@@ -646,7 +862,10 @@
             </section>
 
 
-            <!-- DELETED -->
+
+            <!-- =================================================
+                 DELETED
+            ================================================= -->
 
             <section
                 id="deletedSection"
@@ -655,9 +874,12 @@
 
                 <div class="section-header">
 
+
                     <div>
 
-                        <h2>Deleted Products</h2>
+                        <h2>
+                            Deleted Products
+                        </h2>
 
                         <p>
                             Restore deleted products
@@ -667,6 +889,7 @@
 
                 </div>
 
+
                 <div
                     id="deletedList"
                     class="product-grid"
@@ -675,7 +898,10 @@
             </section>
 
 
-            <!-- REPORTS -->
+
+            <!-- =================================================
+                 REPORTS
+            ================================================= -->
 
             <section
                 id="reportsSection"
@@ -684,48 +910,95 @@
 
                 <div class="section-header">
 
-                    <h2>Reports</h2>
+                    <h2>
+                        Reports
+                    </h2>
 
                 </div>
 
+
                 <div class="report-card">
 
-                    <h3>Store Summary</h3>
+                    <h3>
+                        Store Summary
+                    </h3>
+
 
                     <p>
+
                         Products:
-                        <strong id="reportProducts">0</strong>
+
+                        <strong
+                            id="reportProducts"
+                        >
+                            0
+                        </strong>
+
                     </p>
 
+
                     <p>
+
                         Categories:
-                        <strong id="reportCategories">0</strong>
+
+                        <strong
+                            id="reportCategories"
+                        >
+                            0
+                        </strong>
+
                     </p>
 
+
                     <p>
+
                         Customers:
-                        <strong id="reportCustomers">0</strong>
+
+                        <strong
+                            id="reportCustomers"
+                        >
+                            0
+                        </strong>
+
                     </p>
 
+
                     <p>
+
                         Total Stock:
-                        <strong id="reportStock">0</strong>
+
+                        <strong
+                            id="reportStock"
+                        >
+                            0
+                        </strong>
+
                     </p>
 
+
                     <p>
+
                         Deleted Products:
-                        <strong id="reportDeleted">0</strong>
+
+                        <strong
+                            id="reportDeleted"
+                        >
+                            0
+                        </strong>
+
                     </p>
 
                 </div>
 
             </section>
 
+
         </main>
 
     </div>
 
 </div>
+
 
 
 <!-- =====================================================
@@ -739,34 +1012,54 @@
 
     <div class="modal-box">
 
+
         <h2 id="productModalTitle">
             Add Product
         </h2>
+
 
         <input
             type="hidden"
             id="productId"
         >
 
-        <label>Product Name</label>
+
+        <label>
+            Product Name
+        </label>
+
 
         <input
             id="productName"
             placeholder="Product name"
         >
 
-        <label>Category</label>
 
-        <select id="productCategory"></select>
+        <label>
+            Category
+        </label>
 
-        <label>Description</label>
+
+        <select
+            id="productCategory"
+        ></select>
+
+
+        <label>
+            Description
+        </label>
+
 
         <textarea
             id="productDescription"
             placeholder="Product description"
         ></textarea>
 
-        <label>Price</label>
+
+        <label>
+            Price
+        </label>
+
 
         <input
             id="productPrice"
@@ -775,7 +1068,11 @@
             step="0.01"
         >
 
-        <label>Stock</label>
+
+        <label>
+            Stock
+        </label>
+
 
         <input
             id="productStock"
@@ -783,14 +1080,20 @@
             min="0"
         >
 
-        <label>Image URL</label>
+
+        <label>
+            Image URL
+        </label>
+
 
         <input
             id="productImage"
             placeholder="https://..."
         >
 
+
         <div class="modal-actions">
+
 
             <button
                 class="btn back"
@@ -799,6 +1102,7 @@
                 CANCEL
             </button>
 
+
             <button
                 class="btn primary"
                 onclick="saveProduct()"
@@ -806,11 +1110,13 @@
                 SAVE
             </button>
 
+
         </div>
 
     </div>
 
 </div>
+
 
 
 <!-- =====================================================
@@ -824,14 +1130,20 @@
 
     <div class="modal-box">
 
-        <h2>Add Category</h2>
+
+        <h2>
+            Add Category
+        </h2>
+
 
         <input
             id="categoryName"
             placeholder="Category name"
         >
 
+
         <div class="modal-actions">
+
 
             <button
                 class="btn back"
@@ -840,6 +1152,7 @@
                 CANCEL
             </button>
 
+
             <button
                 class="btn primary"
                 onclick="saveCategory()"
@@ -847,11 +1160,13 @@
                 SAVE
             </button>
 
+
         </div>
 
     </div>
 
 </div>
+
 
 
 <!-- =====================================================
@@ -865,11 +1180,16 @@
 
     <div class="modal-box small">
 
-        <h2>Admin Passcode</h2>
+
+        <h2>
+            Admin Passcode
+        </h2>
+
 
         <p>
             Enter the admin passcode to continue.
         </p>
+
 
         <input
             id="adminPasscode"
@@ -877,7 +1197,9 @@
             placeholder="Passcode"
         >
 
+
         <div class="modal-actions">
+
 
             <button
                 class="btn back"
@@ -886,12 +1208,14 @@
                 CANCEL
             </button>
 
+
             <button
                 class="btn primary"
                 onclick="submitPasscode()"
             >
                 CONTINUE
             </button>
+
 
         </div>
 
@@ -900,7 +1224,9 @@
 </div>
 
 
+
 <script src="script.js"></script>
 
 </body>
+
 </html>
