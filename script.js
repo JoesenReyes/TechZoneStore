@@ -1,270 +1,452 @@
-// =====================================================
-// TECHZONE STORE - SCRIPT.JS
-// =====================================================
+/* ==========================================
+   IMPORTANT:
+   PUT YOUR DEPLOYED APPS SCRIPT URL HERE
+========================================== */
 
-// AFTER DEPLOYING GOOGLE APPS SCRIPT,
-// REPLACE THIS URL WITH YOUR WEB APP URL.
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbyDVrmpO-EcJFwcqXj8_zzGJb1Pzp59WyOfAhX31miQIpK9TgNvS7YM8g_iOdayB6wSWQ/exec";
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyDVrmpO-EcJFwcqXj8_zzGJb1Pzp59WyOfAhX31miQIpK9TgNvS7YM8g_iOdayB6wSWQ/exec";
 
 let currentUser = null;
+
 let currentRole = null;
+
 let pendingEmail = null;
 
 
-/* ================================
-   GOOGLE APPS SCRIPT CALL
-================================ */
+/* ==========================================
+   API REQUEST
+========================================== */
 
-function server(functionName, ...args) {
+async function server(
+  action,
+  data = {}
+) {
 
-  return new Promise((resolve, reject) => {
+  try {
 
-    google.script.run
-      .withSuccessHandler(resolve)
-      .withFailureHandler(reject)
-      [functionName](...args);
+    const response =
+      await fetch(
+        API_URL,
+        {
 
-  });
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body: JSON.stringify({
+
+            action:
+              action,
+
+            ...data
+
+          })
+
+        }
+      );
+
+
+    const result =
+      await response.json();
+
+
+    return result;
+
+
+  } catch (error) {
+
+    console.error(error);
+
+
+    return {
+
+      success: false,
+
+      message:
+        "Cannot connect to TechZone Store server."
+
+    };
+
+  }
 
 }
 
 
-/* ================================
+/* ==========================================
    TOAST
-================================ */
+========================================== */
 
-function toast(message) {
+function toast(
+  message
+) {
 
   const container =
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
 
-  const div =
-    document.createElement("div");
 
-  div.className = "toast";
+  const element =
+    document.createElement(
+      "div"
+    );
 
-  div.innerText = message;
 
-  container.appendChild(div);
+  element.className =
+    "toast-message";
 
-  setTimeout(() => {
-    div.remove();
-  }, 3000);
+
+  element.textContent =
+    message;
+
+
+  container.appendChild(
+    element
+  );
+
+
+  setTimeout(
+    function() {
+
+      element.remove();
+
+    },
+    3000
+  );
 
 }
 
 
-/* ================================
+/* ==========================================
    LOGIN
-================================ */
+========================================== */
 
 async function login() {
 
   const email =
-    document.getElementById("loginEmail").value;
+    document
+      .getElementById(
+        "loginEmail"
+      )
+      .value
+      .trim();
+
 
   const password =
-    document.getElementById("loginPassword").value;
+    document
+      .getElementById(
+        "loginPassword"
+      )
+      .value;
+
 
   if (!email || !password) {
 
-    toast("Please enter email and password.");
+    toast(
+      "Please enter your Gmail and password."
+    );
 
     return;
 
   }
 
-  try {
 
-    const result =
-      await server(
-        "login",
-        email,
-        password
-      );
+  const result =
+    await server(
+      "login",
+      {
 
-    if (!result.success) {
+        email:
+          email,
 
-      toast(result.message);
+        password:
+          password
 
-      return;
+      }
+    );
 
-    }
 
-    pendingEmail = result.email;
+  if (!result.success) {
 
-    currentRole = result.role;
+    toast(
+      result.message
+    );
 
-    showPage("otpPage");
-
-    toast(result.message);
-
-  } catch (error) {
-
-    toast(error.message);
+    return;
 
   }
+
+
+  pendingEmail =
+    result.email;
+
+
+  currentRole =
+    result.role;
+
+
+  showPage(
+    "otpPage"
+  );
+
+
+  toast(
+    result.message
+  );
 
 }
 
 
-/* ================================
+/* ==========================================
    VERIFY OTP
-================================ */
+========================================== */
 
 async function verifyOTP() {
 
   const otp =
-    document.getElementById("otpInput").value;
+    document
+      .getElementById(
+        "otpInput"
+      )
+      .value
+      .trim();
+
 
   if (otp.length !== 6) {
 
-    toast("Enter the 6-digit OTP.");
+    toast(
+      "Enter the 6-digit OTP."
+    );
 
     return;
 
   }
 
-  try {
 
-    const result =
-      await server(
-        "verifyOTP",
-        pendingEmail,
-        otp
-      );
+  const result =
+    await server(
+      "verifyOTP",
+      {
 
-    if (!result.success) {
+        email:
+          pendingEmail,
 
-      toast(result.message);
+        otp:
+          otp
 
-      return;
+      }
+    );
 
-    }
 
-    currentUser = result.email;
+  if (!result.success) {
 
-    currentRole = result.role;
+    toast(
+      result.message
+    );
 
-    document.getElementById(
+    return;
+
+  }
+
+
+  currentUser =
+    result.email;
+
+
+  currentRole =
+    result.role;
+
+
+  document
+    .getElementById(
       "currentUser"
-    ).innerText = currentUser;
+    )
+    .textContent =
+    currentUser;
 
-    document.getElementById(
+
+  document
+    .getElementById(
       "currentRole"
-    ).innerText =
-      " | " + currentRole;
+    )
+    .textContent =
+    currentRole;
 
-    document.getElementById(
-      "customerEmail"
-    ).innerText = currentUser;
 
-    document.getElementById(
-      "customerRole"
-    ).innerText = currentRole;
-
-    document.getElementById(
+  document
+    .getElementById(
       "dashboardRole"
-    ).innerText = currentRole;
+    )
+    .textContent =
+    currentRole;
 
-    showPage("dashboard");
 
-    configureRole();
+  showPage(
+    "dashboard"
+  );
 
-    loadProducts();
 
-    loadCategories();
+  configureRole();
 
-  } catch (error) {
 
-    toast(error.message);
+  await loadProducts();
+
+  await loadCategories();
+
+
+  if (
+    currentRole ===
+    "Admin"
+  ) {
+
+    await loadCustomers();
+
+    await loadLogs();
 
   }
 
 }
 
 
-/* ================================
+/* ==========================================
    REGISTER
-================================ */
+========================================== */
 
 async function register() {
 
   const name =
-    document.getElementById("regName").value;
+    document
+      .getElementById(
+        "regName"
+      )
+      .value
+      .trim();
+
 
   const email =
-    document.getElementById("regEmail").value;
+    document
+      .getElementById(
+        "regEmail"
+      )
+      .value
+      .trim();
+
 
   const password =
-    document.getElementById("regPassword").value;
+    document
+      .getElementById(
+        "regPassword"
+      )
+      .value;
+
 
   const confirm =
-    document.getElementById("regConfirm").value;
+    document
+      .getElementById(
+        "regConfirm"
+      )
+      .value;
 
-  if (!name || !email || !password) {
 
-    toast("Please complete all fields.");
+  if (
+    !name ||
+    !email ||
+    !password ||
+    !confirm
+  ) {
 
-    return;
-
-  }
-
-  if (password !== confirm) {
-
-    toast("Passwords do not match.");
-
-    return;
-
-  }
-
-  if (password.length < 6) {
-
-    toast("Password must be at least 6 characters.");
+    toast(
+      "Please complete all fields."
+    );
 
     return;
 
   }
 
-  try {
 
-    const result =
-      await server(
-        "registerCustomer",
-        name,
-        email,
-        password
-      );
+  if (
+    password !==
+    confirm
+  ) {
 
-    if (!result.success) {
+    toast(
+      "Passwords do not match."
+    );
 
-      toast(result.message);
-
-      return;
-
-    }
-
-    pendingEmail = result.email;
-
-    currentRole = "Customer";
-
-    showPage("otpPage");
-
-    toast(result.message);
-
-  } catch (error) {
-
-    toast(error.message);
+    return;
 
   }
+
+
+  if (
+    password.length < 6
+  ) {
+
+    toast(
+      "Password must be at least 6 characters."
+    );
+
+    return;
+
+  }
+
+
+  const result =
+    await server(
+      "register",
+      {
+
+        name:
+          name,
+
+        email:
+          email,
+
+        password:
+          password
+
+      }
+    );
+
+
+  if (!result.success) {
+
+    toast(
+      result.message
+    );
+
+    return;
+
+  }
+
+
+  pendingEmail =
+    result.email;
+
+
+  currentRole =
+    "Customer";
+
+
+  showPage(
+    "otpPage"
+  );
+
+
+  toast(
+    result.message
+  );
 
 }
 
 
-/* ================================
+/* ==========================================
    ROLE CONTROL
-================================ */
+========================================== */
 
 function configureRole() {
 
@@ -273,456 +455,832 @@ function configureRole() {
       "addProductButton"
     );
 
+
   const logsButton =
     document.getElementById(
       "logsButton"
     );
 
-  if (currentRole === "Admin") {
 
-    addButton.style.display = "block";
+  const customersButton =
+    document.querySelector(
+      "button[onclick=\"showFeature('customersFeature')\"]"
+    );
 
-    logsButton.style.display = "block";
+
+  if (
+    currentRole ===
+    "Admin"
+  ) {
+
+    addButton.style.display =
+      "block";
+
+    logsButton.style.display =
+      "block";
+
+    customersButton.style.display =
+      "block";
 
   } else {
 
-    addButton.style.display = "none";
+    addButton.style.display =
+      "none";
 
-    logsButton.style.display = "none";
+    logsButton.style.display =
+      "none";
+
+    customersButton.style.display =
+      "none";
 
   }
 
 }
 
 
-/* ================================
-   LOAD PRODUCTS
-================================ */
+/* ==========================================
+   PRODUCTS
+========================================== */
 
 async function loadProducts() {
 
-  try {
+  const result =
+    await server(
+      "products"
+    );
 
-    const products =
-      await server("getProducts");
 
-    const container =
-      document.getElementById(
-        "productsContainer"
-      );
+  if (
+    !Array.isArray(result)
+  ) {
 
-    container.innerHTML = "";
+    toast(
+      result.message ||
+      "Cannot load products."
+    );
 
+    return;
+
+  }
+
+
+  const container =
     document.getElementById(
-      "totalProducts"
-    ).innerText = products.length;
+      "productsContainer"
+    );
 
-    document.getElementById(
-      "reportProducts"
-    ).innerText = products.length;
 
-    products.forEach(product => {
+  container.innerHTML =
+    "";
 
-      const div =
-        document.createElement("div");
 
-      div.className = "product";
+  document.getElementById(
+    "totalProducts"
+  ).textContent =
+    result.length;
+
+
+  document.getElementById(
+    "reportProducts"
+  ).textContent =
+    result.length;
+
+
+  result.forEach(
+    function(product) {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "product-card";
+
 
       const image =
         product.image ||
-        "https://via.placeholder.com/500x300?text=TechZone";
+        "https://via.placeholder.com/500x350?text=TechZone+Store";
 
-      div.innerHTML = `
 
-        <img src="${image}">
+      card.innerHTML = `
 
-        <h3>${escapeHTML(product.name)}</h3>
+        <img
+          class="product-image"
+          src="${escapeHTML(image)}"
+          alt="${escapeHTML(product.name)}"
+        >
 
-        <p>${escapeHTML(product.category)}</p>
+        <div class="product-body">
 
-        <div class="price">
-          ₱${Number(product.price).toLocaleString()}
+          <h3>
+            ${escapeHTML(product.name)}
+          </h3>
+
+          <div class="product-category">
+            ${escapeHTML(product.category)}
+          </div>
+
+          <div class="product-price">
+            ₱${Number(product.price).toLocaleString()}
+          </div>
+
+          <div class="product-stock">
+            Stock:
+            ${escapeHTML(product.stock)}
+          </div>
+
+          <p style="margin-top:10px;color:#64748b">
+            ${escapeHTML(product.description || "")}
+          </p>
+
         </div>
-
-        <p>
-          Stock: ${product.stock}
-        </p>
-
-        <p>
-          ${escapeHTML(product.description || "")}
-        </p>
 
       `;
 
-      if (currentRole === "Admin") {
+
+      if (
+        currentRole ===
+        "Admin"
+      ) {
 
         const actions =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
+
 
         actions.className =
           "product-actions";
 
+
         actions.innerHTML = `
 
-          <button class="edit-btn">
+          <button
+            class="edit-btn"
+          >
             Update
           </button>
 
-          <button class="delete-btn">
+          <button
+            class="delete-btn"
+          >
             Delete
           </button>
 
         `;
 
-        actions
-          .querySelector(".edit-btn")
-          .onclick = () =>
-            editProduct(product);
 
         actions
-          .querySelector(".delete-btn")
-          .onclick = () =>
-            removeProduct(product.id);
+          .querySelector(
+            ".edit-btn"
+          )
+          .onclick =
+          function() {
 
-        div.appendChild(actions);
+            editProduct(
+              product
+            );
+
+          };
+
+
+        actions
+          .querySelector(
+            ".delete-btn"
+          )
+          .onclick =
+          function() {
+
+            removeProduct(
+              product.id
+            );
+
+          };
+
+
+        card
+          .querySelector(
+            ".product-body"
+          )
+          .appendChild(
+            actions
+          );
 
       }
 
-      container.appendChild(div);
 
-    });
+      container.appendChild(
+        card
+      );
 
-  } catch (error) {
-
-    toast(error.message);
-
-  }
+    }
+  );
 
 }
 
 
-/* ================================
-   LOAD CATEGORIES
-================================ */
+/* ==========================================
+   CATEGORIES
+========================================== */
 
 async function loadCategories() {
 
-  try {
-
-    const categories =
-      await server("getCategories");
-
-    document.getElementById(
-      "totalCategories"
-    ).innerText = categories.length;
-
-    document.getElementById(
-      "reportCategories"
-    ).innerText = categories.length;
-
-    const container =
-      document.getElementById(
-        "categoriesContainer"
-      );
-
-    const select =
-      document.getElementById(
-        "productCategory"
-      );
-
-    container.innerHTML = "";
-
-    select.innerHTML = "";
-
-    categories.forEach(category => {
-
-      const div =
-        document.createElement("div");
-
-      div.className = "category";
-
-      div.innerText =
-        "🏷 " + category.name;
-
-      container.appendChild(div);
-
-      const option =
-        document.createElement("option");
-
-      option.value =
-        category.name;
-
-      option.textContent =
-        category.name;
-
-      select.appendChild(option);
-
-    });
-
-  } catch (error) {
-
-    toast(error.message);
-
-  }
-
-}
+  const result =
+    await server(
+      "categories"
+    );
 
 
-/* ================================
-   ADD / UPDATE PRODUCT
-================================ */
+  if (
+    !Array.isArray(result)
+  ) {
 
-function openProductModal(product = null) {
-
-  if (currentRole !== "Admin") {
-
-    toast("Admin only.");
+    toast(
+      "Cannot load categories."
+    );
 
     return;
 
   }
 
+
   document.getElementById(
-    "productModal"
-  ).classList.remove("hidden");
+    "totalCategories"
+  ).textContent =
+    result.length;
+
+
+  document.getElementById(
+    "reportCategories"
+  ).textContent =
+    result.length;
+
+
+  const container =
+    document.getElementById(
+      "categoriesContainer"
+    );
+
+
+  const select =
+    document.getElementById(
+      "productCategory"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  select.innerHTML =
+    "";
+
+
+  result.forEach(
+    function(category) {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "category-card";
+
+
+      card.innerHTML = `
+
+        <div style="font-size:30px">
+          🏷️
+        </div>
+
+        <strong>
+          ${escapeHTML(category.name)}
+        </strong>
+
+      `;
+
+
+      container.appendChild(
+        card
+      );
+
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        category.name;
+
+
+      option.textContent =
+        category.name;
+
+
+      select.appendChild(
+        option
+      );
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   CUSTOMERS
+========================================== */
+
+async function loadCustomers() {
+
+  if (
+    currentRole !==
+    "Admin"
+  ) return;
+
+
+  const result =
+    await server(
+      "customers",
+      {
+        email:
+          currentUser
+      }
+    );
+
+
+  if (
+    !Array.isArray(result)
+  ) {
+
+    return;
+
+  }
+
+
+  const container =
+    document.getElementById(
+      "customersContainer"
+    );
+
+
+  container.innerHTML = "";
+
+
+  const header =
+    document.createElement(
+      "div"
+    );
+
+
+  header.className =
+    "customer-row customer-header";
+
+
+  header.innerHTML = `
+
+    <div>Name</div>
+    <div>Email</div>
+    <div>Role</div>
+    <div>Status</div>
+
+  `;
+
+
+  container.appendChild(
+    header
+  );
+
+
+  result.forEach(
+    function(customer) {
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "customer-row";
+
+
+      row.innerHTML = `
+
+        <div>
+          ${escapeHTML(customer.name)}
+        </div>
+
+        <div>
+          ${escapeHTML(customer.email)}
+        </div>
+
+        <div>
+          ${escapeHTML(customer.role)}
+        </div>
+
+        <div>
+          ${escapeHTML(customer.status)}
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   PRODUCT MODAL
+========================================== */
+
+function openProductModal(
+  product = null
+) {
+
+  if (
+    currentRole !==
+    "Admin"
+  ) {
+
+    toast(
+      "Admin only."
+    );
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "productModal"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
 
   if (product) {
 
     document.getElementById(
       "modalTitle"
-    ).innerText = "Update Product";
+    ).textContent =
+      "Update Product";
+
 
     document.getElementById(
       "productId"
-    ).value = product.id;
+    ).value =
+      product.id;
+
 
     document.getElementById(
       "productName"
-    ).value = product.name;
+    ).value =
+      product.name;
+
 
     document.getElementById(
       "productCategory"
-    ).value = product.category;
+    ).value =
+      product.category;
+
 
     document.getElementById(
       "productPrice"
-    ).value = product.price;
+    ).value =
+      product.price;
+
 
     document.getElementById(
       "productStock"
-    ).value = product.stock;
+    ).value =
+      product.stock;
+
 
     document.getElementById(
       "productDescription"
-    ).value = product.description;
+    ).value =
+      product.description || "";
+
 
     document.getElementById(
       "productImage"
-    ).value = product.image;
+    ).value =
+      product.image || "";
 
   } else {
 
     document.getElementById(
       "modalTitle"
-    ).innerText = "Add Product";
+    ).textContent =
+      "Add Product";
+
 
     document.getElementById(
       "productId"
-    ).value = "";
+    ).value =
+      "";
+
 
     document.getElementById(
       "productName"
-    ).value = "";
+    ).value =
+      "";
+
 
     document.getElementById(
       "productPrice"
-    ).value = "";
+    ).value =
+      "";
+
 
     document.getElementById(
       "productStock"
-    ).value = "";
+    ).value =
+      "";
+
 
     document.getElementById(
       "productDescription"
-    ).value = "";
+    ).value =
+      "";
+
 
     document.getElementById(
       "productImage"
-    ).value = "";
+    ).value =
+      "";
 
   }
 
 }
 
 
+/* ==========================================
+   CLOSE MODAL
+========================================== */
+
 function closeProductModal() {
 
-  document.getElementById(
-    "productModal"
-  ).classList.add("hidden");
+  document
+    .getElementById(
+      "productModal"
+    )
+    .classList.add(
+      "hidden"
+    );
 
 }
 
 
-/* ================================
+/* ==========================================
    SAVE PRODUCT
-================================ */
+========================================== */
 
 async function saveProduct() {
 
-  if (currentRole !== "Admin") {
+  if (
+    currentRole !==
+    "Admin"
+  ) {
 
-    toast("Only Admin can modify products.");
+    toast(
+      "Admin only."
+    );
 
     return;
 
   }
 
+
   const id =
-    document.getElementById(
-      "productId"
-    ).value;
+    document
+      .getElementById(
+        "productId"
+      )
+      .value;
+
 
   const product = {
 
-    id: id,
+    id:
+      id,
 
     name:
-      document.getElementById(
-        "productName"
-      ).value,
+      document
+        .getElementById(
+          "productName"
+        )
+        .value
+        .trim(),
 
     category:
-      document.getElementById(
-        "productCategory"
-      ).value,
+      document
+        .getElementById(
+          "productCategory"
+        )
+        .value,
 
     price:
-      document.getElementById(
-        "productPrice"
-      ).value,
+      document
+        .getElementById(
+          "productPrice"
+        )
+        .value,
 
     stock:
-      document.getElementById(
-        "productStock"
-      ).value,
+      document
+        .getElementById(
+          "productStock"
+        )
+        .value,
 
     description:
-      document.getElementById(
-        "productDescription"
-      ).value,
+      document
+        .getElementById(
+          "productDescription"
+        )
+        .value,
 
     image:
-      document.getElementById(
-        "productImage"
-      ).value
+      document
+        .getElementById(
+          "productImage"
+        )
+        .value
+        .trim()
 
   };
 
 
-  if (!product.name || !product.price) {
+  if (
+    !product.name ||
+    !product.price
+  ) {
 
-    toast("Product name and price are required.");
-
-    return;
-
-  }
-
-
-  const action =
-    id ? "update" : "add";
-
-
-  const confirmed =
-    confirm(
-      action === "add"
-        ? "Are you sure you want to ADD this product?"
-        : "Are you sure you want to UPDATE this product?"
+    toast(
+      "Product name and price are required."
     );
 
-
-  if (!confirmed) return;
-
-
-  try {
-
-    let result;
-
-    if (id) {
-
-      result =
-        await server(
-          "updateProduct",
-          product,
-          currentUser
-        );
-
-    } else {
-
-      result =
-        await server(
-          "addProduct",
-          product,
-          currentUser
-        );
-
-    }
-
-
-    if (!result.success) {
-
-      toast(result.message);
-
-      return;
-
-    }
-
-
-    toast(result.message);
-
-    closeProductModal();
-
-    loadProducts();
-
-    loadLogs();
-
-  } catch (error) {
-
-    toast(error.message);
+    return;
 
   }
 
-}
+
+  let confirmed;
 
 
-/* ================================
-   EDIT PRODUCT
-================================ */
+  if (id) {
 
-function editProduct(product) {
+    confirmed =
+      confirm(
+        "Are you sure you want to UPDATE this product?"
+      );
 
-  if (currentRole !== "Admin") {
+  } else {
 
-    toast("Admin only.");
+    confirmed =
+      confirm(
+        "Are you sure you want to ADD this product?"
+      );
+
+  }
+
+
+  if (!confirmed) {
+
+    toast(
+      "Action cancelled."
+    );
 
     return;
 
   }
 
-  openProductModal(product);
+
+  let result;
+
+
+  if (id) {
+
+    result =
+      await server(
+        "updateProduct",
+        {
+
+          product:
+            product,
+
+          email:
+            currentUser
+
+        }
+      );
+
+  } else {
+
+    result =
+      await server(
+        "addProduct",
+        {
+
+          product:
+            product,
+
+          email:
+            currentUser
+
+        }
+      );
+
+  }
+
+
+  if (!result.success) {
+
+    toast(
+      result.message
+    );
+
+    return;
+
+  }
+
+
+  closeProductModal();
+
+
+  toast(
+    result.message
+  );
+
+
+  await loadProducts();
+
+  await loadLogs();
 
 }
 
 
-/* ================================
-   DELETE PRODUCT
-================================ */
+/* ==========================================
+   EDIT
+========================================== */
 
-async function removeProduct(productId) {
+function editProduct(
+  product
+) {
 
-  if (currentRole !== "Admin") {
+  if (
+    currentRole !==
+    "Admin"
+  ) {
 
-    toast("Admin only.");
+    toast(
+      "Admin only."
+    );
+
+    return;
+
+  }
+
+
+  openProductModal(
+    product
+  );
+
+}
+
+
+/* ==========================================
+   DELETE
+========================================== */
+
+async function removeProduct(
+  productId
+) {
+
+  if (
+    currentRole !==
+    "Admin"
+  ) {
+
+    toast(
+      "Admin only."
+    );
 
     return;
 
@@ -737,128 +1295,161 @@ async function removeProduct(productId) {
 
   if (!confirmed) {
 
-    toast("Delete cancelled.");
+    toast(
+      "Delete cancelled."
+    );
 
     return;
 
   }
 
 
-  try {
+  const result =
+    await server(
+      "deleteProduct",
+      {
 
-    const result =
-      await server(
-        "deleteProduct",
-        productId,
-        currentUser
-      );
+        productId:
+          productId,
 
+        email:
+          currentUser
 
-    if (!result.success) {
-
-      toast(result.message);
-
-      return;
-
-    }
+      }
+    );
 
 
-    toast("Product deleted successfully.");
+  if (!result.success) {
 
-    loadProducts();
+    toast(
+      result.message
+    );
 
-    loadLogs();
-
-  } catch (error) {
-
-    toast(error.message);
+    return;
 
   }
+
+
+  toast(
+    "Product deleted successfully."
+  );
+
+
+  await loadProducts();
+
+  await loadLogs();
 
 }
 
 
-/* ================================
+/* ==========================================
    ACTIVITY LOGS
-================================ */
+========================================== */
 
 async function loadLogs() {
 
-  if (currentRole !== "Admin") return;
+  if (
+    currentRole !==
+    "Admin"
+  ) return;
 
-  try {
 
-    const logs =
-      await server(
-        "getActivityLogs",
-        currentUser
-      );
+  const result =
+    await server(
+      "activityLogs",
+      {
 
-    const container =
-      document.getElementById(
-        "logsContainer"
-      );
+        email:
+          currentUser
 
-    container.innerHTML = "";
+      }
+    );
 
-    if (!Array.isArray(logs)) {
 
-      container.innerText =
-        logs.message || "No logs.";
+  if (
+    !Array.isArray(result)
+  ) {
 
-      return;
+    return;
 
-    }
+  }
 
-    logs.forEach(log => {
 
-      const div =
-        document.createElement("div");
+  const container =
+    document.getElementById(
+      "logsContainer"
+    );
 
-      div.className = "log";
 
-      div.innerHTML = `
+  container.innerHTML =
+    "";
+
+
+  if (
+    result.length === 0
+  ) {
+
+    container.innerHTML =
+      "<p>No activity logs yet.</p>";
+
+    return;
+
+  }
+
+
+  result.forEach(
+    function(log) {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "log-card";
+
+
+      card.innerHTML = `
 
         <div class="log-action">
           ${escapeHTML(log.action)}
         </div>
 
-        <div>
+        <div class="log-details">
           ${escapeHTML(log.details)}
         </div>
 
-        <div>
+        <div class="log-meta">
+
           User:
           ${escapeHTML(log.email)}
-        </div>
 
-        <div>
+          |
           Role:
           ${escapeHTML(log.role)}
-        </div>
 
-        <small>
+          |
           ${escapeHTML(String(log.date))}
-        </small>
+
+        </div>
 
       `;
 
-      container.appendChild(div);
 
-    });
+      container.appendChild(
+        card
+      );
 
-  } catch (error) {
-
-    toast(error.message);
-
-  }
+    }
+  );
 
 }
 
 
-/* ================================
+/* ==========================================
    LOGOUT
-================================ */
+========================================== */
 
 async function logout() {
 
@@ -867,105 +1458,222 @@ async function logout() {
       "Are you sure you want to logout?"
     );
 
+
   if (!confirmed) {
 
-    toast("Logout cancelled.");
+    toast(
+      "Logout cancelled."
+    );
 
     return;
 
   }
 
-  try {
 
-    await server(
-      "logout",
-      currentUser,
-      currentRole
+  await server(
+    "logout",
+    {
+
+      email:
+        currentUser,
+
+      role:
+        currentRole
+
+    }
+  );
+
+
+  currentUser =
+    null;
+
+
+  currentRole =
+    null;
+
+
+  pendingEmail =
+    null;
+
+
+  document
+    .getElementById(
+      "loginEmail"
+    )
+    .value =
+    "";
+
+
+  document
+    .getElementById(
+      "loginPassword"
+    )
+    .value =
+    "";
+
+
+  showPage(
+    "loginPage"
+  );
+
+
+  toast(
+    "Successfully logged out."
+  );
+
+}
+
+
+/* ==========================================
+   PAGE
+========================================== */
+
+function showPage(
+  pageId
+) {
+
+  document
+    .querySelectorAll(
+      ".auth-page, #dashboard"
+    )
+    .forEach(
+      function(element) {
+
+        element.classList.add(
+          "hidden"
+        );
+
+      }
     );
 
-  } catch (error) {}
 
-  currentUser = null;
-  currentRole = null;
-  pendingEmail = null;
-
-  showPage("loginPage");
-
-  toast("You have been logged out.");
+  document
+    .getElementById(
+      pageId
+    )
+    .classList.remove(
+      "hidden"
+    );
 
 }
 
 
-/* ================================
-   PAGE NAVIGATION
-================================ */
-
-function showPage(pageId) {
-
-  document
-    .querySelectorAll(".page, #dashboard")
-    .forEach(element => {
-
-      element.classList.add("hidden");
-
-    });
-
-  document
-    .getElementById(pageId)
-    .classList.remove("hidden");
-
-}
-
+/* ==========================================
+   REGISTER / LOGIN PAGE
+========================================== */
 
 function showLogin() {
 
-  showPage("loginPage");
+  showPage(
+    "loginPage"
+  );
 
 }
 
 
 function showRegister() {
 
-  showPage("registerPage");
+  showPage(
+    "registerPage"
+  );
 
 }
 
 
-function showFeature(featureId) {
+/* ==========================================
+   FEATURES
+========================================== */
+
+function showFeature(
+  featureId
+) {
 
   document
-    .querySelectorAll(".feature")
-    .forEach(feature => {
+    .querySelectorAll(
+      ".feature"
+    )
+    .forEach(
+      function(feature) {
 
-      feature.classList.add("hidden");
+        feature.classList.add(
+          "hidden"
+        );
 
-    });
-
-  document
-    .getElementById(featureId)
-    .classList.remove("hidden");
+      }
+    );
 
 
-  if (featureId === "logsFeature") {
+  const feature =
+    document.getElementById(
+      featureId
+    );
+
+
+  if (!feature) return;
+
+
+  feature.classList.remove(
+    "hidden"
+  );
+
+
+  if (
+    featureId ===
+    "logsFeature"
+  ) {
 
     loadLogs();
+
+  }
+
+
+  if (
+    featureId ===
+    "customersFeature"
+  ) {
+
+    loadCustomers();
 
   }
 
 }
 
 
-/* ================================
+/* ==========================================
    ESCAPE HTML
-================================ */
+========================================== */
 
-function escapeHTML(value) {
+function escapeHTML(
+  value
+) {
 
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+  return String(
+    value ?? ""
+  )
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
