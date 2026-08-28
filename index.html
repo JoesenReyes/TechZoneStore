@@ -1,932 +1,726 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
-    <meta charset="UTF-8">
+  <base target="_top">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-    <title>TechZone Store</title>
+  <title>TechZone Store</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css">
+  <?!= include("style"); ?>
 
 </head>
 
 <body>
 
-<!-- =========================
-     LOGIN PAGE
-========================= -->
+<!-- =================================================
+     LOGIN
+================================================= -->
 
-<div id="loginPage" class="auth-page">
+<div id="loginPage" class="page">
 
-    <div class="auth-card">
+  <div class="login-card">
 
-        <div class="logo">
-            <div class="logo-icon">TZ</div>
-        </div>
+    <div class="logo-box">
+      💻
+    </div>
 
-        <h1>TechZone Store</h1>
+    <h1>TechZone Store</h1>
 
-        <p class="subtitle">
-            Computer & Technology Store
-        </p>
+    <p class="subtitle">
+      Computer & Technology Store
+    </p>
 
-        <div id="loginMessage"></div>
+
+    <!-- CUSTOMER LOGIN -->
+
+    <div id="customerLogin">
+
+      <input
+        id="customerName"
+        type="text"
+        placeholder="Your Name">
+
+      <input
+        id="customerEmail"
+        type="email"
+        placeholder="Your Email">
+
+      <button
+        class="primary-btn"
+        onclick="customerLogin()">
+
+        Customer Login
+
+      </button>
+
+
+      <div class="divider">
+        OR
+      </div>
+
+
+      <button
+        class="secondary-btn"
+        onclick="showAdminLogin()">
+
+        🔐 Admin Login
+
+      </button>
+
+    </div>
+
+
+    <!-- ADMIN LOGIN -->
+
+    <div
+      id="adminLogin"
+      class="hidden">
+
+      <h3>Admin Login</h3>
+
+      <input
+        id="adminEmail"
+        type="email"
+        value="reyesjoesen@gmail.com"
+        readonly>
+
+
+      <input
+        id="adminPasscode"
+        type="password"
+        placeholder="Admin Passcode">
+
+
+      <button
+        class="primary-btn"
+        onclick="requestAdminOTP()">
+
+        Send Gmail OTP
+
+      </button>
+
+
+      <div
+        id="otpSection"
+        class="hidden">
 
         <input
-            type="email"
-            id="loginEmail"
-            placeholder="Email address">
+          id="adminOTP"
+          type="text"
+          maxlength="6"
+          placeholder="Enter 6-digit OTP">
 
-        <input
-            type="password"
-            id="loginPassword"
-            placeholder="Password">
 
         <button
-            class="primary-btn"
-            onclick="login()">
+          class="primary-btn"
+          onclick="verifyOTP()">
 
-            Login
+          Verify OTP
 
         </button>
 
-        <p class="switch-text">
-            Don't have an account?
-            <button
-                class="link-btn"
-                onclick="showRegister()">
 
-                Create Account
+        <button
+          class="link-btn"
+          onclick="requestAdminOTP()">
 
-            </button>
-        </p>
+          Resend OTP
+
+        </button>
+
+
+        <p id="otpTimer"></p>
+
+      </div>
+
+
+      <button
+        class="secondary-btn"
+        onclick="showCustomerLogin()">
+
+        ← Back
+
+      </button>
 
     </div>
+
+
+    <div
+      id="loginMessage"
+      class="message">
+    </div>
+
+  </div>
 
 </div>
 
 
-<!-- =========================
-     REGISTER PAGE
-========================= -->
+<!-- =================================================
+     STORE APP
+================================================= -->
 
 <div
-    id="registerPage"
-    class="auth-page hidden">
+  id="app"
+  class="hidden">
 
-    <div class="auth-card">
 
-        <div class="logo">
-            <div class="logo-icon">TZ</div>
-        </div>
+  <!-- SIDEBAR -->
 
-        <h1>Create Account</h1>
+  <aside class="sidebar">
 
-        <p class="subtitle">
-            TechZone Store
-        </p>
-
-        <div id="registerMessage"></div>
-
-        <input
-            type="text"
-            id="registerName"
-            placeholder="Full Name">
-
-        <input
-            type="email"
-            id="registerEmail"
-            placeholder="Gmail Address">
-
-        <input
-            type="password"
-            id="registerPassword"
-            placeholder="Password">
-
-        <input
-            type="password"
-            id="registerConfirm"
-            placeholder="Confirm Password">
-
-        <button
-            class="primary-btn"
-            onclick="register()">
-
-            Create Account
-
-        </button>
-
-        <p class="switch-text">
-
-            Already have an account?
-
-            <button
-                class="link-btn"
-                onclick="showLogin()">
-
-                Login
-
-            </button>
-
-        </p>
-
+    <div class="brand">
+      💻 TechZone
     </div>
 
-</div>
+
+    <button
+      onclick="showSection('dashboard')">
+
+      📊 Dashboard
+
+    </button>
 
 
-<!-- =========================
-     OTP PAGE
-========================= -->
+    <button
+      onclick="showSection('products')">
 
-<div
-    id="otpPage"
-    class="auth-page hidden">
+      🛍 Products
 
-    <div class="auth-card">
-
-        <div class="otp-icon">
-            🔐
-        </div>
-
-        <h1>Verify OTP</h1>
-
-        <p class="subtitle">
-
-            We sent a verification code
-            to your Gmail.
-
-        </p>
-
-        <p id="otpEmailText"></p>
-
-        <div id="otpMessage"></div>
-
-        <input
-            type="text"
-            id="otpInput"
-            maxlength="6"
-            placeholder="Enter 6-digit OTP">
-
-        <button
-            class="primary-btn"
-            onclick="verifyLoginOtp()">
-
-            Verify OTP
-
-        </button>
-
-        <button
-            class="secondary-btn"
-            onclick="resendOtp()">
-
-            Resend OTP
-
-        </button>
-
-    </div>
-
-</div>
+    </button>
 
 
-<!-- =========================
-     CUSTOMER STORE
-========================= -->
+    <button
+      onclick="showSection('categories')">
 
-<div
-    id="customerApp"
-    class="hidden">
+      🗂 Categories
+
+    </button>
+
+
+    <button
+      id="activityNav"
+      onclick="showSection('activity')">
+
+      📋 Activity Logs
+
+    </button>
+
+
+    <button
+      class="logout-btn"
+      onclick="logout()">
+
+      🚪 Logout
+
+    </button>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
 
     <header class="topbar">
 
-        <div class="brand">
-            <div class="small-logo">TZ</div>
-            <span>TechZone Store</span>
-        </div>
+      <div>
 
-        <div class="top-user">
+        <h2 id="pageTitle">
+          Dashboard
+        </h2>
 
-            <span id="customerName"></span>
+        <span id="currentUser">
+        </span>
 
-            <button
-                class="logout-btn"
-                onclick="logout()">
+      </div>
 
-                Logout
-
-            </button>
-
-        </div>
+      <div class="user-badge">
+        <span id="userRole">
+        </span>
+      </div>
 
     </header>
 
 
-    <main class="customer-main">
+    <!-- =================================================
+         DASHBOARD
+    ================================================= -->
 
-        <section class="hero">
+    <section
+      id="dashboardSection"
+      class="section">
 
-            <div>
+      <div class="cards">
 
-                <h1>
-                    Welcome to TechZone Store
-                </h1>
+        <div class="stat-card">
 
-                <p>
-                    Browse our latest technology
-                    products.
-                </p>
+          <span>🛍</span>
 
-            </div>
+          <div>
 
-        </section>
+            <p>Total Products</p>
+
+            <h2 id="totalProducts">
+              0
+            </h2>
+
+          </div>
+
+        </div>
 
 
-        <section class="section">
+        <div class="stat-card">
 
-            <div class="section-title">
+          <span>🗂</span>
 
-                <div>
+          <div>
 
-                    <h2>Products</h2>
+            <p>Categories</p>
 
-                    <p>
-                        Customers can view products only.
-                    </p>
+            <h2 id="totalCategories">
+              0
+            </h2>
 
-                </div>
+          </div>
 
-                <select
-                    id="customerCategory"
-                    onchange="filterCustomerProducts()">
+        </div>
 
-                    <option value="ALL">
-                        All Categories
-                    </option>
 
-                </select>
+        <div class="stat-card">
 
-            </div>
+          <span>📦</span>
 
-            <div
-                id="customerProducts"
-                class="product-grid">
+          <div>
 
-            </div>
+            <p>Total Stock</p>
 
-        </section>
+            <h2 id="totalStock">
+              0
+            </h2>
 
-    </main>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>✅</span>
+
+          <div>
+
+            <p>Available</p>
+
+            <h2 id="availableProducts">
+              0
+            </h2>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="panel">
+
+        <h3>
+          Welcome to TechZone Store
+        </h3>
+
+        <p>
+          Manage your technology products,
+          categories, and store activity.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PRODUCTS
+    ================================================= -->
+
+    <section
+      id="productsSection"
+      class="section hidden">
+
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>Products</h2>
+
+          <p>
+            Customer can view products.
+            Admin can manage products.
+          </p>
+
+        </div>
+
+
+        <button
+          id="addProductButton"
+          class="primary-btn"
+          onclick="openAddProduct()">
+
+          + Add Product
+
+        </button>
+
+      </div>
+
+
+      <div class="search-box">
+
+        <input
+          id="productSearch"
+          type="text"
+          placeholder="Search product..."
+          oninput="renderProducts()">
+
+      </div>
+
+
+      <div
+        id="productGrid"
+        class="product-grid">
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CATEGORIES
+    ================================================= -->
+
+    <section
+      id="categoriesSection"
+      class="section hidden">
+
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>Categories</h2>
+
+          <p>
+            Product categories
+          </p>
+
+        </div>
+
+
+        <button
+          id="addCategoryButton"
+          class="primary-btn"
+          onclick="addCategory()">
+
+          + Add Category
+
+        </button>
+
+      </div>
+
+
+      <div
+        id="categoryList"
+        class="category-list">
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ACTIVITY LOGS
+    ================================================= -->
+
+    <section
+      id="activitySection"
+      class="section hidden">
+
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>Activity Logs</h2>
+
+          <p>
+            Track who logged in,
+            added, updated, or deleted.
+          </p>
+
+        </div>
+
+
+        <button
+          class="secondary-btn"
+          onclick="loadActivityLogs()">
+
+          🔄 Refresh
+
+        </button>
+
+      </div>
+
+
+      <div class="table-container">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Date / Time</th>
+              <th>User</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Action</th>
+              <th>Details</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody
+            id="activityTable">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+  </main>
 
 </div>
 
 
-<!-- =========================
-     ADMIN APP
-========================= -->
-
-<div
-    id="adminApp"
-    class="hidden">
-
-    <header class="topbar">
-
-        <div class="brand">
-
-            <div class="small-logo">
-                TZ
-            </div>
-
-            <span>
-                TechZone Store
-            </span>
-
-        </div>
-
-        <div class="top-user">
-
-            <span>
-                Administrator
-            </span>
-
-            <button
-                class="logout-btn"
-                onclick="logout()">
-
-                Logout
-
-            </button>
-
-        </div>
-
-    </header>
-
-
-    <div class="admin-layout">
-
-        <!-- SIDEBAR -->
-
-        <aside class="sidebar">
-
-            <button
-                class="nav-btn active"
-                onclick="showAdminSection('dashboard')">
-
-                📊 Dashboard
-
-            </button>
-
-            <button
-                class="nav-btn"
-                onclick="showAdminSection('products')">
-
-                📦 Products
-
-            </button>
-
-            <button
-                class="nav-btn"
-                onclick="showAdminSection('categories')">
-
-                🏷️ Categories
-
-            </button>
-
-            <button
-                class="nav-btn"
-                onclick="showAdminSection('customers')">
-
-                👤 Customers
-
-            </button>
-
-            <button
-                class="nav-btn"
-                onclick="showAdminSection('orders')">
-
-                🛒 Orders
-
-            </button>
-
-            <button
-                class="nav-btn"
-                onclick="showAdminSection('logs')">
-
-                📋 Activity Logs
-
-            </button>
-
-            <button
-                class="nav-btn"
-                onclick="showAdminSection('security')">
-
-                🔐 Security
-
-            </button>
-
-        </aside>
-
-
-        <!-- ADMIN CONTENT -->
-
-        <main class="admin-content">
-
-
-            <!-- DASHBOARD -->
-
-            <section
-                id="dashboardSection"
-                class="admin-section">
-
-                <div class="page-heading">
-
-                    <h1>Dashboard</h1>
-
-                    <p>
-                        TechZone Store overview
-                    </p>
-
-                </div>
-
-                <div class="stats-grid">
-
-                    <div class="stat-card">
-
-                        <span>📦</span>
-
-                        <div>
-
-                            <h3 id="statProducts">
-                                0
-                            </h3>
-
-                            <p>Products</p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <span>👤</span>
-
-                        <div>
-
-                            <h3 id="statCustomers">
-                                0
-                            </h3>
-
-                            <p>Customers</p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <span>🏷️</span>
-
-                        <div>
-
-                            <h3 id="statCategories">
-                                0
-                            </h3>
-
-                            <p>Categories</p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <span>🛒</span>
-
-                        <div>
-
-                            <h3 id="statOrders">
-                                0
-                            </h3>
-
-                            <p>Orders</p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- PRODUCTS -->
-
-            <section
-                id="productsSection"
-                class="admin-section hidden">
-
-                <div class="page-heading">
-
-                    <div>
-
-                        <h1>Product Management</h1>
-
-                        <p>
-                            Add, update and delete products.
-                        </p>
-
-                    </div>
-
-                    <button
-                        class="primary-btn small"
-                        onclick="openAddProduct()">
-
-                        + Add Product
-
-                    </button>
-
-                </div>
-
-                <div
-                    id="adminProducts"
-                    class="admin-product-grid">
-
-                </div>
-
-            </section>
-
-
-            <!-- CATEGORIES -->
-
-            <section
-                id="categoriesSection"
-                class="admin-section hidden">
-
-                <div class="page-heading">
-
-                    <div>
-
-                        <h1>Categories</h1>
-
-                        <p>
-                            Manage store product categories.
-                        </p>
-
-                    </div>
-
-                    <button
-                        class="primary-btn small"
-                        onclick="openAddCategory()">
-
-                        + Add Category
-
-                    </button>
-
-                </div>
-
-                <div
-                    id="categoriesList"
-                    class="table-container">
-
-                </div>
-
-            </section>
-
-
-            <!-- CUSTOMERS -->
-
-            <section
-                id="customersSection"
-                class="admin-section hidden">
-
-                <div class="page-heading">
-
-                    <h1>Customer Accounts</h1>
-
-                    <p>
-                        View registered customer accounts.
-                    </p>
-
-                </div>
-
-                <div
-                    id="customersList"
-                    class="table-container">
-
-                </div>
-
-            </section>
-
-
-            <!-- ORDERS -->
-
-            <section
-                id="ordersSection"
-                class="admin-section hidden">
-
-                <div class="page-heading">
-
-                    <h1>Orders / Sales</h1>
-
-                    <p>
-                        View store transactions.
-                    </p>
-
-                </div>
-
-                <div
-                    id="ordersList"
-                    class="table-container">
-
-                </div>
-
-            </section>
-
-
-            <!-- ACTIVITY LOGS -->
-
-            <section
-                id="logsSection"
-                class="admin-section hidden">
-
-                <div class="page-heading">
-
-                    <div>
-
-                        <h1>Activity Logs</h1>
-
-                        <p>
-                            Track login, add, update,
-                            delete and security activities.
-                        </p>
-
-                    </div>
-
-                    <button
-                        class="secondary-btn"
-                        onclick="loadActivityLogs()">
-
-                        Refresh
-
-                    </button>
-
-                </div>
-
-                <div
-                    id="activityLogs"
-                    class="table-container">
-
-                </div>
-
-            </section>
-
-
-            <!-- SECURITY -->
-
-            <section
-                id="securitySection"
-                class="admin-section hidden">
-
-                <div class="page-heading">
-
-                    <h1>Security</h1>
-
-                    <p>
-                        TechZone Store administrator security.
-                    </p>
-
-                </div>
-
-                <div class="security-card">
-
-                    <div class="security-row">
-
-                        <span>Admin Email</span>
-
-                        <strong>
-                            reyesjoesen@gmail.com
-                        </strong>
-
-                    </div>
-
-                    <div class="security-row">
-
-                        <span>
-                            Product Actions
-                        </span>
-
-                        <strong>
-                            Passcode Required
-                        </strong>
-
-                    </div>
-
-                    <div class="security-row">
-
-                        <span>
-                            Login Verification
-                        </span>
-
-                        <strong>
-                            Gmail OTP
-                        </strong>
-
-                    </div>
-
-                    <div class="security-row">
-
-                        <span>
-                            Customer Access
-                        </span>
-
-                        <strong>
-                            View Only
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-        </main>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
+<!-- =================================================
      PRODUCT MODAL
-========================= -->
+================================================= -->
 
 <div
-    id="productModal"
-    class="modal hidden">
+  id="productModal"
+  class="modal hidden">
 
-    <div class="modal-card">
+  <div class="modal-content">
 
-        <div class="modal-header">
+    <div class="modal-header">
 
-            <h2 id="productModalTitle">
-                Add Product
-            </h2>
+      <h2 id="modalTitle">
+        Add Product
+      </h2>
 
-            <button
-                class="close-btn"
-                onclick="closeProductModal()">
+      <button
+        class="close-btn"
+        onclick="closeProductModal()">
 
-                ×
+        ×
 
-            </button>
-
-        </div>
-
-        <input
-            type="hidden"
-            id="editProductId">
-
-        <label>
-            Product Name
-        </label>
-
-        <input
-            id="productName"
-            type="text"
-            placeholder="Example: ASUS Laptop">
-
-        <label>
-            Category
-        </label>
-
-        <select
-            id="productCategory">
-
-        </select>
-
-        <label>
-            Price
-        </label>
-
-        <input
-            id="productPrice"
-            type="number"
-            step="0.01"
-            placeholder="0.00">
-
-        <label>
-            Stock
-        </label>
-
-        <input
-            id="productStock"
-            type="number"
-            placeholder="0">
-
-        <label>
-            Description
-        </label>
-
-        <textarea
-            id="productDescription"
-            placeholder="Product description">
-
-        </textarea>
-
-        <label>
-            Image URL
-        </label>
-
-        <input
-            id="productImage"
-            type="text"
-            placeholder="https://...">
-
-        <label>
-            Status
-        </label>
-
-        <select id="productStatus">
-
-            <option value="Available">
-                Available
-            </option>
-
-            <option value="Out of Stock">
-                Out of Stock
-            </option>
-
-            <option value="Inactive">
-                Inactive
-            </option>
-
-        </select>
-
-        <div class="modal-actions">
-
-            <button
-                class="secondary-btn"
-                onclick="closeProductModal()">
-
-                Cancel
-
-            </button>
-
-            <button
-                class="primary-btn"
-                onclick="saveProduct()">
-
-                Save Product
-
-            </button>
-
-        </div>
+      </button>
 
     </div>
+
+
+    <input
+      id="productId"
+      type="hidden">
+
+
+    <label>
+      Product Name
+    </label>
+
+    <input
+      id="productName"
+      type="text"
+      placeholder="Example: iPhone 15">
+
+
+    <label>
+      Category
+    </label>
+
+    <select
+      id="productCategory">
+
+    </select>
+
+
+    <label>
+      Price
+    </label>
+
+    <input
+      id="productPrice"
+      type="number"
+      min="0"
+      step="0.01"
+      placeholder="0.00">
+
+
+    <label>
+      Stock
+    </label>
+
+    <input
+      id="productStock"
+      type="number"
+      min="0"
+      placeholder="0">
+
+
+    <label>
+      Description
+    </label>
+
+    <textarea
+      id="productDescription"
+      placeholder="Product description">
+    </textarea>
+
+
+    <label>
+      Image URL
+    </label>
+
+    <input
+      id="productImage"
+      type="text"
+      placeholder="https://...">
+
+
+    <label>
+      Status
+    </label>
+
+    <select id="productStatus">
+
+      <option value="AVAILABLE">
+        AVAILABLE
+      </option>
+
+      <option value="OUT OF STOCK">
+        OUT OF STOCK
+      </option>
+
+      <option value="HIDDEN">
+        HIDDEN
+      </option>
+
+    </select>
+
+
+    <div class="modal-actions">
+
+      <button
+        class="secondary-btn"
+        onclick="closeProductModal()">
+
+        Cancel
+
+      </button>
+
+
+      <button
+        class="primary-btn"
+        onclick="saveProduct()">
+
+        Save Product
+
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
 
-<!-- =========================
-     CATEGORY MODAL
-========================= -->
+<!-- =================================================
+     SECURITY MODAL
+================================================= -->
 
 <div
-    id="categoryModal"
-    class="modal hidden">
+  id="securityModal"
+  class="modal hidden">
 
-    <div class="modal-card">
+  <div class="modal-content small">
 
-        <div class="modal-header">
+    <div class="logo-box">
+      🔐
+    </div>
 
-            <h2>
-                Add Category
-            </h2>
+    <h2>
+      Admin Security
+    </h2>
 
-            <button
-                class="close-btn"
-                onclick="closeCategoryModal()">
+    <p>
+      Enter the admin passcode to continue.
+    </p>
 
-                ×
 
-            </button>
+    <input
+      id="actionPasscode"
+      type="password"
+      placeholder="Admin Passcode">
 
-        </div>
 
-        <label>
-            Category Name
-        </label>
+    <div class="modal-actions">
 
-        <input
-            id="categoryName"
-            type="text"
-            placeholder="Example: Monitors">
+      <button
+        class="secondary-btn"
+        onclick="cancelSecurity()">
 
-        <label>
-            Description
-        </label>
+        Cancel
 
-        <textarea
-            id="categoryDescription"
-            placeholder="Category description">
+      </button>
 
-        </textarea>
 
-        <div class="modal-actions">
+      <button
+        class="primary-btn"
+        onclick="confirmSecurity()">
 
-            <button
-                class="secondary-btn"
-                onclick="closeCategoryModal()">
+        Verify
 
-                Cancel
-
-            </button>
-
-            <button
-                class="primary-btn"
-                onclick="saveCategory()">
-
-                Add Category
-
-            </button>
-
-        </div>
+      </button>
 
     </div>
+
+  </div>
 
 </div>
 
 
-<script src="script.js"></script>
+<!-- =================================================
+     TOAST
+================================================= -->
+
+<div
+  id="toast"
+  class="toast">
+
+</div>
+
+
+<script>
+  <?!= include("script"); ?>
+</script>
 
 </body>
 </html>
