@@ -10,7 +10,7 @@ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
 */
 
 const APP_URL =
-    "https://script.google.com/macros/s/AKfycbwtayMhDsHWwbSRphI5tIYZJzzUUaRpNCBoOhHmN3tDl09iF2czZ27zNLCjG0zt6w0iRg/exec";
+    "https://script.google.com/macros/s/AKfycbzIZamJvTQdXDaKsSzaIIcBh_arDRfsBI671kA3cSKXnIDQ4JfFNIGEwPV_Oq2ePU_XtA/exec";
 
 
 /*
