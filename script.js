@@ -1,7 +1,7 @@
 /****************************************************
  * TECHZONE STORE FRONTEND
  ****************************************************/
-
+const APP_URL = "https://script.google.com/macros/s/AKfycbwtayMhDsHWwbSRphI5tIYZJzzUUaRpNCBoOhHmN3tDl09iF2czZ27zNLCjG0zt6w0iRg/exec";
 
 let currentUser = null;
 let currentOTPType = null;
