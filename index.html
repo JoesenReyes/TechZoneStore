@@ -1,1021 +1,1129 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <title>TechZone Store</title>
 
-    <title>
-        TechZone Store
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
+<!-- ================= LOGIN PAGE ================= -->
 
-<!-- ================================================= -->
-<!-- LOGIN PAGE -->
-<!-- ================================================= -->
+<div id="loginPage" class="auth-page">
 
-<div
-    id="loginPage"
-    class="page">
+    <div class="auth-card">
 
+        <div class="brand">
+            <div class="brand-icon">TZ</div>
+            <h1>TechZone Store</h1>
+            <p>Technology at Your Fingertips</p>
+        </div>
 
-    <div class="login-card">
+        <div class="tabs">
+            <button id="loginTab" class="tab active" onclick="showLogin()">
+                Login
+            </button>
 
+            <button id="registerTab" class="tab" onclick="showRegister()">
+                Create Account
+            </button>
+        </div>
 
-        <!-- LOGO -->
+        <!-- LOGIN -->
 
-        <div class="store-logo">
+        <form id="loginForm">
 
-            <div class="logo-icon">
-                TZ
+            <div class="input-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Enter your Gmail"
+                    required
+                >
             </div>
 
-            <h1>
-                TechZone Store
-            </h1>
+            <div class="input-group">
+                <label>Password</label>
 
-            <p>
-                Technology at Your Fingertips
-            </p>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter password"
+                    required
+                >
+            </div>
 
-        </div>
-
-
-        <!-- LOGIN TYPE -->
-
-        <div class="login-type">
-
-            <button
-                id="customerTab"
-                class="type-btn active"
-                onclick="selectLoginType('customer')">
-
-                👤 Customer
-
+            <button type="submit" class="primary-btn">
+                Login
             </button>
 
-
-            <button
-                id="adminTab"
-                class="type-btn"
-                onclick="selectLoginType('admin')">
-
-                🔐 Admin
-
-            </button>
-
-        </div>
+        </form>
 
 
-        <!-- ================================================= -->
-        <!-- CUSTOMER LOGIN -->
-        <!-- ================================================= -->
+        <!-- REGISTER -->
 
-        <div id="customerLogin">
+        <form id="registerForm" class="hidden">
 
-            <h2>
-                Customer Login
-            </h2>
-
-
-            <label for="customerEmail">
-                Gmail
-            </label>
-
-
-            <input
-                type="email"
-                id="customerEmail"
-                placeholder="Enter your Gmail">
-
-
-            <label for="customerPassword">
-                Password
-            </label>
-
-
-            <input
-                type="password"
-                id="customerPassword"
-                placeholder="Enter your password">
-
-
-            <button
-                class="main-btn"
-                onclick="startCustomerLoginOTP()">
-
-                Login as Customer
-
-            </button>
-
-
-            <p class="account-text">
-
-                Don't have an account?
-
-                <button
-                    class="link-btn"
-                    onclick="showRegister()">
-
-                    Create Account
-
-                </button>
-
-            </p>
-
-        </div>
-
-
-        <!-- ================================================= -->
-        <!-- ADMIN LOGIN -->
-        <!-- ================================================= -->
-
-        <div
-            id="adminLogin"
-            class="hidden">
-
-            <h2>
-                Admin Login
-            </h2>
-
-
-            <label for="adminUsername">
-                Username
-            </label>
-
-
-            <input
-                type="text"
-                id="adminUsername"
-                placeholder="Admin username">
-
-
-            <label for="adminPassword">
-                Password
-            </label>
-
-
-            <input
-                type="password"
-                id="adminPassword"
-                placeholder="Admin password">
-
-
-            <button
-                class="main-btn"
-                onclick="adminLogin()">
-
-                Continue
-
-            </button>
-
-
-            <!-- ADMIN OTP -->
-
-            <div
-                id="otpBox"
-                class="hidden">
-
-
-                <label for="adminOTP">
-                    Security OTP
-                </label>
-
+            <div class="input-group">
+                <label>Full Name</label>
 
                 <input
                     type="text"
-                    id="adminOTP"
-                    maxlength="6"
-                    inputmode="numeric"
-                    placeholder="6-digit OTP">
-
-
-                <button
-                    class="main-btn"
-                    onclick="verifyAdminOTP()">
-
-                    Verify OTP
-
-                </button>
-
-
+                    id="registerName"
+                    placeholder="Enter your full name"
+                    required
+                >
             </div>
 
-        </div>
+            <div class="input-group">
+                <label>Gmail</label>
 
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="Enter Gmail"
+                    required
+                >
+            </div>
 
-        <!-- ================================================= -->
-        <!-- REGISTER -->
-        <!-- ================================================= -->
+            <div class="input-group">
+                <label>Password</label>
 
-        <div
-            id="registerPage"
-            class="hidden">
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Create password"
+                    minlength="6"
+                    required
+                >
+            </div>
 
-            <h2>
-                Create Customer Account
-            </h2>
+            <div class="input-group">
+                <label>Confirm Password</label>
 
+                <input
+                    type="password"
+                    id="registerConfirmPassword"
+                    placeholder="Confirm password"
+                    minlength="6"
+                    required
+                >
+            </div>
 
-            <label for="registerName">
-                Full Name
-            </label>
-
-
-            <input
-                type="text"
-                id="registerName"
-                placeholder="Juan Dela Cruz">
-
-
-            <label for="registerEmail">
-                Gmail
-            </label>
-
-
-            <input
-                type="email"
-                id="registerEmail"
-                placeholder="example@gmail.com">
-
-
-            <label for="registerPassword">
-                Password
-            </label>
-
-
-            <input
-                type="password"
-                id="registerPassword"
-                placeholder="Create password">
-
-
-            <label for="registerConfirm">
-                Confirm Password
-            </label>
-
-
-            <input
-                type="password"
-                id="registerConfirm"
-                placeholder="Confirm password">
-
-
-            <button
-                class="main-btn"
-                onclick="startCustomerRegistrationOTP()">
-
+            <button type="submit" class="primary-btn">
                 Create Account
-
             </button>
 
+        </form>
 
-            <p class="account-text">
-
-                Already have an account?
-
-                <button
-                    class="link-btn"
-                    onclick="showLogin()">
-
-                    Login
-
-                </button>
-
-            </p>
-
-        </div>
-
-
-        <!-- MESSAGE -->
-
-        <div id="message"></div>
-
+        <div id="authMessage"></div>
 
     </div>
 
 </div>
 
 
-<!-- ================================================= -->
-<!-- CUSTOMER PAGE -->
-<!-- ================================================= -->
+<!-- ================= OTP MODAL ================= -->
 
-<div
-    id="customerPage"
-    class="hidden">
+<div id="otpModal" class="modal hidden">
+
+    <div class="modal-card">
+
+        <div class="otp-icon">
+            🔐
+        </div>
+
+        <h2>Verify Your Gmail</h2>
+
+        <p>
+            A verification code has been sent to:
+        </p>
+
+        <strong id="otpEmail"></strong>
+
+        <div class="input-group">
+
+            <label>Enter OTP</label>
+
+            <input
+                type="text"
+                id="otpInput"
+                maxlength="6"
+                placeholder="6-digit OTP"
+            >
+
+        </div>
+
+        <button class="primary-btn" onclick="verifyOTP()">
+            Verify OTP
+        </button>
+
+        <button class="secondary-btn" onclick="resendOTP()">
+            Resend OTP
+        </button>
+
+        <button class="text-btn" onclick="closeOTP()">
+            Cancel
+        </button>
+
+        <div id="otpMessage"></div>
+
+    </div>
+
+</div>
 
 
-    <!-- HEADER -->
+<!-- ================= MAIN APPLICATION ================= -->
 
-    <header class="customer-header">
+<div id="app" class="app hidden">
 
+    <!-- SIDEBAR -->
 
-        <div class="brand">
+    <aside class="sidebar">
 
-            <div class="small-logo">
+        <div class="sidebar-brand">
+
+            <div class="brand-icon small">
                 TZ
             </div>
 
-
             <div>
-
-                <h2>
-                    TechZone Store
-                </h2>
-
-                <span>
-                    Customer Store
-                </span>
-
+                <h2>TechZone</h2>
+                <span>Store Management</span>
             </div>
 
         </div>
 
 
-        <div class="customer-user">
+        <nav>
 
-            <span id="customerNameDisplay">
-                Customer
-            </span>
+            <button
+                class="nav-item active"
+                data-section="dashboard"
+                onclick="showSection('dashboard')"
+            >
+                📊
+                <span>Dashboard</span>
+            </button>
 
 
             <button
-                onclick="customerLogout()">
+                class="nav-item"
+                data-section="products"
+                onclick="showSection('products')"
+            >
+                📦
+                <span>Products</span>
+            </button>
 
-                Logout
 
+            <button
+                class="nav-item"
+                data-section="categories"
+                onclick="showSection('categories')"
+            >
+                🗂️
+                <span>Categories</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="inventory"
+                onclick="showSection('inventory')"
+            >
+                📋
+                <span>Inventory</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="customers"
+                onclick="showSection('customers')"
+            >
+                👥
+                <span>Customers</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="logs"
+                onclick="showSection('logs')"
+            >
+                📝
+                <span>Activity Logs</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="notifications"
+                onclick="showSection('notifications')"
+            >
+                🔔
+                <span>Notifications</span>
+
+                <span id="notificationBadge" class="badge">
+                    0
+                </span>
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="user-mini">
+
+                <div class="avatar" id="sidebarAvatar">
+                    U
+                </div>
+
+                <div>
+
+                    <strong id="sidebarName">
+                        User
+                    </strong>
+
+                    <small id="sidebarRole">
+                        Customer
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="logout-btn"
+                onclick="confirmLogout()"
+            >
+                🚪 Logout
             </button>
 
         </div>
 
-
-    </header>
+    </aside>
 
 
     <!-- MAIN -->
 
-    <main class="customer-main">
+    <main class="main">
 
-
-        <div class="welcome-box">
-
-            <h1>
-                Welcome to TechZone Store! 👋
-            </h1>
-
-            <p>
-                Browse our available technology products.
-            </p>
-
-        </div>
-
-
-        <div class="products-title">
+        <header class="topbar">
 
             <div>
 
-                <h2>
-                    Our Products
-                </h2>
+                <h1 id="pageTitle">
+                    Dashboard
+                </h1>
 
-                <p>
-                    Discover our latest technology products.
+                <p id="pageSubtitle">
+                    Welcome to TechZone Store
                 </p>
 
             </div>
 
 
-            <input
-                type="text"
-                id="customerSearch"
-                placeholder="🔍 Search products..."
-                oninput="searchCustomerProducts()">
+            <div class="top-user">
 
-        </div>
+                <div
+                    class="notification-button"
+                    onclick="showSection('notifications')"
+                >
+                    🔔
+                    <span id="topNotificationBadge">
+                        0
+                    </span>
+                </div>
+
+                <div class="avatar" id="topAvatar">
+                    U
+                </div>
+
+            </div>
+
+        </header>
 
 
-        <div
-            id="customerProducts"
-            class="product-grid">
+        <!-- ================= DASHBOARD ================= -->
 
-        </div>
+        <section
+            id="dashboard"
+            class="content-section active-section"
+        >
 
+            <div class="welcome-card">
+
+                <div>
+
+                    <h2>
+                        Welcome back,
+                        <span id="welcomeName">
+                            User
+                        </span>!
+                    </h2>
+
+                    <p>
+                        Manage your TechZone Store easily.
+                    </p>
+
+                </div>
+
+                <div class="welcome-icon">
+                    💻
+                </div>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📦
+                    </div>
+
+                    <div>
+                        <span>Total Products</span>
+                        <strong id="totalProducts">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🗂️
+                    </div>
+
+                    <div>
+                        <span>Categories</span>
+                        <strong id="totalCategories">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="stat-card admin-only"
+                >
+
+                    <div class="stat-icon">
+                        👥
+                    </div>
+
+                    <div>
+                        <span>Customers</span>
+                        <strong id="totalCustomers">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ⚠️
+                    </div>
+
+                    <div>
+                        <span>Low Stock</span>
+                        <strong id="lowStock">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Recent Products
+                        </h3>
+
+                        <button
+                            onclick="showSection('products')"
+                            class="small-btn"
+                        >
+                            View All
+                        </button>
+
+                    </div>
+
+                    <div id="recentProducts">
+                        Loading...
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Recent Activity
+                        </h3>
+
+                        <button
+                            onclick="showSection('logs')"
+                            class="small-btn admin-only"
+                        >
+                            View All
+                        </button>
+
+                    </div>
+
+                    <div id="recentActivity">
+                        Loading...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PRODUCTS ================= -->
+
+        <section
+            id="products"
+            class="content-section"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Product Management
+                    </h2>
+
+                    <p>
+                        Manage products in your store.
+                    </p>
+
+                </div>
+
+                <button
+                    id="addProductButton"
+                    class="primary-btn"
+                    onclick="openProductModal()"
+                >
+                    + Add Product
+                </button>
+
+            </div>
+
+
+            <div class="toolbar">
+
+                <input
+                    type="text"
+                    id="productSearch"
+                    placeholder="🔍 Search product..."
+                    oninput="renderProducts()"
+                >
+
+
+                <select
+                    id="productCategoryFilter"
+                    onchange="renderProducts()"
+                >
+
+                    <option value="">
+                        All Categories
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="productGrid"
+                class="product-grid"
+            >
+                Loading...
+            </div>
+
+        </section>
+
+
+        <!-- ================= CATEGORIES ================= -->
+
+        <section
+            id="categories"
+            class="content-section"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Category Management
+                    </h2>
+
+                    <p>
+                        Organize your products.
+                    </p>
+
+                </div>
+
+                <button
+                    id="addCategoryButton"
+                    class="primary-btn"
+                    onclick="openCategoryModal()"
+                >
+                    + Add Category
+                </button>
+
+            </div>
+
+
+            <div
+                id="categoryGrid"
+                class="category-grid"
+            >
+                Loading...
+            </div>
+
+        </section>
+
+
+        <!-- ================= INVENTORY ================= -->
+
+        <section
+            id="inventory"
+            class="content-section"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Inventory
+                    </h2>
+
+                    <p>
+                        Monitor your product stock.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="inventoryTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CUSTOMERS ================= -->
+
+        <section
+            id="customers"
+            class="content-section"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Customer Management
+                    </h2>
+
+                    <p>
+                        View registered customers.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Registered</th>
+                            <th>Last Login</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="customerTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ACTIVITY LOGS ================= -->
+
+        <section
+            id="logs"
+            class="content-section"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Activity Logs
+                    </h2>
+
+                    <p>
+                        Track actions performed in TechZone Store.
+                    </p>
+
+                </div>
+
+                <button
+                    class="secondary-btn"
+                    onclick="loadData()"
+                >
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Date & Time</th>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                            <th>Details</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="logsTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= NOTIFICATIONS ================= -->
+
+        <section
+            id="notifications"
+            class="content-section"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Notifications
+                    </h2>
+
+                    <p>
+                        Important store notifications.
+                    </p>
+
+                </div>
+
+                <button
+                    class="secondary-btn"
+                    onclick="markNotificationsRead()"
+                >
+                    Mark All Read
+                </button>
+
+            </div>
+
+
+            <div
+                id="notificationList"
+                class="notification-list"
+            >
+                Loading...
+            </div>
+
+        </section>
 
     </main>
 
-
 </div>
 
 
-<!-- ================================================= -->
-<!-- ADMIN PAGE -->
-<!-- ================================================= -->
-
-<div
-    id="adminPage"
-    class="hidden">
-
-
-    <!-- HEADER -->
-
-    <header class="admin-header">
-
-
-        <div class="brand">
-
-            <div class="small-logo">
-                TZ
-            </div>
-
-
-            <div>
-
-                <h2>
-                    TechZone Store
-                </h2>
-
-                <span>
-                    Admin Dashboard
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <button
-            onclick="adminLogout()">
-
-            Logout
-
-        </button>
-
-
-    </header>
-
-
-    <!-- ADMIN CONTAINER -->
-
-    <div class="admin-container">
-
-
-        <!-- SIDEBAR -->
-
-        <aside class="sidebar">
-
-
-            <button
-                class="side-btn active"
-                onclick="showAdminSection('dashboard')">
-
-                📊 Dashboard
-
-            </button>
-
-
-            <button
-                class="side-btn"
-                onclick="showAdminSection('products')">
-
-                📦 Products
-
-            </button>
-
-
-            <button
-                class="side-btn"
-                onclick="showAdminSection('customers')">
-
-                👥 Customers
-
-            </button>
-
-
-        </aside>
-
-
-        <!-- CONTENT -->
-
-        <main class="admin-content">
-
-
-            <!-- ================================================= -->
-            <!-- DASHBOARD -->
-            <!-- ================================================= -->
-
-            <section
-                id="dashboardSection">
-
-
-                <div class="content-title">
-
-                    <h1>
-                        Admin Dashboard
-                    </h1>
-
-                    <p>
-                        Overview of your TechZone Store.
-                    </p>
-
-                </div>
-
-
-                <div class="stats">
-
-
-                    <div class="stat-card">
-
-                        <span>
-                            📦
-                        </span>
-
-                        <h3
-                            id="totalProducts">
-                            0
-                        </h3>
-
-                        <p>
-                            Total Products
-                        </p>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <span>
-                            👥
-                        </span>
-
-                        <h3
-                            id="totalCustomers">
-                            0
-                        </h3>
-
-                        <p>
-                            Total Customers
-                        </p>
-
-                    </div>
-
-
-                </div>
-
-
-            </section>
-
-
-            <!-- ================================================= -->
-            <!-- PRODUCTS -->
-            <!-- ================================================= -->
-
-            <section
-                id="productsSection"
-                class="hidden">
-
-
-                <div class="section-header">
-
-
-                    <div>
-
-                        <h1>
-                            Manage Products
-                        </h1>
-
-                        <p>
-                            Add, edit and delete products.
-                        </p>
-
-                    </div>
-
-
-                    <button
-                        class="add-btn"
-                        onclick="openProductModal()">
-
-                        + Add Product
-
-                    </button>
-
-
-                </div>
-
-
-                <div class="table-wrapper">
-
-
-                    <table>
-
-
-                        <thead>
-
-                            <tr>
-
-                                <th>
-                                    Product
-                                </th>
-
-                                <th>
-                                    Category
-                                </th>
-
-                                <th>
-                                    Price
-                                </th>
-
-                                <th>
-                                    Stock
-                                </th>
-
-                                <th>
-                                    Action
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody
-                            id="adminProductsTable">
-
-                        </tbody>
-
-
-                    </table>
-
-
-                </div>
-
-
-            </section>
-
-
-            <!-- ================================================= -->
-            <!-- CUSTOMERS -->
-            <!-- ================================================= -->
-
-            <section
-                id="customersSection"
-                class="hidden">
-
-
-                <div class="content-title">
-
-                    <h1>
-                        Customer Accounts
-                    </h1>
-
-                    <p>
-                        Registered TechZone customers.
-                    </p>
-
-                </div>
-
-
-                <div class="table-wrapper">
-
-
-                    <table>
-
-
-                        <thead>
-
-                            <tr>
-
-                                <th>
-                                    Full Name
-                                </th>
-
-                                <th>
-                                    Gmail
-                                </th>
-
-                                <th>
-                                    Status
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody
-                            id="customersTable">
-
-                        </tbody>
-
-
-                    </table>
-
-
-                </div>
-
-
-            </section>
-
-
-        </main>
-
-
-    </div>
-
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- PRODUCT MODAL -->
-<!-- ================================================= -->
+<!-- ================= PRODUCT MODAL ================= -->
 
 <div
     id="productModal"
-    class="modal hidden">
+    class="modal hidden"
+>
 
+    <div class="modal-card large">
+
+        <div class="modal-header">
+
+            <h2 id="productModalTitle">
+                Add Product
+            </h2>
+
+            <button
+                class="close-btn"
+                onclick="closeProductModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="productForm">
+
+            <input
+                type="hidden"
+                id="productId"
+            >
+
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>
+                        Product Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productName"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select
+                        id="productCategory"
+                        required
+                    >
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Price
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productPrice"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Stock
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productStock"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group full">
+
+                    <label>
+                        Image URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="productImage"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="input-group full">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="productDescription"
+                        rows="4"
+                        placeholder="Product description..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="closeProductModal()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Save Product
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= CATEGORY MODAL ================= -->
+
+<div
+    id="categoryModal"
+    class="modal hidden"
+>
 
     <div class="modal-card">
 
-
         <div class="modal-header">
 
-            <div>
-
-                <h2 id="modalTitle">
-                    Add Product
-                </h2>
-
-                <p>
-                    Product information
-                </p>
-
-            </div>
-
+            <h2>
+                Add Category
+            </h2>
 
             <button
-                onclick="closeProductModal()">
-
+                class="close-btn"
+                onclick="closeCategoryModal()"
+            >
                 ×
-
             </button>
 
         </div>
 
 
-        <input
-            type="hidden"
-            id="editProductId">
+        <form id="categoryForm">
+
+            <input
+                type="hidden"
+                id="categoryId"
+            >
 
 
-        <label for="productName">
-            Product Name
-        </label>
+            <div class="input-group">
+
+                <label>
+                    Category Name
+                </label>
+
+                <input
+                    type="text"
+                    id="categoryName"
+                    required
+                    placeholder="e.g. Laptops"
+                >
+
+            </div>
 
 
-        <input
-            type="text"
-            id="productName"
-            placeholder="Product name">
+            <div class="input-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    id="categoryDescription"
+                    rows="4"
+                ></textarea>
+
+            </div>
 
 
-        <label for="productCategory">
-            Category
-        </label>
+            <div class="modal-actions">
 
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="closeCategoryModal()"
+                >
+                    Cancel
+                </button>
 
-        <input
-            type="text"
-            id="productCategory"
-            placeholder="Laptop, Phone, Accessories">
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Save Category
+                </button>
 
+            </div>
 
-        <label for="productPrice">
-            Price
-        </label>
-
-
-        <input
-            type="number"
-            id="productPrice"
-            min="0"
-            placeholder="0">
-
-
-        <label for="productStock">
-            Stock
-        </label>
-
-
-        <input
-            type="number"
-            id="productStock"
-            min="0"
-            placeholder="0">
-
-
-        <label for="productImage">
-            Image URL
-        </label>
-
-
-        <input
-            type="text"
-            id="productImage"
-            placeholder="https://...">
-
-
-        <button
-            class="main-btn"
-            onclick="saveProduct()">
-
-            Save Product
-
-        </button>
-
+        </form>
 
     </div>
 
 </div>
 
 
-<!-- ================================================= -->
-<!-- ADMIN PASSCODE MODAL -->
-<!-- ================================================= -->
+<!-- ================= CONFIRM MODAL ================= -->
 
 <div
-    id="passcodeModal"
-    class="modal hidden">
-
-
-    <div class="modal-card small-modal">
-
-
-        <div class="modal-header">
-
-            <div>
-
-                <h2>
-                    Admin Verification
-                </h2>
-
-                <p>
-                    Enter your admin passcode.
-                </p>
-
-            </div>
-
-
-            <button
-                onclick="closePasscodeModal()">
-
-                ×
-
-            </button>
-
-        </div>
-
-
-        <label for="functionPasscode">
-            Admin Passcode
-        </label>
-
-
-        <input
-            type="password"
-            id="functionPasscode"
-            placeholder="Enter admin passcode">
-
-
-        <button
-            class="main-btn"
-            onclick="verifyFunctionPasscode()">
-
-            Verify
-
-        </button>
-
-
-    </div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- CUSTOMER OTP MODAL -->
-<!-- ================================================= -->
-
-<div
-    id="customerOtpModal"
+    id="confirmModal"
     class="modal hidden"
-    style="z-index:9999;">
+>
 
+    <div class="modal-card confirm-card">
 
-    <div
-        class="modal-card small-modal">
-
-
-        <div class="modal-header">
-
-            <div>
-
-                <h2>
-                    Gmail Verification
-                </h2>
-
-                <p>
-                    Verify your Gmail account.
-                </p>
-
-            </div>
-
-
-            <button
-                type="button"
-                onclick="closeCustomerOtpModal()">
-
-                ×
-
-            </button>
-
+        <div class="confirm-icon">
+            ⚠️
         </div>
 
+        <h2 id="confirmTitle">
+            Are you sure?
+        </h2>
 
-        <p
-            id="customerOtpInfo"
-            class="otp-info">
-
-            A 6-digit OTP has been sent to your Gmail.
-
+        <p id="confirmMessage">
+            This action cannot be undone.
         </p>
 
+        <div class="modal-actions">
 
-        <label for="customerOTP">
-            Enter OTP
-        </label>
+            <button
+                class="secondary-btn"
+                onclick="closeConfirm()"
+            >
+                Cancel
+            </button>
 
-
-        <input
-            type="text"
-            id="customerOTP"
-            inputmode="numeric"
-            autocomplete="one-time-code"
-            maxlength="6"
-            placeholder="Enter 6-digit OTP">
-
-
-        <button
-            type="button"
-            class="main-btn"
-            onclick="verifyCustomerOTP()">
-
-            Verify OTP
-
-        </button>
-
-
-        <button
-            type="button"
-            class="link-btn resend-btn"
-            id="resendCustomerOtpBtn"
-            onclick="resendCustomerOTP()">
-
-            Resend OTP
-
-        </button>
-
-
-        <div
-            id="customerOtpMessage">
+            <button
+                id="confirmActionButton"
+                class="danger-btn"
+            >
+                Confirm
+            </button>
 
         </div>
-
 
     </div>
 
 </div>
 
 
-<!-- ================================================= -->
-<!-- JAVASCRIPT -->
-<!-- ================================================= -->
+<!-- ================= TOAST ================= -->
+
+<div
+    id="toast"
+    class="toast"
+>
+</div>
+
 
 <script src="script.js"></script>
 
-
 </body>
-
 </html>
