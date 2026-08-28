@@ -23,7 +23,7 @@
 
 <!-- ================= LOGIN ================= -->
 
-<div id="loginPage">
+<section id="loginPage">
 
     <div class="login-card">
 
@@ -34,248 +34,229 @@
         <h1>TechZone Store</h1>
 
         <p class="subtitle">
-            Smart Technology Shopping
+            Product Management System
         </p>
 
-        <!-- LOGIN TYPE -->
-
-        <div id="loginChoice">
+        <div class="login-tabs">
 
             <button
-                class="btn primary full"
-                onclick="showAdminLogin()"
+                id="adminTab"
+                class="tab active"
+                onclick="showLogin('admin')"
             >
-                Admin Login
+                LOGIN ADMIN
             </button>
 
             <button
-                class="btn outline full"
-                onclick="showCustomerLogin()"
+                id="customerTab"
+                class="tab"
+                onclick="showLogin('customer')"
             >
-                Customer Login
-            </button>
-
-            <button
-                class="btn dark full"
-                onclick="showRegister()"
-            >
-                Create Customer Account
+                LOGIN CUSTOMER
             </button>
 
         </div>
 
-
         <!-- ADMIN LOGIN -->
 
-        <div
-            id="adminLogin"
-            class="form hidden"
+        <form
+            id="adminLoginForm"
+            class="form"
         >
 
             <h2>Admin Login</h2>
 
-            <label>Admin Gmail</label>
+            <label>
+                Admin Gmail
+            </label>
 
             <input
-                id="adminEmail"
                 type="email"
-                value="reyesjoesen@gmail.com"
-                placeholder="Admin Gmail"
+                id="adminEmail"
+                placeholder="Enter admin Gmail"
+                autocomplete="username"
+                required
             >
 
-            <label>Admin Password</label>
+            <label>
+                Password
+            </label>
 
             <input
-                id="adminPassword"
                 type="password"
-                placeholder="Admin password"
+                id="adminPassword"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required
             >
 
             <button
+                type="submit"
                 class="btn primary full"
-                onclick="requestAdminOTP()"
             >
-                Continue & Send OTP
+                LOGIN ADMIN
             </button>
 
-            <div
-                id="adminOtpArea"
-                class="hidden"
-            >
-
-                <label>Gmail OTP</label>
-
-                <input
-                    id="adminOtp"
-                    maxlength="6"
-                    placeholder="Enter 6-digit OTP"
-                >
-
-                <button
-                    class="btn dark full"
-                    onclick="verifyAdmin()"
-                >
-                    Verify OTP & Login
-                </button>
-
-            </div>
-
-            <button
-                class="btn back full"
-                onclick="backToChoice()"
-            >
-                Back
-            </button>
-
-        </div>
+        </form>
 
 
         <!-- CUSTOMER LOGIN -->
 
-        <div
-            id="customerLogin"
+        <form
+            id="customerLoginForm"
             class="form hidden"
         >
 
             <h2>Customer Login</h2>
 
-            <label>Email</label>
+            <label>
+                Gmail
+            </label>
 
             <input
-                id="customerEmail"
                 type="email"
-                placeholder="your@gmail.com"
+                id="customerEmail"
+                placeholder="Enter Gmail"
+                required
             >
 
-            <label>Password</label>
+            <label>
+                Password
+            </label>
 
             <input
-                id="customerPassword"
                 type="password"
-                placeholder="Password"
+                id="customerPassword"
+                placeholder="Enter password"
+                required
             >
 
             <button
+                type="submit"
                 class="btn primary full"
-                onclick="customerLoginRequest()"
             >
-                Login
+                LOGIN CUSTOMER
             </button>
-
-            <div
-                id="customerOtpArea"
-                class="hidden"
-            >
-
-                <label>Gmail OTP</label>
-
-                <input
-                    id="customerOtp"
-                    maxlength="6"
-                    placeholder="Enter OTP"
-                >
-
-                <button
-                    class="btn dark full"
-                    onclick="verifyCustomerLoginOTP()"
-                >
-                    Verify OTP
-                </button>
-
-            </div>
 
             <button
-                class="btn back full"
-                onclick="backToChoice()"
+                type="button"
+                class="btn outline full"
+                onclick="openRegister()"
             >
-                Back
+                CREATE CUSTOMER ACCOUNT
             </button>
 
-        </div>
+        </form>
 
 
         <!-- REGISTER -->
 
-        <div
-            id="registerPage"
+        <form
+            id="registerForm"
             class="form hidden"
         >
 
             <h2>Create Account</h2>
 
-            <label>Full Name</label>
+            <label>
+                Full Name
+            </label>
 
             <input
+                type="text"
                 id="registerName"
-                placeholder="Full Name"
+                required
             >
 
-            <label>Email</label>
+            <label>
+                Gmail
+            </label>
 
             <input
-                id="registerEmail"
                 type="email"
-                placeholder="Gmail"
+                id="registerEmail"
+                required
             >
 
-            <label>Password</label>
+            <label>
+                Password
+            </label>
 
             <input
-                id="registerPassword"
                 type="password"
-                placeholder="Password"
+                id="registerPassword"
+                minlength="6"
+                required
             >
 
             <button
-                class="btn outline full"
-                onclick="requestRegisterOTP()"
+                type="submit"
+                class="btn primary full"
             >
-                Send Gmail OTP
+                REGISTER
             </button>
 
-            <div
-                id="registerOtpArea"
-                class="hidden"
-            >
-
-                <label>OTP</label>
-
-                <input
-                    id="registerOtp"
-                    maxlength="6"
-                    placeholder="6-digit OTP"
-                >
-
-                <button
-                    class="btn primary full"
-                    onclick="completeRegistration()"
-                >
-                    Create Account
-                </button>
-
-            </div>
-
             <button
+                type="button"
                 class="btn back full"
-                onclick="backToChoice()"
+                onclick="showLogin('customer')"
             >
-                Back
+                BACK TO LOGIN
             </button>
 
-        </div>
+        </form>
 
 
-        <p id="message"></p>
+        <!-- OTP -->
+
+        <form
+            id="otpForm"
+            class="form hidden"
+        >
+
+            <h2>Gmail OTP Verification</h2>
+
+            <p id="otpDescription">
+                Check your Gmail for the 6-digit code.
+            </p>
+
+            <input
+                type="text"
+                id="otpCode"
+                maxlength="6"
+                inputmode="numeric"
+                placeholder="Enter 6-digit OTP"
+                required
+            >
+
+            <button
+                type="submit"
+                class="btn primary full"
+            >
+                VERIFY OTP
+            </button>
+
+            <button
+                type="button"
+                class="btn back full"
+                onclick="cancelOTP()"
+            >
+                CANCEL
+            </button>
+
+        </form>
+
+        <div id="message"></div>
 
     </div>
 
-</div>
+</section>
 
 
-<!-- ================= APPLICATION ================= -->
+<!-- ================= APP ================= -->
 
-<div
-    id="app"
+<section
+    id="appPage"
     class="hidden"
 >
 
@@ -283,9 +264,9 @@
 
         <div class="brand-header">
 
-            <div class="mini-logo">
+            <span class="mini-logo">
                 TZ
-            </div>
+            </span>
 
             <span>
                 TechZone Store
@@ -303,7 +284,7 @@
                 class="logout-btn"
                 onclick="confirmLogout()"
             >
-                Logout
+                LOGOUT
             </button>
 
         </div>
@@ -324,14 +305,14 @@
             </button>
 
             <button onclick="showSection('categories')">
-                🗂 Categories
+                🏷️ Categories
             </button>
 
             <button
                 id="usersMenu"
                 onclick="showSection('users')"
             >
-                👥 Users
+                👥 Customers / Users
             </button>
 
             <button
@@ -342,17 +323,10 @@
             </button>
 
             <button
-                id="restoreMenu"
-                onclick="showSection('restore')"
+                id="deletedMenu"
+                onclick="showSection('deleted')"
             >
-                ♻ Restore
-            </button>
-
-            <button
-                id="reportsMenu"
-                onclick="showSection('reports')"
-            >
-                📈 Reports
+                ♻️ Restore Products
             </button>
 
         </aside>
@@ -360,11 +334,12 @@
 
         <main>
 
+
             <!-- DASHBOARD -->
 
             <section
-                id="dashboard"
-                class="section"
+                id="dashboardSection"
+                class="app-section"
             >
 
                 <div class="section-header">
@@ -374,56 +349,17 @@
                         <h1>Dashboard</h1>
 
                         <p>
-                            Welcome to TechZone Store
+                            TechZone Store overview
                         </p>
 
                     </div>
 
                 </div>
 
-                <div class="stats">
-
-                    <div class="stat-card">
-
-                        <span>Products</span>
-
-                        <strong id="statProducts">
-                            0
-                        </strong>
-
-                    </div>
-
-                    <div class="stat-card">
-
-                        <span>Stock</span>
-
-                        <strong id="statStock">
-                            0
-                        </strong>
-
-                    </div>
-
-                    <div class="stat-card">
-
-                        <span>Customers</span>
-
-                        <strong id="statCustomers">
-                            0
-                        </strong>
-
-                    </div>
-
-                    <div class="stat-card">
-
-                        <span>Inventory Value</span>
-
-                        <strong id="statValue">
-                            ₱0.00
-                        </strong>
-
-                    </div>
-
-                </div>
+                <div
+                    id="stats"
+                    class="stats"
+                ></div>
 
             </section>
 
@@ -431,8 +367,8 @@
             <!-- PRODUCTS -->
 
             <section
-                id="products"
-                class="section hidden"
+                id="productsSection"
+                class="app-section hidden"
             >
 
                 <div class="section-header">
@@ -442,7 +378,7 @@
                         <h1>Products</h1>
 
                         <p>
-                            Browse TechZone Store products
+                            View TechZone Store products
                         </p>
 
                     </div>
@@ -452,16 +388,10 @@
                         class="btn primary"
                         onclick="openProductModal()"
                     >
-                        + Add Product
+                        + ADD PRODUCT
                     </button>
 
                 </div>
-
-                <input
-                    id="productSearch"
-                    placeholder="Search products..."
-                    oninput="filterProducts()"
-                >
 
                 <div
                     id="productGrid"
@@ -474,27 +404,35 @@
             <!-- CATEGORIES -->
 
             <section
-                id="categories"
-                class="section hidden"
+                id="categoriesSection"
+                class="app-section hidden"
             >
 
                 <div class="section-header">
 
-                    <h1>Categories</h1>
+                    <div>
+
+                        <h1>Categories</h1>
+
+                        <p>
+                            Product categories
+                        </p>
+
+                    </div>
 
                     <button
                         id="addCategoryButton"
                         class="btn primary"
                         onclick="openCategoryModal()"
                     >
-                        + Add Category
+                        + ADD CATEGORY
                     </button>
 
                 </div>
 
                 <div
                     id="categoryList"
-                    class="category-list"
+                    class="category-grid"
                 ></div>
 
             </section>
@@ -503,13 +441,21 @@
             <!-- USERS -->
 
             <section
-                id="users"
-                class="section hidden"
+                id="usersSection"
+                class="app-section hidden"
             >
 
                 <div class="section-header">
 
-                    <h1>User Management</h1>
+                    <div>
+
+                        <h1>Customers / Users</h1>
+
+                        <p>
+                            Registered TechZone users
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -520,12 +466,15 @@
                         <thead>
 
                             <tr>
+
+                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Status</th>
                                 <th>Created</th>
                                 <th>Last Login</th>
+
                             </tr>
 
                         </thead>
@@ -542,8 +491,8 @@
             <!-- ACTIVITY LOGS -->
 
             <section
-                id="logs"
-                class="section hidden"
+                id="logsSection"
+                class="app-section hidden"
             >
 
                 <div class="section-header">
@@ -553,17 +502,10 @@
                         <h1>Activity Logs</h1>
 
                         <p>
-                            Track all important system activities.
+                            System activity history
                         </p>
 
                     </div>
-
-                    <button
-                        class="btn outline"
-                        onclick="loadLogs()"
-                    >
-                        Refresh
-                    </button>
 
                 </div>
 
@@ -574,12 +516,14 @@
                         <thead>
 
                             <tr>
-                                <th>Date</th>
-                                <th>User</th>
+
+                                <th>Date / Time</th>
+                                <th>Email</th>
                                 <th>Role</th>
                                 <th>Action</th>
-                                <th>Module</th>
                                 <th>Details</th>
+                                <th>Status</th>
+
                             </tr>
 
                         </thead>
@@ -593,11 +537,11 @@
             </section>
 
 
-            <!-- RESTORE -->
+            <!-- DELETED -->
 
             <section
-                id="restore"
-                class="section hidden"
+                id="deletedSection"
+                class="app-section hidden"
             >
 
                 <div class="section-header">
@@ -607,56 +551,16 @@
                         <h1>Deleted Products</h1>
 
                         <p>
-                            Restore previously deleted products.
+                            Restore deleted products
                         </p>
 
                     </div>
 
                 </div>
 
-                <div class="table-container">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Deleted By</th>
-                                <th>Date</th>
-                                <th>Action</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="restoreTable"></tbody>
-
-                    </table>
-
-                </div>
-
-            </section>
-
-
-            <!-- REPORTS -->
-
-            <section
-                id="reports"
-                class="section hidden"
-            >
-
-                <div class="section-header">
-
-                    <h1>Reports</h1>
-
-                </div>
-
                 <div
-                    id="reportsContent"
-                    class="stats"
+                    id="deletedGrid"
+                    class="product-grid"
                 ></div>
 
             </section>
@@ -665,7 +569,7 @@
 
     </div>
 
-</div>
+</section>
 
 
 <!-- ================= PRODUCT MODAL ================= -->
@@ -681,77 +585,110 @@
             Add Product
         </h2>
 
-        <input
-            id="productId"
-            type="hidden"
-        >
+        <form id="productForm">
 
-        <label>Product Name</label>
-
-        <input
-            id="productName"
-            placeholder="Product name"
-        >
-
-        <label>Category</label>
-
-        <select id="productCategory"></select>
-
-        <label>Price</label>
-
-        <input
-            id="productPrice"
-            type="number"
-            step="0.01"
-            placeholder="0.00"
-        >
-
-        <label>Stock</label>
-
-        <input
-            id="productStock"
-            type="number"
-            placeholder="0"
-        >
-
-        <label>Image URL</label>
-
-        <input
-            id="productImage"
-            placeholder="https://..."
-        >
-
-        <label>Description</label>
-
-        <textarea
-            id="productDescription"
-            placeholder="Product description"
-        ></textarea>
-
-        <div class="modal-actions">
-
-            <button
-                class="btn back"
-                onclick="closeProductModal()"
+            <input
+                type="hidden"
+                id="productId"
             >
-                Cancel
-            </button>
 
-            <button
-                class="btn primary"
-                onclick="saveProduct()"
+            <label>
+                Product Name
+            </label>
+
+            <input
+                id="productName"
+                required
             >
-                Save Product
-            </button>
 
-        </div>
+            <label>
+                Category
+            </label>
+
+            <select
+                id="productCategory"
+                required
+            ></select>
+
+            <label>
+                Price
+            </label>
+
+            <input
+                type="number"
+                id="productPrice"
+                min="0"
+                step="0.01"
+                required
+            >
+
+            <label>
+                Stock
+            </label>
+
+            <input
+                type="number"
+                id="productStock"
+                min="0"
+                required
+            >
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="productDescription"
+            ></textarea>
+
+            <label>
+                Image URL
+            </label>
+
+            <input
+                type="url"
+                id="productImage"
+                placeholder="https://..."
+            >
+
+            <label>
+                Admin Passcode
+            </label>
+
+            <input
+                type="password"
+                id="productPasscode"
+                placeholder="Required for Add/Update"
+                required
+            >
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn back"
+                    onclick="closeProductModal()"
+                >
+                    CANCEL
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn primary"
+                >
+                    SAVE PRODUCT
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 
 </div>
 
 
-<!-- ================= CATEGORY MODAL ================= -->
+<!-- CATEGORY MODAL -->
 
 <div
     id="categoryModal"
@@ -762,37 +699,54 @@
 
         <h2>Add Category</h2>
 
-        <label>Category Name</label>
+        <form id="categoryForm">
 
-        <input
-            id="categoryName"
-            placeholder="Category name"
-        >
+            <label>
+                Category Name
+            </label>
 
-        <label>Description</label>
-
-        <textarea
-            id="categoryDescription"
-            placeholder="Description"
-        ></textarea>
-
-        <div class="modal-actions">
-
-            <button
-                class="btn back"
-                onclick="closeCategoryModal()"
+            <input
+                id="categoryName"
+                required
             >
-                Cancel
-            </button>
 
-            <button
-                class="btn primary"
-                onclick="saveCategory()"
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="categoryDescription"
+            ></textarea>
+
+            <label>
+                Admin Passcode
+            </label>
+
+            <input
+                type="password"
+                id="categoryPasscode"
+                required
             >
-                Save
-            </button>
 
-        </div>
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn back"
+                    onclick="closeCategoryModal()"
+                >
+                    CANCEL
+                </button>
+
+                <button
+                    class="btn primary"
+                >
+                    ADD CATEGORY
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 
@@ -802,4 +756,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
