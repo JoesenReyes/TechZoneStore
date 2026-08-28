@@ -281,7 +281,7 @@ async function requestAdminOTP() {
 
     if (
         email !==
-        "reyesjoesen@gmail.com"
+        "reyesjoesen6@gmail.com"
     ) {
 
         showMessage(
@@ -313,7 +313,7 @@ async function requestAdminOTP() {
 
     if (
         password !==
-        "joesenreyes"
+        "joesenreyes1"
     ) {
 
         showMessage(
