@@ -2482,16 +2482,16 @@ window.addEventListener(
 
     }
 );
+
 /* ========================================================
-   MOBILE BURGER MENU
-   TECHZONE STORE
+   MOBILE / APK BURGER MENU
    ======================================================== */
 
 function toggleMobileMenu() {
 
     const sidebar =
         document.getElementById("sidebar") ||
-        document.querySelector("aside");
+        document.querySelector("#appPage aside");
 
     const overlay =
         document.getElementById("menuOverlay");
@@ -2504,50 +2504,39 @@ function toggleMobileMenu() {
     }
 
     const isOpen =
-        sidebar.classList.contains(
-            "mobile-open"
-        );
+        sidebar.classList.contains("mobile-open");
 
     if (isOpen) {
-
         closeMobileMenu();
+        return;
+    }
 
-    } else {
+    sidebar.classList.add("mobile-open");
 
-        sidebar.classList.add(
-            "mobile-open"
+    if (overlay) {
+        overlay.classList.add("active");
+        overlay.setAttribute("aria-hidden", "false");
+    }
+
+    if (menuButton) {
+        menuButton.textContent = "✕";
+        menuButton.setAttribute(
+            "aria-label",
+            "Close Menu"
         );
+    }
 
-        if (overlay) {
-            overlay.classList.add(
-                "active"
-            );
-        }
-
-        if (menuButton) {
-            menuButton.innerHTML = "✕";
-
-            menuButton.setAttribute(
-                "aria-label",
-                "Close Menu"
-            );
-        }
-
-        document.body.style.overflow =
-            "hidden";
+    if (window.innerWidth <= 700) {
+        document.body.classList.add("menu-open");
     }
 }
 
-
-/* ========================================================
-   CLOSE MOBILE MENU
-   ======================================================== */
 
 function closeMobileMenu() {
 
     const sidebar =
         document.getElementById("sidebar") ||
-        document.querySelector("aside");
+        document.querySelector("#appPage aside");
 
     const overlay =
         document.getElementById("menuOverlay");
@@ -2556,38 +2545,27 @@ function closeMobileMenu() {
         document.getElementById("menuToggle");
 
     if (sidebar) {
-
-        sidebar.classList.remove(
-            "mobile-open"
-        );
+        sidebar.classList.remove("mobile-open");
     }
 
     if (overlay) {
-
-        overlay.classList.remove(
-            "active"
-        );
+        overlay.classList.remove("active");
+        overlay.setAttribute("aria-hidden", "true");
     }
 
     if (menuButton) {
-
-        menuButton.innerHTML = "☰";
-
+        menuButton.textContent = "☰";
         menuButton.setAttribute(
             "aria-label",
             "Open Menu"
         );
     }
 
-    document.body.style.overflow =
-        "";
+    document.body.classList.remove("menu-open");
 }
 
 
-/* ========================================================
-   CLOSE WHEN SIDEBAR BUTTON IS CLICKED
-   ======================================================== */
-
+/* Close menu after selecting a navigation item. */
 document.addEventListener(
     "click",
     function(event) {
@@ -2596,75 +2574,49 @@ document.addEventListener(
             return;
         }
 
-        const clickedButton =
-            event.target.closest(
-                "aside button"
-            );
+        const navButton =
+            event.target.closest("#appPage aside button");
 
-        if (clickedButton) {
-
+        if (navButton) {
             setTimeout(
-                function() {
-                    closeMobileMenu();
-                },
-                150
+                closeMobileMenu,
+                120
             );
         }
-
     }
 );
 
 
-/* ========================================================
-   CLOSE WHEN PRESSING ESC
-   ======================================================== */
-
+/* Close with Escape key. */
 document.addEventListener(
     "keydown",
     function(event) {
 
         if (event.key === "Escape") {
-
             closeMobileMenu();
-
         }
-
     }
 );
 
 
-/* ========================================================
-   CLOSE WHEN SCREEN BECOMES DESKTOP
-   ======================================================== */
-
+/* Close when rotating/resizing back to desktop. */
 window.addEventListener(
     "resize",
     function() {
 
         if (window.innerWidth > 700) {
-
             closeMobileMenu();
-
         }
-
     }
 );
-
-
-/* ========================================================
-   PREVENT MOBILE MENU FROM STAYING OPEN
-   ======================================================== */
 
 window.addEventListener(
     "orientationchange",
     function() {
 
         setTimeout(
-            function() {
-                closeMobileMenu();
-            },
+            closeMobileMenu,
             150
         );
-
     }
 );
