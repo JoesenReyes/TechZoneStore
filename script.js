@@ -2482,3 +2482,189 @@ window.addEventListener(
 
     }
 );
+/* ========================================================
+   MOBILE BURGER MENU
+   TECHZONE STORE
+   ======================================================== */
+
+function toggleMobileMenu() {
+
+    const sidebar =
+        document.getElementById("sidebar") ||
+        document.querySelector("aside");
+
+    const overlay =
+        document.getElementById("menuOverlay");
+
+    const menuButton =
+        document.getElementById("menuToggle");
+
+    if (!sidebar) {
+        return;
+    }
+
+    const isOpen =
+        sidebar.classList.contains(
+            "mobile-open"
+        );
+
+    if (isOpen) {
+
+        closeMobileMenu();
+
+    } else {
+
+        sidebar.classList.add(
+            "mobile-open"
+        );
+
+        if (overlay) {
+            overlay.classList.add(
+                "active"
+            );
+        }
+
+        if (menuButton) {
+            menuButton.innerHTML = "✕";
+
+            menuButton.setAttribute(
+                "aria-label",
+                "Close Menu"
+            );
+        }
+
+        document.body.style.overflow =
+            "hidden";
+    }
+}
+
+
+/* ========================================================
+   CLOSE MOBILE MENU
+   ======================================================== */
+
+function closeMobileMenu() {
+
+    const sidebar =
+        document.getElementById("sidebar") ||
+        document.querySelector("aside");
+
+    const overlay =
+        document.getElementById("menuOverlay");
+
+    const menuButton =
+        document.getElementById("menuToggle");
+
+    if (sidebar) {
+
+        sidebar.classList.remove(
+            "mobile-open"
+        );
+    }
+
+    if (overlay) {
+
+        overlay.classList.remove(
+            "active"
+        );
+    }
+
+    if (menuButton) {
+
+        menuButton.innerHTML = "☰";
+
+        menuButton.setAttribute(
+            "aria-label",
+            "Open Menu"
+        );
+    }
+
+    document.body.style.overflow =
+        "";
+}
+
+
+/* ========================================================
+   CLOSE WHEN SIDEBAR BUTTON IS CLICKED
+   ======================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        if (window.innerWidth > 700) {
+            return;
+        }
+
+        const clickedButton =
+            event.target.closest(
+                "aside button"
+            );
+
+        if (clickedButton) {
+
+            setTimeout(
+                function() {
+                    closeMobileMenu();
+                },
+                150
+            );
+        }
+
+    }
+);
+
+
+/* ========================================================
+   CLOSE WHEN PRESSING ESC
+   ======================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeMobileMenu();
+
+        }
+
+    }
+);
+
+
+/* ========================================================
+   CLOSE WHEN SCREEN BECOMES DESKTOP
+   ======================================================== */
+
+window.addEventListener(
+    "resize",
+    function() {
+
+        if (window.innerWidth > 700) {
+
+            closeMobileMenu();
+
+        }
+
+    }
+);
+
+
+/* ========================================================
+   PREVENT MOBILE MENU FROM STAYING OPEN
+   ======================================================== */
+
+window.addEventListener(
+    "orientationchange",
+    function() {
+
+        setTimeout(
+            function() {
+                closeMobileMenu();
+            },
+            150
+        );
+
+    }
+);
