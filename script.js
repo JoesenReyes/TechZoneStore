@@ -12,7 +12,7 @@ GOOGLE APPS SCRIPT WEB APP URL
 */
 
 const APP_URL =
-    "https://script.google.com/macros/s/AKfycbwtQlxAibb29trwW_4YffwzCggn88F-o9xGLpURGKrNOozcQpIHh14LzTPiOluAV6geFA/exec";
+    "https://script.google.com/macros/s/AKfycbwZgzlEB_6tU72Y3hF93SZ6eknm8M0uvLTL_59XkaZKKSqlvxYPzz4IrfRnYUp2cwPNwg/exec";
 
 
 /*
@@ -1803,8 +1803,17 @@ PRODUCT MODAL
 */
 
 function openProductModal() {
+    const canManageProducts =
+        currentRole === "ADMIN" ||
+        (currentRole === "STAFF" &&
+         staffApprovalStatus === "APPROVED");
 
-    if (currentRole !== "ADMIN") {
+    if (!canManageProducts) {
+        alert(
+            currentRole === "STAFF"
+                ? "Your staff account must be approved by Admin first."
+                : "You are not authorized to add products."
+        );
         return;
     }
 
@@ -2051,21 +2060,13 @@ function saveProduct() {
         return;
     }
 
-    if (currentRole === "ADMIN") {
-        requestPasscode(
-            id
-                ? "updateProduct"
-                : "addProduct",
-            product
-        );
-    } else {
-        submitProductAction(
-            id
-                ? "updateProduct"
-                : "addProduct",
-            product
-        );
-    }
+    // ADMIN and APPROVED STAFF both require passcode.
+    requestPasscode(
+        id
+            ? "updateProduct"
+            : "addProduct",
+        product
+    );
 }
 
 
@@ -2114,21 +2115,13 @@ function askDeleteProduct(id) {
         return;
     }
 
-    if (currentRole === "ADMIN") {
-        requestPasscode(
-            "deleteProduct",
-            {
-                id: id
-            }
-        );
-    } else {
-        submitProductAction(
-            "deleteProduct",
-            {
-                id: id
-            }
-        );
-    }
+    // ADMIN and APPROVED STAFF both require passcode.
+    requestPasscode(
+        "deleteProduct",
+        {
+            id: id
+        }
+    );
 }
 
 
@@ -2177,8 +2170,17 @@ PASSCODE
 */
 
 function requestPasscode(action, data) {
+    const canUsePasscode =
+        currentRole === "ADMIN" ||
+        (currentRole === "STAFF" &&
+         staffApprovalStatus === "APPROVED");
 
-    if (currentRole !== "ADMIN") {
+    if (!canUsePasscode) {
+        alert(
+            currentRole === "STAFF"
+                ? "Your staff account must be approved by Admin first."
+                : "You are not authorized to perform this action."
+        );
         return;
     }
 
@@ -2228,7 +2230,7 @@ async function submitPasscode() {
     if (!passcode) {
 
         alert(
-            "Enter admin passcode."
+            "Enter passcode."
         );
 
         return;
