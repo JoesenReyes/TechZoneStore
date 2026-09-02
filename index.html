@@ -66,10 +66,26 @@
 
 
             <button
+                class="btn outline full"
+                onclick="showStaffLogin()"
+            >
+                🧑‍💼 STAFF LOGIN
+            </button>
+
+
+            <button
                 class="btn dark full"
                 onclick="showCustomerRegister()"
             >
                 📝 CREATE CUSTOMER ACCOUNT
+            </button>
+
+
+            <button
+                class="btn dark full"
+                onclick="showStaffRegister()"
+            >
+                🧑‍💼 CREATE STAFF ACCOUNT
             </button>
 
         </div>
@@ -269,6 +285,173 @@
                 type="button"
                 class="btn back full"
                 onclick="showCustomerLogin()"
+            >
+                BACK
+            </button>
+
+        </form>
+
+
+
+        <!-- STAFF LOGIN -->
+
+        <form
+            id="staffLoginForm"
+            class="form hidden"
+            onsubmit="requestStaffOTP(event)"
+        >
+
+            <h2>Staff Login</h2>
+
+            <p>
+                Use your staff account. Product management is enabled only after Admin approval.
+            </p>
+
+            <input
+                id="staffLoginEmail"
+                type="email"
+                placeholder="Gmail"
+                required
+            >
+
+            <input
+                id="staffLoginPassword"
+                type="password"
+                placeholder="Password"
+                required
+            >
+
+            <button class="btn primary full" type="submit">
+                SEND OTP
+            </button>
+
+            <button
+                type="button"
+                class="btn back full"
+                onclick="backToLoginType()"
+            >
+                BACK
+            </button>
+
+        </form>
+
+
+        <!-- STAFF OTP -->
+
+        <form
+            id="staffOTPForm"
+            class="form hidden"
+            onsubmit="verifyStaffOTP(event)"
+        >
+
+            <h2>Staff OTP Verification</h2>
+
+            <p>Check your Gmail for the 6-digit OTP.</p>
+
+            <input
+                id="staffOTP"
+                type="text"
+                maxlength="6"
+                inputmode="numeric"
+                placeholder="Enter OTP"
+                required
+            >
+
+            <button class="btn primary full" type="submit">
+                VERIFY OTP
+            </button>
+
+            <button
+                type="button"
+                class="btn back full"
+                onclick="showStaffLogin()"
+            >
+                BACK
+            </button>
+
+        </form>
+
+
+        <!-- STAFF REGISTER -->
+
+        <form
+            id="staffRegisterForm"
+            class="form hidden"
+            onsubmit="requestStaffRegisterOTP(event)"
+        >
+
+            <h2>Create Staff Account</h2>
+
+            <p>
+                After Gmail verification, your account will enter PENDING status. Admin approval is required before product management is unlocked.
+            </p>
+
+            <input
+                id="staffRegisterName"
+                type="text"
+                placeholder="Full Name"
+                required
+            >
+
+            <input
+                id="staffRegisterEmail"
+                type="email"
+                placeholder="Gmail"
+                required
+            >
+
+            <input
+                id="staffRegisterPassword"
+                type="password"
+                placeholder="Password"
+                minlength="6"
+                required
+            >
+
+            <button class="btn primary full" type="submit">
+                CREATE STAFF ACCOUNT
+            </button>
+
+            <button
+                type="button"
+                class="btn back full"
+                onclick="backToLoginType()"
+            >
+                BACK
+            </button>
+
+        </form>
+
+
+        <!-- STAFF REGISTER OTP -->
+
+        <form
+            id="staffRegisterOTPForm"
+            class="form hidden"
+            onsubmit="verifyStaffRegisterOTP(event)"
+        >
+
+            <h2>Verify Staff Gmail</h2>
+
+            <p>Enter the OTP sent to your Gmail.</p>
+
+            <input
+                id="staffRegisterOTP"
+                type="text"
+                maxlength="6"
+                inputmode="numeric"
+                placeholder="6-digit OTP"
+                required
+            >
+
+            <button class="btn primary full" type="submit">
+                VERIFY & CREATE
+            </button>
+
+            <button
+                type="button"
+                class="btn back full"
+                onclick="showStaffRegister()"
             >
                 BACK
             </button>
@@ -555,6 +738,12 @@
                 </div>
 
 
+                <div
+                    id="staffApprovalNotice"
+                    class="staff-approval-notice hidden"
+                ></div>
+
+
                 <div class="stats">
 
 
@@ -753,7 +942,7 @@
                 <div class="section-header">
 
                     <h2>
-                        Customer Accounts
+                        User Accounts & Staff Approval
                     </h2>
 
                 </div>
@@ -781,6 +970,14 @@
 
                                 <th>
                                     Verified
+                                </th>
+
+                                <th>
+                                    Approval
+                                </th>
+
+                                <th>
+                                    Action
                                 </th>
 
                                 <th>
