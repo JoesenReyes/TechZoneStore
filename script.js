@@ -23,6 +23,7 @@ GLOBAL VARIABLES
 
 let currentUser = "";
 let currentRole = "";
+let staffApprovalStatus = "";
 
 let products = [];
 let categories = [];
@@ -175,6 +176,10 @@ function hideLoginForms() {
         "adminOTPForm",
         "customerLoginForm",
         "customerOTPForm",
+        "staffLoginForm",
+        "staffOTPForm",
+        "staffRegisterForm",
+        "staffRegisterOTPForm",
         "customerRegisterForm",
         "registerOTPForm"
     ].forEach(function (id) {
@@ -416,6 +421,257 @@ async function verifyAdminOTP(event) {
             error.message
         );
 
+    }
+}
+
+
+
+/*
+========================================================
+STAFF LOGIN / REGISTER
+========================================================
+*/
+
+function showStaffLogin() {
+
+    hideLoginForms();
+
+    const form =
+        document.getElementById("staffLoginForm");
+
+    if (form) {
+        form.classList.remove("hidden");
+    }
+
+    showMessage("");
+}
+
+
+function showStaffRegister() {
+
+    hideLoginForms();
+
+    const form =
+        document.getElementById("staffRegisterForm");
+
+    if (form) {
+        form.classList.remove("hidden");
+    }
+
+    showMessage("");
+}
+
+
+async function requestStaffOTP(event) {
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById("staffLoginEmail")
+            .value.trim();
+
+    const password =
+        document.getElementById("staffLoginPassword")
+            .value;
+
+    showMessage("Sending staff OTP...", true);
+
+    try {
+
+        const result =
+            await api(
+                "staffLoginOTP",
+                {
+                    email: email,
+                    password: password
+                }
+            );
+
+        if (!result.success) {
+            showMessage(
+                result.message ||
+                "Unable to send staff OTP."
+            );
+            return;
+        }
+
+        document
+            .getElementById("staffLoginForm")
+            .classList.add("hidden");
+
+        document
+            .getElementById("staffOTPForm")
+            .classList.remove("hidden");
+
+        showMessage(
+            "OTP sent to your Gmail.",
+            true
+        );
+
+    } catch (error) {
+        showMessage(error.message);
+    }
+}
+
+
+async function verifyStaffOTP(event) {
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById("staffLoginEmail")
+            .value.trim();
+
+    const otp =
+        document.getElementById("staffOTP")
+            .value.trim();
+
+    showMessage(
+        "Verifying staff OTP...",
+        true
+    );
+
+    try {
+
+        const result =
+            await api(
+                "staffVerifyOTP",
+                {
+                    email: email,
+                    otp: otp
+                }
+            );
+
+        if (!result.success) {
+            showMessage(
+                result.message ||
+                "Invalid OTP."
+            );
+            return;
+        }
+
+        loginSuccess(
+            result.user,
+            "STAFF",
+            result.approvalStatus || "PENDING"
+        );
+
+    } catch (error) {
+        showMessage(error.message);
+    }
+}
+
+
+async function requestStaffRegisterOTP(event) {
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("staffRegisterName")
+            .value.trim();
+
+    const email =
+        document.getElementById("staffRegisterEmail")
+            .value.trim();
+
+    const password =
+        document.getElementById("staffRegisterPassword")
+            .value;
+
+    showMessage(
+        "Sending staff registration OTP...",
+        true
+    );
+
+    try {
+
+        const result =
+            await api(
+                "staffRegisterOTP",
+                {
+                    name: name,
+                    email: email,
+                    password: password
+                }
+            );
+
+        if (!result.success) {
+            showMessage(
+                result.message ||
+                "Unable to send staff registration OTP."
+            );
+            return;
+        }
+
+        document
+            .getElementById("staffRegisterForm")
+            .classList.add("hidden");
+
+        document
+            .getElementById("staffRegisterOTPForm")
+            .classList.remove("hidden");
+
+        showMessage(
+            "OTP sent to your Gmail.",
+            true
+        );
+
+    } catch (error) {
+        showMessage(error.message);
+    }
+}
+
+
+async function verifyStaffRegisterOTP(event) {
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById("staffRegisterEmail")
+            .value.trim();
+
+    const otp =
+        document.getElementById("staffRegisterOTP")
+            .value.trim();
+
+    showMessage(
+        "Creating staff account...",
+        true
+    );
+
+    try {
+
+        const result =
+            await api(
+                "staffRegister",
+                {
+                    email: email,
+                    otp: otp
+                }
+            );
+
+        if (!result.success) {
+            showMessage(
+                result.message ||
+                "Unable to create staff account."
+            );
+            return;
+        }
+
+        alert(
+            "Staff account created successfully.\n\n" +
+            "STATUS: PENDING ADMIN APPROVAL\n\n" +
+            "You can enter the Staff Dashboard now, but Add, Update and Delete Product functions are locked until Admin approves your account."
+        );
+
+        loginSuccess(
+            result.user,
+            "STAFF",
+            result.approvalStatus || "PENDING"
+        );
+
+    } catch (error) {
+        showMessage(error.message);
     }
 }
 
@@ -712,57 +968,44 @@ LOGIN SUCCESS
 ========================================================
 */
 
-function loginSuccess(user, role) {
+function loginSuccess(user, role, approvalStatus = "") {
 
     currentUser = user;
     currentRole = role;
+    staffApprovalStatus =
+        String(approvalStatus || "").toUpperCase();
 
     document
-        .getElementById(
-            "loginPage"
-        )
-        .classList.add(
-            "hidden"
-        );
+        .getElementById("loginPage")
+        .classList.add("hidden");
 
     document
-        .getElementById(
-            "appPage"
-        )
-        .classList.remove(
-            "hidden"
-        );
+        .getElementById("appPage")
+        .classList.remove("hidden");
 
     document
-        .getElementById(
-            "currentUser"
-        )
+        .getElementById("currentUser")
         .textContent = user;
 
     document
-        .getElementById(
-            "currentRole"
-        )
-        .textContent = role;
+        .getElementById("currentRole")
+        .textContent =
+            role === "STAFF" &&
+            staffApprovalStatus !== "APPROVED"
+                ? "STAFF • PENDING"
+                : role;
 
     configureRole();
 
     if (role === "CUSTOMER") {
-
-        showSection(
-            "products"
-        );
-
+        showSection("products");
     } else {
-
-        showSection(
-            "dashboard"
-        );
-
+        showSection("dashboard");
     }
 
     loadAllData();
 }
+
 
 
 /*
@@ -776,90 +1019,99 @@ function configureRole() {
     const admin =
         currentRole === "ADMIN";
 
+    const staff =
+        currentRole === "STAFF";
+
+    const approvedStaff =
+        staff &&
+        staffApprovalStatus === "APPROVED";
+
     const usersMenu =
-        document.getElementById(
-            "usersMenu"
-        );
+        document.getElementById("usersMenu");
 
     const activityMenu =
-        document.getElementById(
-            "activityMenu"
-        );
+        document.getElementById("activityMenu");
 
     const deletedMenu =
-        document.getElementById(
-            "deletedMenu"
-        );
+        document.getElementById("deletedMenu");
 
     const reportsMenu =
-        document.getElementById(
-            "reportsMenu"
-        );
+        document.getElementById("reportsMenu");
 
     const addProductButton =
-        document.getElementById(
-            "addProductButton"
-        );
+        document.getElementById("addProductButton");
 
     const addCategoryButton =
-        document.getElementById(
-            "addCategoryButton"
-        );
+        document.getElementById("addCategoryButton");
 
     if (usersMenu) {
-
-        usersMenu.classList.toggle(
-            "hidden",
-            !admin
-        );
-
+        usersMenu.classList.toggle("hidden", !admin);
     }
 
     if (activityMenu) {
-
-        activityMenu.classList.toggle(
-            "hidden",
-            !admin
-        );
-
+        activityMenu.classList.toggle("hidden", !admin);
     }
 
     if (deletedMenu) {
-
-        deletedMenu.classList.toggle(
-            "hidden",
-            !admin
-        );
-
+        deletedMenu.classList.toggle("hidden", !admin);
     }
 
     if (reportsMenu) {
-
-        reportsMenu.classList.toggle(
-            "hidden",
-            !admin
-        );
-
+        reportsMenu.classList.toggle("hidden", !admin);
     }
 
     if (addProductButton) {
-
         addProductButton.classList.toggle(
             "hidden",
-            !admin
+            !(admin || approvedStaff)
         );
-
     }
 
     if (addCategoryButton) {
-
         addCategoryButton.classList.toggle(
             "hidden",
             !admin
         );
+    }
 
+    updateStaffApprovalNotice();
+}
+
+
+function updateStaffApprovalNotice() {
+
+    const notice =
+        document.getElementById(
+            "staffApprovalNotice"
+        );
+
+    if (!notice) return;
+
+    if (currentRole !== "STAFF") {
+        notice.classList.add("hidden");
+        return;
+    }
+
+    notice.classList.remove("hidden");
+
+    if (staffApprovalStatus === "APPROVED") {
+
+        notice.classList.add("approved");
+
+        notice.innerHTML =
+            "✅ STAFF ACCOUNT APPROVED — " +
+            "You can now ADD, UPDATE and DELETE products.";
+
+    } else {
+
+        notice.classList.remove("approved");
+
+        notice.innerHTML =
+            "⏳ STAFF ACCOUNT PENDING APPROVAL — " +
+            "You can view the dashboard and products, but ADD, UPDATE and DELETE PRODUCT functions are locked until the Admin approves your account.";
     }
 }
+
 
 
 /*
@@ -1113,7 +1365,8 @@ async function loadProducts() {
             await api(
                 "getProducts",
                 {
-                    role: currentRole
+                    role: currentRole,
+                    email: currentUser
                 }
             );
 
@@ -1236,9 +1489,12 @@ function renderProducts() {
 
                 let adminButtons = "";
 
-                if (
-                    currentRole === "ADMIN"
-                ) {
+                const canManageProducts =
+                    currentRole === "ADMIN" ||
+                    (currentRole === "STAFF" &&
+                     staffApprovalStatus === "APPROVED");
+
+                if (canManageProducts) {
 
                     adminButtons = `
 
@@ -1619,7 +1875,13 @@ function closeProductModal() {
 
 function editProduct(id) {
 
-    if (currentRole !== "ADMIN") {
+    const canManageProducts =
+        currentRole === "ADMIN" ||
+        (currentRole === "STAFF" &&
+         staffApprovalStatus === "APPROVED");
+
+    if (!canManageProducts) {
+        alert("Your staff account must be approved by Admin first.");
         return;
     }
 
@@ -1712,7 +1974,13 @@ function editProduct(id) {
 
 function saveProduct() {
 
-    if (currentRole !== "ADMIN") {
+    const canManageProducts =
+        currentRole === "ADMIN" ||
+        (currentRole === "STAFF" &&
+         staffApprovalStatus === "APPROVED");
+
+    if (!canManageProducts) {
+        alert("Your staff account must be approved by Admin first.");
         return;
     }
 
@@ -1783,12 +2051,21 @@ function saveProduct() {
         return;
     }
 
-    requestPasscode(
-        id
-            ? "updateProduct"
-            : "addProduct",
-        product
-    );
+    if (currentRole === "ADMIN") {
+        requestPasscode(
+            id
+                ? "updateProduct"
+                : "addProduct",
+            product
+        );
+    } else {
+        submitProductAction(
+            id
+                ? "updateProduct"
+                : "addProduct",
+            product
+        );
+    }
 }
 
 
@@ -1800,7 +2077,13 @@ DELETE PRODUCT
 
 function askDeleteProduct(id) {
 
-    if (currentRole !== "ADMIN") {
+    const canManageProducts =
+        currentRole === "ADMIN" ||
+        (currentRole === "STAFF" &&
+         staffApprovalStatus === "APPROVED");
+
+    if (!canManageProducts) {
+        alert("Your staff account must be approved by Admin first.");
         return;
     }
 
@@ -1831,12 +2114,59 @@ function askDeleteProduct(id) {
         return;
     }
 
-    requestPasscode(
-        "deleteProduct",
-        {
-            id: id
+    if (currentRole === "ADMIN") {
+        requestPasscode(
+            "deleteProduct",
+            {
+                id: id
+            }
+        );
+    } else {
+        submitProductAction(
+            "deleteProduct",
+            {
+                id: id
+            }
+        );
+    }
+}
+
+
+
+async function submitProductAction(action, data) {
+
+    try {
+
+        const result =
+            await api(
+                action,
+                {
+                    ...data,
+                    email: currentUser,
+                    role: currentRole
+                }
+            );
+
+        if (!result.success) {
+            alert(
+                result.message ||
+                "Product action failed."
+            );
+            return;
         }
-    );
+
+        alert(
+            result.message ||
+            "Product action completed successfully."
+        );
+
+        closeProductModal();
+
+        await loadAllData();
+
+    } catch (error) {
+        alert(error.message);
+    }
 }
 
 
@@ -1928,7 +2258,9 @@ async function submitPasscode() {
                 action,
                 {
                     ...data,
-                    passcode: passcode
+                    passcode: passcode,
+                    email: currentUser,
+                    role: currentRole
                 }
             );
 
@@ -1979,7 +2311,8 @@ async function loadDeletedProducts() {
 
         const result =
             await api(
-                "getDeletedProducts"
+                "getDeletedProducts",
+                { role: currentRole, email: currentUser }
             );
 
         if (!result.success) {
@@ -2139,7 +2472,8 @@ async function loadUsers() {
 
         const result =
             await api(
-                "getUsers"
+                "getUsers",
+                { role: currentRole, email: currentUser }
             );
 
         if (!result.success) {
@@ -2191,6 +2525,25 @@ async function loadUsers() {
                             </td>
 
                             <td>
+                                <span class="approval-badge ${
+                                    String(user.ApprovalStatus || "APPROVED").toUpperCase() === "APPROVED"
+                                        ? "approval-approved"
+                                        : "approval-pending"
+                                }">
+                                    ${escapeHtml(user.ApprovalStatus || "APPROVED")}
+                                </span>
+                            </td>
+
+                            <td>
+                                ${
+                                    String(user.Role || "").toUpperCase() === "STAFF" &&
+                                    String(user.ApprovalStatus || "PENDING").toUpperCase() !== "APPROVED"
+                                        ? `<button class="btn staff-approval-btn" type="button" onclick="approveStaff('${escapeHtml(user.Email)}')">APPROVE</button>`
+                                        : "-"
+                                }
+                            </td>
+
+                            <td>
                                 ${escapeHtml(
                                     user.CreatedAt
                                 )}
@@ -2220,6 +2573,64 @@ async function loadUsers() {
 }
 
 
+
+async function approveStaff(email) {
+
+    if (currentRole !== "ADMIN") {
+        return;
+    }
+
+    const confirmed =
+        confirm(
+            "Approve this staff account?\n\n" +
+            email +
+            "\n\nThe staff member will be able to ADD, UPDATE and DELETE products after logging in again."
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const passcode =
+        prompt("Enter ADMIN PASSCODE to approve this staff account:");
+
+    if (!passcode) {
+        return;
+    }
+
+    try {
+
+        const result =
+            await api(
+                "approveStaff",
+                {
+                    email: email,
+                    role: currentRole,
+                    passcode: passcode
+                }
+            );
+
+        if (!result.success) {
+            alert(
+                result.message ||
+                "Unable to approve staff account."
+            );
+            return;
+        }
+
+        alert(
+            result.message ||
+            "Staff account approved."
+        );
+
+        await loadUsers();
+
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+
 /*
 ========================================================
 ACTIVITY LOGS
@@ -2236,7 +2647,8 @@ async function loadActivityLogs() {
 
         const result =
             await api(
-                "getActivityLogs"
+                "getActivityLogs",
+                { role: currentRole, email: currentUser }
             );
 
         if (!result.success) {
